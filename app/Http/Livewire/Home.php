@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Liga;
 use App\Product;
+use App\Categories;
 use Livewire\Component;
 
 class Home extends Component
@@ -12,7 +13,7 @@ class Home extends Component
     {
         return view('livewire.home', [
             'products' => Product::take(4)->get(),
-            'ligas' => Liga::all()
+            'categories' => Categories::all()
         ]);
     }
 }

@@ -9,11 +9,11 @@ class PesananDetail extends Model
     protected $fillable = [
         'jumlah_pesanan',
         'total_harga',
-        'namaset',
-        'nama',
-        'nomor',
         'product_id',
         'pesanan_id',
+        'kode_midtrans',
+        'uniqode',
+       
     ];
 
     public function pesanan()
@@ -25,4 +25,6 @@ class PesananDetail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+   
 }

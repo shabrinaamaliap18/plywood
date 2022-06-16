@@ -8,12 +8,12 @@ body {
     border-radius: 15px;
 }
 
-.pilih-liga img {
-    max-height: 100px;
+.pilih-kategori img {
+    size: 100px;
 }
 
-.pilih-liga .card {
-    border-radius: 15px;
+.pilih-kategori.card{
+    size: 200px;
 }
 
 .products .card {

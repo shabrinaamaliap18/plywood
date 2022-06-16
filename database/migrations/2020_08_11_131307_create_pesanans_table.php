@@ -17,9 +17,13 @@ class CreatePesanansTable extends Migration
             $table->id();
             $table->string('kode_pemesanan')->nullable();
             $table->string('status')->default(0);
-            $table->integer('total_harga');
-            $table->integer('kode_unik');
+            $table->string('total_harga');
+            $table->timestamp('tanggal_transaksi');
+            $table->string('alat_angkut')->nullable();
+            $table->string('ket')->nullable();
             $table->integer('user_id');
+            $table->text('kode_midtrans')->nullable();
+            $table->text('uniqode')->nullable();
             $table->timestamps();
         });
     }

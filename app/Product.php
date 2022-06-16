@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function liga()
+    protected $fillable = ['nama', 'kategori','material', 'ukuran','stok', 'harga','is_ready','gambar_produk'];
+    protected $table = 'products';
+
+
+    public function categories()
     {
-        return $this->belongsTo(Liga::class, 'liga_id', 'id');
+        return $this->belongsTo(Categories::class, 'id_kategori', 'id');
     }
 
     public function pesanan_details()

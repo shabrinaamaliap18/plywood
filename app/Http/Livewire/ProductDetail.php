@@ -5,20 +5,22 @@ namespace App\Http\Livewire;
 use App\Pesanan;
 use App\PesananDetail;
 use App\Product;
+use App\Ongkir;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ProductDetail extends Component
 {
-    public $product, $nama, $jumlah_pesanan, $nomor;
+    public $product, $nama, $jumlah_pesanan, $nomor, $O;
 
     public function mount($id)
     {
         $productDetail = Product::find($id);
 
-        if($productDetail) {
+        if ($productDetail) {
             $this->product = $productDetail;
         }
+       
     }
 
     public function masukkanKeranjang()
@@ -28,36 +30,44 @@ class ProductDetail extends Component
         ]);
 
         //Validasi Jika Belum Login
-        if(!Auth::user()) {
+        if (!Auth::user()) {
             return redirect()->route('login');
         }
 
         //Menghitung Total Harga
-        if(!empty($this->nama)) {
-            $total_harga = $this->jumlah_pesanan*$this->product->harga+$this->product->harga_nameset;
-        }else {
-            $total_harga = $this->jumlah_pesanan*$this->product->harga;
+        if (!empty($this->nama)) {
+            $total_harga = $this->jumlah_pesanan * $this->product->harga + $this->product->harga_nameset;
+        } else {
+            $total_harga = ($this->jumlah_pesanan * $this->product->jml_ukuran * $this->product->harga) / 1000000000;
         }
 
         //Ngecek Apakah user punya data pesanan utama yg status nya 0
-        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
+        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+
+        //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir)
+        $pesanan2 = Pesanan::join('users', 'users.id', 'pesanans.user_id')->where('user_id', Auth::user()->id)->where('status', 0)->first();
+        $AlamatSama = Ongkir::join('users', 'ongkirs.nama_kota', 'users.lokasi')->where('users.id', Auth::user()->id)->first();
+        $hargafix = $AlamatSama->harga_ongkir;
+
 
         //Menyimpan / Update Data Pesanan Utama
-        if(empty($pesanan))
-        {
+        //ini jika pesanan masi kosong
+        if (empty($pesanan)) {
             Pesanan::create([
                 'user_id' => Auth::user()->id,
-                'total_harga' => $total_harga,
+                'total_harga' => $total_harga + $hargafix,
                 'status' => 0,
-                'kode_unik' => mt_rand(100, 999),
+                'ongkir' => $hargafix,
+
             ]);
 
-            $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
-            $pesanan->kode_pemesanan = 'JP-'.$pesanan->id;
+            $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+            $pesanan->kode_pemesanan = 'CVMAS-' . rand();
             $pesanan->update();
 
-        }else {
-            $pesanan->total_harga = $pesanan->total_harga+$total_harga;
+            //ini kalo udh ada pesanan, jd tinggal update harga pesanan, sblm ditambah bru
+        } else {
+            $pesanan->total_harga = $pesanan->total_harga + $total_harga;
             $pesanan->update();
         }
 
@@ -66,19 +76,20 @@ class ProductDetail extends Component
             'product_id' => $this->product->id,
             'pesanan_id' => $pesanan->id,
             'jumlah_pesanan' => $this->jumlah_pesanan,
-            'namaset' => $this->nama ? true : false,
-            'nama' => $this->nama,
-            'nomor' => $this->nomor,
-            'total_harga'=> $total_harga
+            'total_harga' => $total_harga,
         ]);
 
+        // $pesanandetail = Pesanan::join('pesanan_details', 'pesanans.id', 'pesanan_details.pesanan_id')->join('products', 'products.id', 'pesanan_details.product_id')->where('user_id', Auth::user()->id)->first();
+        // $pd = $pesanandetail->stok - $pesanandetail->jumlah_pesanan;
+        // // dd($pd);
+        // $pesanandetail->stok = $pd;
+        // $pesanandetail->update();
+        // dd($pesanandetail);
+
         $this->emit('masukKeranjang');
-
-        session()->flash('message', 'Sukses Masuk Keranjang');
-
-        return redirect()->back();
-
-
+        return redirect()->route('home');
+        session()->flash('message', "Sukses Masuk Keranjang");
+        // return redirect()->route('home')->with('success', "Sukses Masuk Keranjang");
     }
 
     public function render()

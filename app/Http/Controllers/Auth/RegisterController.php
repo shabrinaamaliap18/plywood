@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -36,8 +37,11 @@ class RegisterController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
+        // $lokasi = DB::table('lokasi')->pluck("nama_lokasi", "id");
+        // dd($lokasi);
         $this->middleware('guest');
     }
 
@@ -51,7 +55,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'nama_perusahaan' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'lokasi' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'nohp' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -66,7 +74,11 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'nama_perusahaan' => $data['nama_perusahaan'],
             'email' => $data['email'],
+            'lokasi' => $data['lokasi'],
+            'alamat' => $data['alamat'],
+            'nohp' => $data['nohp'],
             'password' => Hash::make($data['password']),
         ]);
     }

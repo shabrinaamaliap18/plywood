@@ -17,11 +17,9 @@ class CreatePesananDetailsTable extends Migration
             $table->id();
             $table->integer('jumlah_pesanan');
             $table->integer('total_harga');
-            $table->boolean('namaset')->default(false);
-            $table->string('nama')->nullable();
-            $table->string('nomor')->nullable();
             $table->integer('product_id');
             $table->integer('pesanan_id');
+           
             $table->timestamps();
         });
     }

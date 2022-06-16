@@ -10,8 +10,11 @@ class Pesanan extends Model
         'kode_pemesanan',
         'status',
         'total_harga',
+        'alat_angkut',
+        'ket',
         'kode_unik',
         'user_id',
+        'ongkir'
     ];
 
     public function pesanan_details()
