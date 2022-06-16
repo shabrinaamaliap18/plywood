@@ -14,15 +14,22 @@ class Keranjang extends Component
     protected $pesanan;
     protected $pesanan_details = [];
     public $jumlah_pesanan;
+    public $notification = null;
+
+    protected $listeners = [
+        'updatedNotification'
+    ];
 
     public function mount()
     {
         if (!Auth::user()) {
             return redirect()->route('login');
         }
-        
         $this->jumlah_pesanan = Pesanan::join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)->get('jumlah_pesanan');
         // dd( $this->jumlah_pesanan);
+
+        // CLEAR NOTIFICATION
+        $this->notification = null;
     }
 
     public function destroy($id)
@@ -47,8 +54,13 @@ class Keranjang extends Component
         session()->flash('message', 'Pesanan Dihapus');
     }
 
+    public function updatedNotification($data) {
+        $this->notification = $data;
+        $this->emit('refreshComponent');
+    }
+
     // update keranjang
-    public function update($id, Request $request)
+    public function updates($id)
     {
         $pesanan_detail = PesananDetail::find($id);
         $pesanan_detail->jumlah_pesanan = $request->jumlah_pesanan;
@@ -57,10 +69,10 @@ class Keranjang extends Component
         // dd($pesanan_detail);
 
         $this->emit('masukKeranjang');
-        
-        session()->flash('message', 'Update Sukses!');
 
-        return view('livewire.keranjang');
+        // session()->flash('message', 'Update Sukses!');
+
+        // return view('livewire.keranjang');
     }
 
 

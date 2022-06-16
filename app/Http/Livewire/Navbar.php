@@ -39,14 +39,14 @@ class Navbar extends Component
                 $this->jumlah = 0;
             }
         }
-       
+
     }
 
     public function render()
     {
         return view('livewire.navbar',[
             'categories' => Categories::all(),
-            'jumlah_pesanan' => $this->jumlah, 
+            'jumlah_pesanan' => $this->jumlah,
         ]);
     }
 }

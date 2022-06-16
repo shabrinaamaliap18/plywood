@@ -22,7 +22,7 @@
                 </td>
             </tr>
 
-            @foreach ($order as $order)
+            {{-- @foreach ($order as $order) --}}
             <tr class="information">
                 <td colspan="2">
                     <table>
@@ -58,7 +58,7 @@
 
             <tr class="item">
                 <td>
-                  
+
                     <strong>Jenis Kayu Olahan:</strong>&nbsp;
                     {{ $order->nama_kategori }}<br>
                     <strong>Jumlah:</strong>&nbsp;
@@ -70,14 +70,14 @@
                 </td>
                 <td>Rp {{ number_format($order->total_harga_cus)}}</td>
             </tr>
-            
+
             <tr class="total">
                 <td></td>
                 <td>
                     Subtotal: Rp {{ number_format($order->total_harga_cus) }}
                 </td>
             </tr>
-            @endforeach
+            {{-- @endforeach --}}
 
 <br>
 <br>
@@ -87,7 +87,7 @@
                     <table>
                         <tr>
                             <td>
-                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{$order->tanggal_transaksi_cus}} </h5>
+                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{$order->first() ? $order->first()->tanggal_transaksi_cus:''}} </h5>
                                     <h5 style="text-align: right;line-height: 0.2em;"> CV. Mirai Alam Sejahtera</h5>
                                     <br><br><br><br><br>
                                     <h5 style="text-align: right;  text-decoration: underline;"> SUMADI HERIYANTO</h5>

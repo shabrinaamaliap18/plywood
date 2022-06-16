@@ -12,10 +12,16 @@
 
     <div class="row">
         <div class="col-md-12">
-            @if(session()->has('message'))
-            <div class="alert alert-danger">
-                {{ session('message') }}
-            </div>
+            @if($notification)
+                @if($notification['type'] === 'success')
+                <div class="alert alert-success">
+                    {{ $notification['msg'] }}
+                </div>
+                @else
+                <div class="alert alert-danger">
+                    {{ $notification['msg'] }}
+                </div>
+                @endif
             @endif
         </div>
     </div>
@@ -40,36 +46,7 @@
                     <tbody>
                         <?php $no = 1 ?>
                         @forelse ($pesanan_details as $pesanan_detail)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>
-                                <img src="{{ url('assets/jersey') }}/{{ $pesanan_detail->product->gambar_produk }}" class="img-fluid" width="200">
-                            </td>
-                            <td>
-                                {{ $pesanan_detail->product->nama }}
-                            </td>
-
-                            <td>
-                                <div class="form-group">
-                                    <input id="jumlah" name="jumlah_pesanan" type="number" class="form-control @error('jumlah_pesanan') is-invalid @enderror" value="{{ $pesanan_detail->jumlah_pesanan}}" autocomplete="jumlah_pesanan">
-
-                                    @error('jumlah_pesanan')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </td>
-
-                            <td id="harga">Rp. {{ number_format($pesanan_detail->product->harga) }}</td>
-                            <td id="total"><strong>Rp. {{ number_format($pesanan_detail->total_harga) }}</strong></td>
-
-                            <td>
-                                <i wire:click="update({{ $pesanan_detail->id }})" class="fas fa-edit" style="color:orange"></i>
-                                &nbsp; &nbsp;
-                                <i wire:click="destroy({{ $pesanan_detail->id }})" class="fas fa-trash text-danger"></i>
-                            </td>
-                        </tr>
+                            @livewire('edit-singleton-cart', ['no' => $no++,'id' => $pesanan_detail->id,'image' => $pesanan_detail->product->gambar_produk,'name' => $pesanan_detail->product->nama,'amount' => $pesanan_detail->jumlah_pesanan,'price' => $pesanan_detail->product->harga,'total_price' => $pesanan_detail->total_harga], key($pesanan_detail->id))
                         @empty
                         <tr>
                             <td colspan="7">Data Kosong</td>
@@ -77,11 +54,11 @@
                         @endforelse
 
                         @if(!empty($pesanan))
-                        <!-- <tr>
+                        {{-- <tr>
                             <td colspan="6" align="right"><strong>Total Harga : </strong></td>
                             <td align="right"><strong>Rp. {{ number_format($pesanan_detail->total_harga) }}</strong> </td>
                             <td></td>
-                        </tr> -->
+                        </tr> --}}
 
                         <tr>
                             <td colspan="6" align="right"><strong>Ongkir : </strong></td>
@@ -95,7 +72,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                          
+
                             <td colspan="6"></td>
                             <td colspan="2">
                                 <a href="{{ route('checkout') }}" class="btn btn-success btn-blok">
@@ -104,7 +81,7 @@
                             </td>
                         </tr>
 
-                       
+
                         @endif
                     </tbody>
                 </table>

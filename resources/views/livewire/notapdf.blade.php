@@ -22,7 +22,7 @@
                 </td>
             </tr>
 
-            @foreach ($pdf as $pdf)
+            {{-- @foreach ($pdfs as $pdf) --}}
             <tr class="information">
                 <td colspan="2">
                     <table>
@@ -77,7 +77,7 @@
                     Subtotal: Rp {{ number_format($pdf->total_harga) }}
                 </td>
             </tr>
-            @endforeach
+            {{-- @endforeach --}}
 
             <br>
             <br>
@@ -87,9 +87,9 @@
                     <table>
                         <tr>
                             <td>
-                              
+
                                 <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{$pdf->tanggal_transaksi}}</h5>
-                              
+
                                 <h5 style="text-align: right;line-height: 0.2em;"> CV. Mirai Alam Sejahtera</h5>
                                 <br><br><br><br><br>
                                 <h5 style="text-align: right;  text-decoration: underline;"> SUMADI HERIYANTO</h5>

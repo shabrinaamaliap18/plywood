@@ -14,14 +14,16 @@ class NotapdfController extends Controller
     {
 
         if (Auth::user()) {
-           
 
-        $this->pdf = History::join('products', 'histories.product_id', 'products.id')->join('users', 'histories.user_id', 'users.id')->where('histories.id', $id)->where('user_id', Auth::user()->id)->get(['histories.id', "product_id", "user_id", 'status', "total_harga", "name", "nama_perusahaan", "alamat", "nohp", "lokasi", "jumlah_pesanan", "nama", "kategori", "jml_ukuran",  "histories.tanggal_transaksi", "alat_angkut", "ket", 'histories.updated_at']);
+
+        // $this->pdf = History::join('products', 'histories.product_id', 'products.id')->join('users', 'histories.user_id', 'users.id')->where('histories.id', $id)->where('user_id', Auth::user()->id)->get(['histories.id', "product_id", "user_id", 'status', "total_harga", "name", "nama_perusahaan", "alamat", "nohp", "lokasi", "jumlah_pesanan", "nama", "kategori", "jml_ukuran",  "histories.tanggal_transaksi", "alat_angkut", "ket", 'histories.updated_at']);
+        $this->pdf = History::with(['product','user'])->firstOrFail();
         // dd($this->order);
 
         $pdf = PDF::loadView('livewire.notapdf', [
             'pdf' => $this->pdf
         ]);
+
         //KEMUDIAN BUKA FILE PDFNYA DI BROWSER
         return $pdf->stream();
     }

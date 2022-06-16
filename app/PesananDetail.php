@@ -13,7 +13,7 @@ class PesananDetail extends Model
         'pesanan_id',
         'kode_midtrans',
         'uniqode',
-       
+
     ];
 
     public function pesanan()
@@ -26,5 +26,5 @@ class PesananDetail extends Model
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
-   
+
 }
