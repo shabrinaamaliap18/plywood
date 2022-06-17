@@ -64,8 +64,8 @@
                             <td><strong>Rp. {{ number_format($pesanan->total_harga) }}</strong></td>
 
                             <td>
-                                
-                            <a href="notapdf/{{$pesanan->id}} target="_blank" class="btn btn-dark mb-4" ><i class="fas fa-eye"></i></a>
+
+                            <a href="notapdf/{{$pesanan->id}}" target="_blank" class="btn btn-dark mb-4" ><i class="fas fa-eye"></i></a>
                             </td>
                         </tr>
                         @empty
@@ -138,7 +138,7 @@
                             </td>
                             <td><strong>Rp. {{ number_format($pesanan->total_harga) }}</strong></td>
                             <td>
-                                
+
                             <a href="/notapdf/{{$pesanan->id}}" target="_blank" class="btn btn-dark mb-4" ><i class="fas fa-eye"></i></a>
                             </td>
                             <td>
@@ -147,7 +147,7 @@
                                     <button class="btn btn-success btn-sm "><i class="fas fa-check"></i> </button>@endif
                                 </form>
                             </td>
-                            
+
                         </tr>
                         @empty
                         <tr>

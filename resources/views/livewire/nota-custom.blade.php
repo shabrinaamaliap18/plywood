@@ -37,12 +37,14 @@
                             </td>
 
                             <td>
-                                <strong>ASAL KAYU</strong><br>
-                                {{ $order->nama_perusahaan }}<br>
-                                {{ $order->name }}<br>
-                                {{ $order->alamat }}<br>
-                                {{ $order->lokasi}}
-                                {{ $order->nohp }}<br>
+                                <strong>TUJUAN</strong><br>
+                                @if ($order->user)
+                                {{ $order->user->nama_perusahaan }}<br>
+                                {{ $order->user->name }}<br>
+                                {{ $order->user->alamat }}<br>
+                                {{ $order->user->lokasi}}
+                                {{ $order->user->nohp }}<br>
+                                @endif
                             </td>
 
 
@@ -60,7 +62,7 @@
                 <td>
 
                     <strong>Jenis Kayu Olahan:</strong>&nbsp;
-                    {{ $order->nama_kategori }}<br>
+                    {{ $order->material->nama_material }}<br>
                     <strong>Jumlah:</strong>&nbsp;
                     {{ $order->jumlah_pesanan_cus }}
                     <br>
@@ -87,7 +89,7 @@
                     <table>
                         <tr>
                             <td>
-                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{$order->first() ? $order->first()->tanggal_transaksi_cus:''}} </h5>
+                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{date('Y-m-d',strtotime($order->tanggal_transaksi_cus))}} </h5>
                                     <h5 style="text-align: right;line-height: 0.2em;"> CV. Mirai Alam Sejahtera</h5>
                                     <br><br><br><br><br>
                                     <h5 style="text-align: right;  text-decoration: underline;"> SUMADI HERIYANTO</h5>

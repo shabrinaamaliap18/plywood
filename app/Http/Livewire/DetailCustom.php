@@ -28,7 +28,7 @@ class DetailCustom extends Component
         $this->lokasi = Auth::user()->lokasi;
         $this->alamat = Auth::user()->alamat;
 
-      
+
     }
 
     public function render()
@@ -39,32 +39,32 @@ class DetailCustom extends Component
 
             if ($custom) {
                 $detail_custom = CustomP::where('customs.user_id', Auth::user()->id)->first();
-             
+
                 $tokenMidtrans = null;
                 $uniqode = null;
-               
+
 
                 $trigger = 0;
                 foreach ($custom as $as => $key) {
-                   
+
                     if ($custom->total_harga_cus != null && $custom->status_cus == '0') {
-                    
+
                         $getUser = User::find($custom->user_id)->first();
-                    
+
                         if ($getUser) {
                             $uniqode_old = $custom->id;
 
                             $checktrs = $this->trs_check($uniqode_old);
-                          
+
                             if ($checktrs == 'belum') {
                                 if ($detail_custom->uniqode == NULL) {
                                     $uniqode = rand();
-                                   
+
                                 } else {
                                     $uniqode = $detail_custom->uniqode;
                                 }
 
-            
+
                                 $grandTotal =  floatval($custom->total_harga_cus);
                                 $dataMidtrans = [
                                     'atasnama' => Auth::user()->name,
@@ -75,7 +75,7 @@ class DetailCustom extends Component
                                     'amount' => $grandTotal
                                 ];
                                 // dd($grandTotal);
-                              
+
                                 if ($detail_custom->uniqode == NULL) {
                                     $mtr = new Midtrans();
                                     $hitSnap = $mtr->midtransSnap($dataMidtrans);
@@ -88,9 +88,9 @@ class DetailCustom extends Component
                                     $customUpdate->save();
                                 } else {
                                     $tokenMidtrans = $detail_custom->kode_midtrans;
-                                   
+
                                 }
-                              
+
                             }
                         }
                     }
@@ -101,7 +101,7 @@ class DetailCustom extends Component
         $custom = CustomP::join('users', 'customs.user_id', 'users.id')->where('user_id', Auth::user()->id)->where('status_cus', 0)->first();
 
         $detail_custom = CustomDetail::join('customs', 'detail_customs.custom_id', 'customs.id')->where('customs.user_id', Auth::user()->id)->get();
-        
+
         $pesanan = CustomP::join('users', 'customs.user_id', 'users.id')->where('user_id', Auth::user()->id)->first();
 
         foreach ($detail_custom as $pesanan_detail) {
@@ -110,7 +110,7 @@ class DetailCustom extends Component
                 $cetakproduct_id = $check_productID[$i] . ', ';
             }
         }
-        if($pesanan->status_cus == 2) {
+        if($pesanan && $pesanan->status_cus == 2) {
             DB::table('history_custom')->insert([
                 'user_id' => $pesanan->user_id,
                 'total_harga_cus' => $pesanan->total_harga_cus,
@@ -124,6 +124,8 @@ class DetailCustom extends Component
                 'id_kategori' => $pesanan_detail->kategori,
                 'id_material' => $pesanan_detail->material,
             ]);
+        } else {
+
         }
 
         $delpesanan_details = CustomDetail::join('customs', 'detail_customs.custom_id', 'customs.id')->where('status_cus', '2')->where('customs.user_id', Auth::user()->id)->delete();

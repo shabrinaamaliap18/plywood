@@ -37,12 +37,14 @@
                             </td>
 
                             <td>
-                                <strong>ASAL KAYU</strong><br>
-                                {{ $pdf->nama_perusahaan }}<br>
-                                {{ $pdf->name }}<br>
-                                {{ $pdf->alamat }}<br>
-                                {{ $pdf->lokasi}}
-                                {{ $pdf->nohp }}<br>
+                                <strong>Tujuan</strong><br>
+                                @if ($pdf->user)
+                                {{ $pdf->user->nama_perusahaan }}<br>
+                                {{ $pdf->user->name }}<br>
+                                {{ $pdf->user->alamat }}<br>
+                                {{ $pdf->user->lokasi}}
+                                {{ $pdf->user->nohp }}<br>
+                                @endif
                             </td>
 
 
@@ -61,12 +63,12 @@
                     {{ $pdf->nama }}
                     <br>
                     <strong>Jenis Kayu Olahan:</strong>&nbsp;
-                    {{ $pdf->kategori }}<br>
+                    {{ $pdf->product->categories->nama_kategori }}<br>
                     <strong>Jumlah:</strong>&nbsp;
                     {{ $pdf->jumlah_pesanan }}
                     <br>
                     <strong>Volume (M3):</strong>&nbsp;
-                    {{ ($pdf->jumlah_pesanan * $pdf->jml_ukuran / 1000000000) }}
+                    {{ ($pdf->jumlah_pesanan * $pdf->product->jml_ukuran / 1000000000) }}
                 </td>
                 <td>Rp {{ number_format($pdf->total_harga)}}</td>
             </tr>
@@ -88,7 +90,7 @@
                         <tr>
                             <td>
 
-                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{$pdf->tanggal_transaksi}}</h5>
+                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{date('Y-m-d', strtotime($pdf->tanggal_transaksi))}}</h5>
 
                                 <h5 style="text-align: right;line-height: 0.2em;"> CV. Mirai Alam Sejahtera</h5>
                                 <br><br><br><br><br>
