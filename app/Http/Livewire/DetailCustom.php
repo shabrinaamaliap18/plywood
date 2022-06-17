@@ -125,7 +125,7 @@ class DetailCustom extends Component
                 'id_material' => $pesanan_detail->material,
             ]);
         } else {
-
+            abort(404);
         }
 
         $delpesanan_details = CustomDetail::join('customs', 'detail_customs.custom_id', 'customs.id')->where('status_cus', '2')->where('customs.user_id', Auth::user()->id)->delete();
