@@ -28,21 +28,13 @@ class Custom extends Component
             return redirect()->route('login');
         }
 
-        $custom = CustomP::where('user_id', Auth::user()->id)->where('status_cus', 0)->first();
+        $custom = CustomP::create([
+            'user_id' => Auth::user()->id,
+            'status_cus' => 0,
+            'tanggal_transaksi_cus' => Carbon::now(),
+            'kode_pemesanan_cus' => 'CVMAS-' . rand()
+        ]);
 
-        if (empty($custom)) {
-
-            CustomP::create([
-                'user_id' => Auth::user()->id,
-                'status_cus' => 0,
-                'tanggal_transaksi_cus' => Carbon::now(),
-            ]);
-            $custom = CustomP::where('user_id', Auth::user()->id)->where('status_cus', 0)->first();
-            $custom->kode_pemesanan_cus = 'CVMAS-' . rand();
-            $custom->update();
-
-        }
-        
         CustomDetail::create([
 
             'custom_id' => $custom->id,
@@ -50,13 +42,13 @@ class Custom extends Component
             'material' => $this->material,
             'ukuran' => $this->ukuran,
             'jumlah_pesanan_cus' => $this->jumlah_pesanan_cus,
-           
+
         ]);
 
 
         session()->flash('message', 'Custom Produk Sukses! Silahkan cek menu Detail Custom untuk melanjutkan pembayaran.');
 
-        return view('livewire.detail-custom');
+        return redirect()->to('/detailcustom');
     }
 
     public function render()

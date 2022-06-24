@@ -44,5 +44,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pesanan::class, 'user_id', 'id');
     }
-
+    public function customs() {
+        return $this->hasMany(CustomP::class,'user_id','id');
+    }
+    public function checkoutableCount() {
+        return $this->customs()->where('total_harga_cus', '>', '0')->count();
+    }
 }

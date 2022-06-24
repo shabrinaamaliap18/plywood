@@ -7,20 +7,24 @@ use App\PesananDetail;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Livewire\WithPagination;
+// use Livewire\WithPagination;
 
 class ProductIndex extends Component
 {
-    use WithPagination;
+    // use WithPagination;
 
-    public $product, $search;
+    public $search;
 
-    protected $updateQueryString = ['search'];
+    // protected $updateQueryString = ['search'];
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
+    public function mount() {
+        $this->search = '';
     }
+
+    // public function updatingSearch($value)
+    // {
+    //     $this->refresh;
+    // }
 
     public function render()
     {
@@ -32,7 +36,8 @@ class ProductIndex extends Component
         }
 
         return view('livewire.product-index', [
-            'products' => $products
+            'products' => $products,
+            'search' => $this->search
         ]);
     }
 }

@@ -1,4 +1,4 @@
-<body>
+<div>
 
     <div class="row">
         <div class="col-md-12">
@@ -27,14 +27,16 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-6">
-
-
-                @forelse ($custom_details as $custom_detail)
+            @foreach ($customs as $custom_detail)
+            {{-- <div class="col-12" style="padding-bottom:0;">
+                <div class="alert alert-success">
+                    <strong>Pemberitahuan!</strong> Transaksi ini bisa dilanjutkan.
+                </div>
+            </div> --}}
+            <div class="col-12 col-md-5">
                 <input type="hidden" id="token_midtrans{{$custom_detail->id}}" value="{{$custom_detail->kode_midtrans}}">
                 <input type="hidden" id="uniqode{{$custom_detail->id}}" value="{{$custom_detail->uniqode}}">
 
-                <br><br>
                 <br>
 
 
@@ -46,8 +48,6 @@
                 <div class="form-group">
                     <label style=" font-size: 14px; font-weight: 600;">Kode : <strong> {{ $custom_detail->kode_pemesanan_cus }}</strong> </label>
                 </div>
-                @break
-                @endforeach
 
 
                 <div class="form-group">
@@ -95,49 +95,61 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
+            <div class="col-12 col-md-7 col-lg-7 ml-lg-auto mb-5">
                 <form wire:submit.prevent="checkout">
                     <br>
                     <br>
-                    <div class="order-details-confirmation">
+                    <div class="order-details-confirmation" wire:poll.keep-alive>
                         <div class="cart-page-heading">
                             <h5>Detail Pesanan</h5>
                         </div>
                         <ul class="order-details-form mb-4">
-                            <li> <strong><span>Product</span></strong> <strong> <span>Total</span></strong></li>
-                            @foreach ($custom_details as $custom_detail)
-                            <li><span>{{ $custom_detail->nama_kategori}}</span> <span>Rp. {{ number_format($custom_detail->harga_cus) }}</span></li>
+                            <li> <strong><span>Product</span></strong> <strong><span>Ukuran</span></strong> <strong> <span>Total</span></strong></li>
+                            @foreach ($custom_detail->custom_details as $custom_detaill)
+                                @if ($custom_detaill->product())
+                                    <li>
+                                        <span>{{ $custom_detaill->product()->kategori}} ({{ $custom_detaill->product()->material }})</span>
+                                        <span>{{$custom_detaill->ukuran}}</span>
+                                        <span>Rp. {{ number_format($custom_detaill->product()->harga) }}</span>
+                                    </li>
+                                @endif
                             @endforeach
                             <li><span>Ongkir</span> <span>Rp. {{ number_format($custom_detail->ongkir_cus) }}</span></li>
-                            <li><span>Ukuran</span> <span> {{ $custom_detail->ukuran}}</span></li>
                             <li><span>Total Harga</span> <strong><span>Rp. {{ number_format($custom_detail->total_harga_cus) }}</span></strong></li>
                         </ul>
+                        @if($custom_detail->total_harga_cus < 1)
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                            Harap tunggu beberapa saat untuk konfirmasi total harga dan ongkir dari admin. Ketika telah terisi, silahkan lanjutkan pembayaran.</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
+                        @endif
                     </div>
                     <br>
+                    <div class="row" wire:poll.keep-alive>
+                        <div class="col">
+                            <a href="{{ route('keranjang') }}" style="width:100%;" class="btn btn-dark">Kembali</a>
+                        </div>
+                        @if ($custom_detail->status_cus === '0')
+                            <div class="col">
+                                <button onclick="confirm('Apa kamu yakin ingin membatalkan Pesanan ?') || event.stopImmediatePropagation()" wire:click.prevent="cancelOrder({{$custom_detail->id}})" type="button" style="width:100%;" class="btn btn-danger">Batalkan</button>
+                            </div>
+                        @endif
+                        @if ($custom_detail->total_harga_cus > 0)
+                            <div class="col">
+                                <a onclick="paybutton(<?php echo $custom_detail->id ?>)" class="btn btn-warning" style="width:100%;">Bayar Sekarang</a>
+                            </div>
+                        @endif
+
+
+                    </div>
+                </form>
             </div>
+            @endforeach
 
         </div>
-        <a onclick="paybutton(<?php echo $custom_detail->id ?>)" class="btn btn-warning" style="width:160px; float:right;">Bayar Sekarang</a>
-        <div class="row">
-            <div class="col">
-                <a href="{{ route('keranjang') }}" style="width:160px; float:right;" class="btn btn-dark">Kembali</a>
-            </div>
-        </div>
-
-
-
-        </form>
     </div>
-    </div>
-    </div>
-
 
 
     <!-- Template Main JS File -->
@@ -303,3 +315,6 @@
             margin: 0;
         }
     </style>
+
+
+</div>

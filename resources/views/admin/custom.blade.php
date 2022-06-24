@@ -62,10 +62,10 @@
                         <td>{{ $as->alat_angkut_cus}}</td>
                         <td>{{ $as->ket_cus}}</td>
                         <td>{{ $as->status_cus}}</td>
-                        
+
                         <td>{{ $as->created_at}}</td>
                         <td>
-                            <a class="fas fa-edit" style="color:orange" href="/customm/edit/{{$as->custom_id}}"></a>
+                            <a class="fas fa-edit" style="color:orange" href="/customm/edit/{{$as->id}}"></a>
 
 
                         </td>

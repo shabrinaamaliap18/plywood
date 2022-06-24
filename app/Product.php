@@ -20,5 +20,4 @@ class Product extends Model
         return $this->hasMany(PesananDetail::class, 'product_id', 'id');
     }
 
-
 }

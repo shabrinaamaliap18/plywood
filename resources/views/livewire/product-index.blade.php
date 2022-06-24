@@ -1,3 +1,5 @@
+<div class="container">
+
 <div class="breadcumb_area bg-img" style="background-image:url(https://preview.colorlib.com/theme/essence/img/bg-img/xbreadcumb.jpg.pagespeed.ic.11gX2RXIY8.webp); ">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
@@ -26,11 +28,14 @@
     </div>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9" class="d-flex align-items-center">
+            @if($search)
+            Kamu Mencari "{{ $search }}"
+            @endif
         </div>
         <div class="col-md-3">
             <div class="input-group mb-3">
-                <input wire:model="search" type="text" class="form-control" placeholder="Search . . ." aria-label="Search" aria-describedby="basic-addon1">
+                <input wire:model.debounce.0ms="search" type="text" name="searchh" class="form-control" placeholder="Search . . ." />
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fas fa-search"></i>
@@ -55,26 +60,26 @@
             </div>
             <form wire:submit.prevent="masukkanKeranjang">
                 <div class="row" style="display:flex !important;">
-                    @foreach($products as $product)
+                    @forelse($products as $row)
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="box">
                             <div class="option_container">
                                 <div class="options">
-                                    <!-- <button href="" class="option1" type="submit" @if($product->is_ready !== 1) disabled @endif>
+                                    <!-- <button href="" class="option1" type="submit" @if($row->is_ready !== 1) disabled @endif>
                                         <i class="fas fa-shopping-cart"></i>
                                     </button> -->
-                                    <a href="{{ route('products.detail', $product->id) }}" class="option2">
+                                    <a href="{{ route('products.detail', $row->id) }}" class="option2">
                                         Detail
                                     </a>
                                 </div>
                             </div>
                             <div class="img-box">
-                                <img src="{{ url('assets/jersey') }}/{{ $product->gambar_produk }}" alt="">
+                                <img src="{{ url('assets/jersey') }}/{{ $row->gambar_produk }}" alt="">
                             </div>
                             <div class="detail-box">
 
                                 <h5>
-                                    <b>{{ $product->nama }}</b>
+                                    <b>{{ $row->nama }}</b>
                                 </h5>
 
                             </div><br>
@@ -82,30 +87,34 @@
                             <div class="detail-box-u">
 
                                 <p>
-                                    <b> {{ $product->ukuran }} </b>
+                                    <b> {{ $row->ukuran }} </b>
                                 </p>
                             </div><br><br>
                             <div class="detail-box-h" style="text-align: right;">
                                 <p>
-                                    Rp. {{ number_format($product->harga) }}
+                                    Rp. {{ number_format($row->harga) }}
                                 </p>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-sm-12">
+                        <strong>Opps barang tidak ada.</strong>
+                    </div>
+                    @endforelse
                 </div>
             </form>
             <br>
 
             <div class="row">
                 <div class="col">
-                  <a  {{ $products->links() }} </a>
+                    {{ $products->links() }}
                 </div>
             </div>
+        </div>
+    </section>
+</div>
 
-        </section>
-    </div>
-    
 <style>
     .breadcumb_area {
         position: relative;
@@ -362,3 +371,7 @@
         border-color: #D2B48C;
     }
 </style>
+
+
+
+</div>
