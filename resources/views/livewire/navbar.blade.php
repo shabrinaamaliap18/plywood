@@ -44,11 +44,11 @@
                         <li class="submenu" wire:poll.keep-alive>
                             <a href="javascript:;" class="d-flex align-items-center">
                                 Custom
-                                @auth
+                                {{-- @auth
                                     @if (auth()->user()->checkoutableCount() > 0)
                                         <span style="font-size: 28px;color: red;">&bull;</span>
                                     @endif
-                                @endauth
+                                @endauth --}}
                             </a>
                             <ul>
                                 <li><a href="{{ route('custom') }}">Custom Produk</a></li>
@@ -56,7 +56,9 @@
                                     <a href="{{ route('detailcustom') }}">
                                         Detail Custom
                                         @auth
-                                        ({{auth()->user()->checkoutableCount()}})
+                                            @if (auth()->user()->checkoutableCount() > 0)
+                                                ({{auth()->user()->checkoutableCount()}})
+                                            @endif
                                         @endauth
                                     </a>
                                 </li>
