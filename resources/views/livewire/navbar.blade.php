@@ -17,11 +17,9 @@
                         <li class="submenu" wire:poll.keep-alive>
                             <a href="javascript:;" class="d-flex align-items-center">
                                 Notifikasi
-                                @auth
-                                    @if (auth()->user()->notifications()->count() > 0)
-                                        <span style="color: gray;" class="ml-1">({{auth()->user()->unreadNotifications()->count()}})</span>
-                                    @endif
-                                @endauth
+                                @if (auth()->user()->notifications()->count() > 0)
+                                    <span style="color: gray;" class="ml-1">({{auth()->user()->unreadNotifications()->count()}})</span>
+                                @endif
                             </a>
                             <ul style="width: 400px!important;">
                                 @forelse (auth()->user()->unreadNotifications as $notification)
