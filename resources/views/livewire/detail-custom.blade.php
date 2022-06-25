@@ -161,8 +161,8 @@
             var uniqode = $('#uniqode' + id).val();
             window.snap.pay(token, {
                 onSuccess: function(result) {
+                    doPay(uniqode);
                     triggerSuccessPayment();
-
                 },
                 onPending: function(result) {
                     triggerSuccessPayment();
@@ -174,7 +174,6 @@
                 },
                 onClose: function() {
                     triggerSuccessPayment();
-
                 }
             })
             //alert(token);

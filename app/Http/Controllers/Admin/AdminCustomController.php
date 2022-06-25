@@ -65,6 +65,33 @@ class AdminCustomController extends Controller
         $custom->ongkir_cus = $request->ongkir_cus;
         $custom->status_cus = $request->status_cus;
         $custom->total_harga_cus = $request->total_harga_cus;
+
+        if ($custom->total_harga_cus != null && $custom->status_cus == '0') {
+            $mtr = new \App\Midtrans();
+            $uniqode = rand();
+            $grandTotal =  floatval($custom->total_harga_cus);
+            $dataMidtrans = [
+                'atasnama' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'telepon' => Auth::user()->nohp,
+                'total' => $grandTotal,
+                'order_id' => $uniqode,
+                'amount' => $grandTotal
+            ];
+            // dd($grandTotal);
+
+            if ($custom->uniqode == NULL) {
+                $hitSnap = $mtr->midtransSnap($dataMidtrans);
+                $tokenMidtrans = $hitSnap;
+
+                $custom->kode_midtrans = $tokenMidtrans;
+                $custom->uniqode = $uniqode;
+            }
+
+            $custom->user->createNotification('Total harga Pesanan Custom sudah diperbarui Admin. Segera lunasi pembayaranmu.', 'detailcustom');
+        }
+
+
         $custom->save();
         return redirect('/customm')->with('status', 'Data custom Berhasil Diubah!');
     }

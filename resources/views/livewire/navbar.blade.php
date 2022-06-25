@@ -4,13 +4,40 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="{{ route('home') }}" class="logo" style="position:fixed; left: 70px;">
-                        <img src="../../assets2/images/logo3.png">
-                    </a>
+                    <div class="d-flex">
+                        <a href="{{ route('home') }}" class="logo" style="position:fixed; left: 70px;">
+                            <img src="../../assets2/images/logo3.png">
+                        </a>
+                    </div>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav" style="position:fixed; right: 80px;">
                         <li class="scroll-to-section"><a href="{{ route('home') }}" class="active">Home</a></li>
+                        <li class="submenu" wire:poll.keep-alive>
+                            <a href="javascript:;" class="d-flex align-items-center">
+                                Notifikasi
+                                @auth
+                                    @if (auth()->user()->notifications()->count() > 0)
+                                        <span style="color: gray;" class="ml-1">({{auth()->user()->unreadNotifications()->count()}})</span>
+                                    @endif
+                                @endauth
+                            </a>
+                            <ul style="width: 400px!important;">
+                                @forelse (auth()->user()->unreadNotifications as $notification)
+                                <li style="background-color: white;">
+
+                                    <button  wire:click.prevent="handleNotification({{$notification->id}})" style="text-align:left;"
+                                    class="btn btn-sm p-2">
+                                        {{-- <span style="color: green;" class="mr-1">&bull;</span> --}}
+                                        <div class="mb-2">{!! $notification->text !!}</div>
+                                        <div style="color: rgb(170, 170, 170);font-size:12px;border-bottom:1px solid rgb(225, 225, 225);" class="pb-2">{{\Carbon\Carbon::parse($notification->created_at)->diffForHumans()}}</div>
+                                    </button>
+                                </li>
+                                @empty
+                                <li style="background-color:white;" class="p-3">Tidak ada notifikasi.</li>
+                                @endforelse
+                            </ul>
+                        </li>
                         <li class="scroll-to-section"><a href="{{ route('products') }}">
                                 Daftar Produk </a></li>
 

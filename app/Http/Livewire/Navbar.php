@@ -28,6 +28,17 @@ class Navbar extends Component
             }
         }
     }
+    public function handleNotification($id) {
+        $n = \App\Notification::find($id);
+        $n->read_at = now();
+        $n->save();
+        if($n) {
+            if($n->link) {
+                return redirect($n->link);
+            }
+        }
+        return redirect('/');
+    }
 
     public function mount()
     {

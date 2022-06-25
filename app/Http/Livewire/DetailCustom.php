@@ -29,7 +29,7 @@ class DetailCustom extends Component
         $this->lokasi = Auth::user()->lokasi;
         $this->alamat = Auth::user()->alamat;
         $this->custom_details = [];
-        $this->customs = auth()->user()->customs;
+        $this->customs = auth()->user()->customs()->whereStatus_cus('0')->get() ?? [];
 
     }
 
@@ -43,40 +43,47 @@ class DetailCustom extends Component
 
     public function render()
     {
-
+        foreach($this->customs as $custom) {
+            $this->trs_check($custom->uniqode);
+        }
         return view('livewire.detail-custom', ['customs' => $this->customs]);
     }
 
+    public function doPay($id) {
+        $this->trs_check($id);
+    }
 
     public function trs_check($id)
     {
 
         $mtr = new Midtrans();
 
-        $custom = CustomP::join('detail_customs', 'detail_customs.custom_id', 'customs.id')->where('customs.user_id', Auth::user()->id)->first();
+        $custom = auth()->user()->customs()->whereUniqode($id)->first();
+        if($custom) {
+            $kode = $custom->uniqode;
+            $hit = $mtr->checkTs($kode);
+            $dt = Carbon::now();
+            $todayDate = $dt->toDayDateTimeString();
 
-        $kode = $custom->uniqode;
-        $hit = $mtr->checkTs($kode);
-        $dt = Carbon::now();
-        $todayDate = $dt->toDayDateTimeString();
+            if ($hit) {
+                if ($hit->status_code != 404) {
 
-        if ($hit) {
-            if ($hit->status_code != 404) {
-
-                if ($hit->transaction_status == 'settlement') {
-
-                    CustomP::join('users', 'customs.user_id', 'users.id')->where('user_id', Auth::user()->id)->where('uniqode', $kode)
-                        ->update(['status_cus' => '2']);
-
-                    return redirect('historyc');
+                    if ($hit->transaction_status == 'settlement') {
+                        if($custom->status_cus === '0') {
+                            $custom->status_cus = '2';
+                            $custom->save();
+                            $custom->user->createNotification('Yeayyy pembayaran <strong>'.$custom->uniqode.'</strong> dikonfirmasi.', 'historyc');
+                            redirect('/detailcustom');
+                        }
+                    } else {
+                        return 'belum';
+                    }
                 } else {
                     return 'belum';
                 }
             } else {
                 return 'belum';
             }
-        } else {
-            return 'belum';
         }
     }
 

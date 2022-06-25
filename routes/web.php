@@ -44,11 +44,11 @@ Route::livewire('trigger_payment', [Checkout::class, 'tiggerPaymentSuccess']);
 Route::livewire('trigger_payment', [DetailCustom::class, 'tiggerPaymentSuccess']);
 Route::livewire('/checkout', 'checkout')->name('checkout');
 Route::livewire('/notapdf/pdf/{id}', 'notapdf')->name('notapdf');
-Route::livewire('/detailcustom', 'detail-custom')->name('detailcustom');
 
 Route::middleware(['auth'])->group(function() {
     Route::livewire('/historyc', 'history-c')->name('historyc');
     Route::livewire('/historyy', 'historyy')->name('historyy');
+    Route::livewire('/detailcustom', 'detail-custom')->name('detailcustom');
 });
 
 Route::middleware('auth.admin')->group(function() {
