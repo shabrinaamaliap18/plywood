@@ -20,7 +20,7 @@ class ProductDetail extends Component
         if ($productDetail) {
             $this->product = $productDetail;
         }
-       
+
     }
 
     public function masukkanKeranjang()
@@ -53,15 +53,13 @@ class ProductDetail extends Component
         //Menyimpan / Update Data Pesanan Utama
         //ini jika pesanan masi kosong
         if (empty($pesanan)) {
-            Pesanan::create([
+            $pesanan = Pesanan::create([
                 'user_id' => Auth::user()->id,
                 'total_harga' => $total_harga + $hargafix,
                 'status' => 0,
                 'ongkir' => $hargafix,
-
             ]);
 
-            $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
             $pesanan->kode_pemesanan = 'CVMAS-' . rand();
             $pesanan->update();
 
@@ -87,8 +85,8 @@ class ProductDetail extends Component
         // dd($pesanandetail);
 
         $this->emit('masukKeranjang');
-        return redirect()->route('home');
-        session()->flash('message', "Sukses Masuk Keranjang");
+        return redirect('/');
+        // session()->flash('message', "Sukses Masuk Keranjang");
         // return redirect()->route('home')->with('success', "Sukses Masuk Keranjang");
     }
 
