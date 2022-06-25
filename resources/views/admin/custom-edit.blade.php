@@ -28,11 +28,19 @@
                                 <div class="col-12 mb-4" style="border-bottom: 1px solid rgb(216, 216, 216);">
                                     <div class="form-group">
                                         <label for="judul">Produk</label>
+                                        @if ($produk->product())
+                                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
+                                            value="{{ str_replace(array('[','"',']'),'',$produk->product()->kategori)}}" required readonly>
+                                            @error('nama')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        @else
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
-                                        value="{{ str_replace(array('[','"',']'),'',$produk->product()->kategori)}}" required readonly>
+                                        value="-" required readonly>
                                         @error('nama')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
