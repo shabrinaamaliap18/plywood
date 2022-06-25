@@ -68,7 +68,7 @@
 
                 <div class="form-group">
                     <label for="judul">No Telp</label>
-                    <input type="text" class="form-control @error('nohp') is-invalid @enderror" id="nohp" placeholder="Masukkan total harga pesanan" name="nohp" value="{{$as->nohp}}" required readonly>
+                    <input type="text" class="form-control @error('nohp') is-invalid @enderror" id="nohp" placeholder="Masukkan total harga pesanan" name="nohp" value="{{$as->user->nohp}}" required readonly>
                     @error('nohp')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -76,7 +76,7 @@
 
                 <div class="form-group">
                     <label for="judul">Alamat</label>
-                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukkan total harga pesanan" name="alamat" value="{{$as->alamat}}" required readonly>
+                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukkan total harga pesanan" name="alamat" value="{{$as->user->alamat}}" required readonly>
                     @error('alamat')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -84,7 +84,7 @@
 
                 <div class="form-group">
                     <label for="judul">Lokasi</label>
-                    <input type="text" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Masukkan total harga pesanan" name="lokasi" value="{{$as->lokasi}}" required readonly>
+                    <input type="text" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Masukkan total harga pesanan" name="lokasi" value="{{$as->user->lokasi}}" required readonly>
                     @error('lokasi')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
