@@ -36,20 +36,19 @@ class ProductDetail extends Component
 
         //Menghitung Total Harga
         $total_harga = ($this->jumlah_pesanan * $this->product->jml_ukuran * $this->product->harga) / 1000000000;
-
+        // $total_harga = $this->jumlah_pesanan * $this->product->harga + $this->product->harga_nameset;
 
         //Ngecek Apakah user punya data pesanan utama yg status nya 0
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
-        //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir)
-        $pesanan2 = Pesanan::join('users', 'users.id', 'pesanans.user_id')->where('user_id', Auth::user()->id)->where('status', 0)->first();
-        $AlamatSama = Ongkir::join('users', 'ongkirs.nama_kota', 'users.lokasi')->where('users.id', Auth::user()->id)->first();
-        $hargafix = $AlamatSama->harga_ongkir;
+        if(!$pesanan) {
+            //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir)
+            $AlamatSama = Ongkir::whereNama_kota(auth()->user()->lokasi)->where('users.id', Auth::user()->id)->first();
+            $hargafix = $AlamatSama->harga_ongkir;
 
 
-        //Menyimpan / Update Data Pesanan Utama
-        //ini jika pesanan masi kosong
-        if (empty($pesanan)) {
+            //Menyimpan / Update Data Pesanan Utama
+            //ini jika pesanan masi kosong
             $pesanan = Pesanan::create([
                 'user_id' => Auth::user()->id,
                 'total_harga' => $total_harga + $hargafix,
