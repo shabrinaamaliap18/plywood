@@ -24,14 +24,22 @@ class CustomDetail extends Model
         return $this->belongsTo(Custom::class, 'custom_id', 'id');
     }
     public function kategori() {
-        return $this->belongsTo(Categories::class,'kategori');
+        return $this->belongsTo(Categories::class,'kategori','id');
     }
     public function material() {
-        return $this->belongsTo('App\Models\Material','material');
+        return $this->belongsTo('App\Models\Material','material','id');
     }
+
+    public function kategory() {
+        return $this->belongsTo(Categories::class,'kategori','id');
+    }
+    public function materyal() {
+        return $this->belongsTo('App\Models\Material','material','id');
+    }
+
     public function product() {
-        $kategori = $this->kategori()->first();
-        $material = $this->material()->first();
+        $kategori = $this->kategory()->first();
+        $material = $this->materyal()->first();
         if($kategori && $material) {
             return Product::whereKategori($kategori->nama_kategori)->whereMaterial($material->nama_material)->first();
         }

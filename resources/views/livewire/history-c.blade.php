@@ -50,12 +50,20 @@
                             <td>{{ $pesanan->tanggal_transaksi_cus }}</td>
                             <td>{{ $pesanan->updated_at }}</td>
                             <td>
-                                {{ $pesanan->nama_kategori }}
-                                <br>
-                                {{ $pesanan->nama_material }} <br>
-                                ({{ $pesanan->ukuran_cus }})
+                                <ul class="list-group">
+                                    @foreach ($pesanan->custom_details as $detail)
+                                        @if ($detail->kategory && $detail->materyal)
+                                            <li class="list-group-item">
+                                                {{$detail->kategory->nama_kategori}} <br />
+                                                {{$detail->materyal->nama_material}} <br />
+                                                {{$detail->ukuran}}
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+
                             </td>
-                            <td>{{ $pesanan->jumlah_pesanan_cus }}</td>
+                            <td>{{ $pesanan->custom_details()->sum('jumlah_pesanan_cus') }}</td>
                             <td>
                                 @if($pesanan->status_cus == 5)
                                 <h10>Pesanan Diterima</h10>
@@ -117,12 +125,20 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $pesanan->tanggal_transaksi_cus }}</td>
                             <td>
-                                <b>{{ $pesanan->nama_kategori }}</b>
-                                <br>
-                                {{ $pesanan->nama_material }} <br>
-                                ({{ $pesanan->ukuran_cus }})
+                                <ul class="list-group">
+                                    @foreach ($pesanan->custom_details as $detail)
+                                        @if ($detail->kategory && $detail->materyal)
+                                            <li class="list-group-item">
+                                                {{$detail->kategory->nama_kategori}} <br />
+                                                {{$detail->materyal->nama_material}} <br />
+                                                {{$detail->ukuran}}
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+
                             </td>
-                            <td>{{ $pesanan->jumlah_pesanan_cus }}</td>
+                            <td>{{ $pesanan->custom_details()->sum('jumlah_pesanan_cus') }}</td>
                             <td>
                                 @if($pesanan->status_cus == 2)
                                 <h10>Produk telah diproses</h10>
@@ -136,11 +152,11 @@
                             <td> <a href="/notacustom/{{$pesanan->id}}" target="_blank" class="btn btn-dark mb-4"><i class="fas fa-eye"></i></a></td>
 
                             <td>
-                                @if($pesanan->status_cus == 4)
-                                <form wire:submit.prevent="Submit({{ $pesanan->id }})">
-                                    <button class="btn btn-success btn-sm "> <i class="fas fa-check"></i> </button>@endif
+                                @if ($pesanan->status_cus >= 4)
+                                <form wire:submit.prevent="submit({{ $pesanan->id }})">
+                                    <button class="btn btn-success btn-sm "> <i class="fas fa-check"></i> </button>
                                 </form>
-
+                                @endif
                             </td>
 
                         </tr>

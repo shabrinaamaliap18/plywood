@@ -58,20 +58,22 @@
                 <td>Subtotal</td>
             </tr>
 
+            @foreach ($order->custom_details as $o)
             <tr class="item">
                 <td>
 
                     <strong>Jenis Kayu Olahan:</strong>&nbsp;
-                    {{ $order->material->nama_material }}<br>
+                    {{ $o->materyal->nama_material }}<br>
                     <strong>Jumlah:</strong>&nbsp;
-                    {{ $order->jumlah_pesanan_cus }}
+                    {{ $o->jumlah_pesanan_cus }}
                     <br>
                     <strong>Ukuran:</strong>&nbsp;
-                    {{ $order->ukuran_cus }}
-                    <!-- {{ ($order->jumlah_pesanan * $order->jml_ukuran / 1000000000) }} -->
+                    {{ $o->ukuran }}
+
                 </td>
-                <td>Rp {{ number_format($order->total_harga_cus)}}</td>
+                <td>Rp {{ number_format($o->product()->harga)}}</td>
             </tr>
+            @endforeach
 
             <tr class="total">
                 <td></td>
