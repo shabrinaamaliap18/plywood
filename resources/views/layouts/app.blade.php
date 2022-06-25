@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="../../assets2/css/lightbox.css">
     @include('sweetalert::alert')
     @livewireStyles
+    @livewireScripts
 </head>
 
 
@@ -119,7 +120,6 @@
             </div>
         </div>
     </footer>
-    @livewireScripts
 </body>
 
 </html>
