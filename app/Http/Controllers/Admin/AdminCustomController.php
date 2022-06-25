@@ -71,9 +71,9 @@ class AdminCustomController extends Controller
             $uniqode = rand();
             $grandTotal =  floatval($custom->total_harga_cus);
             $dataMidtrans = [
-                'atasnama' => Auth::user()->name,
-                'email' => Auth::user()->email,
-                'telepon' => Auth::user()->nohp,
+                'atasnama' => $custom->user->name,
+                'email' => $custom->user->email,
+                'telepon' => $custom->user->nohp,
                 'total' => $grandTotal,
                 'order_id' => $uniqode,
                 'amount' => $grandTotal
