@@ -14,7 +14,7 @@
 
                 <div class="form-group">
                     <label for="judul">Nama Customer</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Masukkan total harga pesanan" name="name" value="{{$as->name}}" required readonly>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Masukkan total harga pesanan" name="name" value="{{$as->user->name}}" required readonly>
                     @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
