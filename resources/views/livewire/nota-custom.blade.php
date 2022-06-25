@@ -57,6 +57,9 @@
                 <td>Produk</td>
                 <td>Subtotal</td>
             </tr>
+            @php
+                $t = 0;
+            @endphp
 
             @foreach ($order->custom_details as $o)
             <tr class="item">
@@ -73,12 +76,15 @@
                 </td>
                 <td>Rp {{ number_format($o->product()->harga)}}</td>
             </tr>
+            @php
+                $t+=$o->product()->harga;
+            @endphp
             @endforeach
 
             <tr class="total">
                 <td></td>
                 <td>
-                    Subtotal: Rp {{ number_format($order->total_harga_cus) }}
+                    Total: Rp {{ number_format($t) }}
                 </td>
             </tr>
             {{-- @endforeach --}}
