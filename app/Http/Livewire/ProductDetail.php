@@ -35,11 +35,8 @@ class ProductDetail extends Component
         }
 
         //Menghitung Total Harga
-        if (!empty($this->nama)) {
-            $total_harga = $this->jumlah_pesanan * $this->product->harga + $this->product->harga_nameset;
-        } else {
-            $total_harga = ($this->jumlah_pesanan * $this->product->jml_ukuran * $this->product->harga) / 1000000000;
-        }
+        $total_harga = ($this->jumlah_pesanan * $this->product->jml_ukuran * $this->product->harga) / 1000000000;
+
 
         //Ngecek Apakah user punya data pesanan utama yg status nya 0
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
