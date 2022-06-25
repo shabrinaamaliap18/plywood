@@ -13,6 +13,7 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav" style="position:fixed; right: 80px;">
                         <li class="scroll-to-section"><a href="{{ route('home') }}" class="active">Home</a></li>
+                        @auth
                         <li class="submenu" wire:poll.keep-alive>
                             <a href="javascript:;" class="d-flex align-items-center">
                                 Notifikasi
@@ -38,6 +39,7 @@
                                 @endforelse
                             </ul>
                         </li>
+                        @endauth
                         <li class="scroll-to-section"><a href="{{ route('products') }}">
                                 Daftar Produk </a></li>
 
