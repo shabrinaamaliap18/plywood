@@ -41,11 +41,11 @@ class CustomDetail extends Model
         $kategori = $this->kategory()->first();
         $material = $this->materyal()->first();
         if($kategori && $material) {
-            return Product::where(function($q) {
+            return Product::where(function($q) use($kategori) {
                 $q->whereKategori($kategori->nama_kategori)
                 ->orWhere('kategori',\strtolower($kategori->nama_kategori))
                 ->orWhere('kategori',\ucfirst($kategori->nama_kategori));
-            })->where(function($q) {
+            })->where(function($q) use($kategori) {
                 $q->whereMaterial($material->nama_material)
                 ->orWhere('material',\ucfirst($material->nama_material))
                 ->orWhere('material',\strtolower($material->nama_material));
