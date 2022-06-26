@@ -89,8 +89,14 @@ class AdminCustomController extends Controller
             }
 
             $custom->user->createNotification('Total harga Pesanan Custom sudah diperbarui Admin. Segera lunasi pembayaranmu.', 'detailcustom');
-        }
 
+
+        }
+        foreach($request->ids as $id) {
+            $details = $custom->custom_details()->whereId($id)->firstOrFail();
+            $details->harga_cus = $request->{'harga_cus_'.$id};
+            $details->save();
+        }
 
         $custom->save();
         return redirect('/customm')->with('status', 'Data custom Berhasil Diubah!');

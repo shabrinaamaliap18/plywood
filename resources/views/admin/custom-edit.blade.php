@@ -28,7 +28,7 @@
                                 <div class="col-12 mb-4" style="border-bottom: 1px solid rgb(216, 216, 216);">
                                     <div class="form-group">
                                         <label for="judul">Produk</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Produk" name="nama"
                                         value="{{ str_replace(array('[','"',']'),'',$produk->kategory->nama_kategori)}}" required readonly>
                                         @error('nama')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -40,6 +40,16 @@
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
                                         value="{{ $produk->ukuran }}" required readonly>
                                         @error('nama')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <input type="hidden" name="ids[]" value="{{$produk->id}}" />
+
+                                    <div class="form-group">
+                                        <label for="judul">Harga</label>
+                                        <input type="number" class="form-control @error('jumlah_pesanan_cus') is-invalid @enderror" id="harga_cus" placeholder="Masukkan harga cus" name="harga_cus_{{$produk->id}}" value="{{$produk->harga_cus}}" required>
+                                        @error('harga_cus')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
