@@ -45,7 +45,7 @@ class CustomDetail extends Model
                 $q->whereKategori($kategori->nama_kategori)
                 ->orWhere('kategori',\strtolower($kategori->nama_kategori))
                 ->orWhere('kategori',\ucfirst($kategori->nama_kategori));
-            })->where(function($q) use($kategori) {
+            })->where(function($q) use($material) {
                 $q->whereMaterial($material->nama_material)
                 ->orWhere('material',\ucfirst($material->nama_material))
                 ->orWhere('material',\strtolower($material->nama_material));
