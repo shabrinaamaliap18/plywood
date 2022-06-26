@@ -30,7 +30,7 @@
                                         <label for="judul">Produk</label>
                                         @if ($produk->product())
                                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
-                                            value="{{ str_replace(array('[','"',']'),'',$produk->product()->kategori)}}" required readonly>
+                                            value="{{ str_replace(array('[','"',']'),'',$produk->kategory->nama_kategori)}}" required readonly>
                                             @error('nama')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
