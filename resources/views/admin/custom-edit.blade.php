@@ -125,13 +125,13 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="judul">Total Biaya</label>
                     <input type="number" class="form-control @error('total_harga_cus') is-invalid @enderror" id="total_harga_cus" placeholder="Masukkan total harga pesanan" name="total_harga_cus" value="{{$as->total_harga_cus}}" required>
                     @error('total_harga_cus')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
 
 
                 <button type="submit" class="btn btn-success">Edit Pesanan</button>
@@ -152,7 +152,9 @@
         border-radius: 8px;
     }
 </style>
+<script>
 
+</script>
 @endsection
 
 @push('page-scripts')

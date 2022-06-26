@@ -21,7 +21,7 @@ class CustomDetail extends Model
 
     public function custom()
     {
-        return $this->belongsTo(Custom::class, 'custom_id', 'id');
+        return $this->belongsTo(CustomP::class, 'custom_id', 'id');
     }
     public function kategori() {
         return $this->belongsTo(Categories::class,'kategori','id');

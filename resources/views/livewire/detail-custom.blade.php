@@ -109,7 +109,7 @@
                                 <li>
                                     <span>{{ $custom_detaill->kategory->nama_kategori}} ({{ $custom_detaill->materyal->nama_material }})</span>
                                     <span>{{$custom_detaill->ukuran}}</span>
-                                    {{-- <span>Rp. {{ number_format($custom_detaill->product()->harga) }}</span> --}}
+                                    <span>Rp. {{ number_format($custom_detaill->harga_cus) }}</span>
                                 </li>
                             @endforeach
                             <li><span>Ongkir</span> <span>Rp. {{ number_format($custom_detail->ongkir_cus) }}</span></li>
