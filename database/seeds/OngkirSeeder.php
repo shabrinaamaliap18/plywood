@@ -39,6 +39,11 @@ class OngkirSeeder extends Seeder
                 'nama_kota' => 'Pasuruan',
                 'harga_ongkir' => '800000'
             ],
+
+            [
+                'nama_kota' => 'Cirebon',
+                'harga_ongkir' => '3500000'
+            ],
         
 
 

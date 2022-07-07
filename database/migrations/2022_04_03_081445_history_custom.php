@@ -16,8 +16,11 @@ class HistoryCustom extends Migration
         Schema::create('history_custom', function (Blueprint $table) {
             $table->id();
             $table->string('status_cus')->default(0);
-            $table->string('ukuran_cus')->default(0);
+            $table->integer('ongkir_cus');
             $table->integer('total_harga_cus');
+            $table->integer('tebal');
+            $table->integer('lebar');
+            $table->integer('panjang');
             $table->integer('jumlah_pesanan_cus');
             $table->timestamp('tanggal_transaksi_cus');
             $table->string('alat_angkut_cus')->nullable();

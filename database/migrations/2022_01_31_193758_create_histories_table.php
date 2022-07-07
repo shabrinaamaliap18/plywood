@@ -16,7 +16,8 @@ class CreateHistoriesTable extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->string('status')->default(0);
-            $table->string('total_harga');
+            $table->integer('ongkir');
+            $table->integer('total_harga');
             $table->integer('jumlah_pesanan');
             $table->timestamp('tanggal_transaksi');
             $table->string('alat_angkut')->nullable();

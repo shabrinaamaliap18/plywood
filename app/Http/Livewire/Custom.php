@@ -40,7 +40,9 @@ class Custom extends Component
             'custom_id' => $custom->id,
             'kategori'  => $this->kategori,
             'material' => $this->material,
-            'ukuran' => $this->ukuran,
+            'tebal' => $this->tebal,
+            'lebar' => $this->lebar,
+            'panjang' => $this->panjang,
             'jumlah_pesanan_cus' => $this->jumlah_pesanan_cus,
 
         ]);

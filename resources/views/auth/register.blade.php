@@ -73,6 +73,8 @@
                                         </option>
                                         <option value="Pasuruan">Pasuruan
                                         </option>
+                                        <option value="Cirebon">Cirebon
+                                        </option>
                                     </select>
 
                                     @error('lokasi')

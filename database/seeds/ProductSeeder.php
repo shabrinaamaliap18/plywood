@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '12 x 1220 x 1220 mm',
         	'jml_ukuran' => '17860800',
-        	'stok' => '50',
+        	
         	'harga' => '6500000',
             'gambar_produk' => 'plywood.jpg'
         ],
@@ -33,7 +33,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '9 x 1220 x 1220 mm',
         	'jml_ukuran' => '13395600',
-        	'stok' => '50',
+        	
         	'harga' => '6000000',
             'gambar_produk' => 'plywood.jpg'
         ],
@@ -45,7 +45,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '15 x 1000 x 1500 mm',
         	'jml_ukuran' => '22500000',
-        	'stok' => '50',
+        	
         	'harga' => '7000000',
             'gambar_produk' => 'plywood.jpg'
         ],
@@ -57,7 +57,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '6 x 1220 x 1220 mm',
         	'jml_ukuran' => '8930400',
-        	'stok' => '50',
+        	
         	'harga' => '5500000',
             'gambar_produk' => 'plywood.jpg'
         ],
@@ -69,7 +69,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '12 x 1220 x 1220 mm',
         	'jml_ukuran' => '17860800',
-        	'stok' => '1000',
+        	
         	'harga' => '5000000',
             'gambar_produk' => 'LVL.jpg'
         ],
@@ -81,7 +81,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '9 x 1220 x 1220 mm',
         	'jml_ukuran' => '13395600',
-        	'stok' => '50',
+        	
         	'harga' => '4500000',
             'gambar_produk' => 'LVL.jpg'
         ],
@@ -93,7 +93,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '15 x 600 x 2200 mm',
         	'jml_ukuran' => '19800000',
-        	'stok' => '50',
+        	
         	'harga' => '5600000',
             'gambar_produk' => 'LVL.jpg'
         ],
@@ -105,7 +105,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '9 x 1000 x 1500 mm',
         	'jml_ukuran' => '13500000',
-        	'stok' => '50',
+        	
         	'harga' => '4000000',
             'gambar_produk' => 'LVL.jpg'
         ],
@@ -117,7 +117,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '1,7 x 125 x 125 mm',
         	'jml_ukuran' => '26563',
-        	'stok' => '50',
+        	
         	'harga' => '6300000',
             'gambar_produk' => 'veneer.jpg'
         ],
@@ -129,7 +129,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '2,7 x 125 x 125 mm',
         	'jml_ukuran' => '42188',
-        	'stok' => '50',
+        	
         	'harga' => '7000000',
             'gambar_produk' => 'veneer.jpg'
         ],
@@ -141,7 +141,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '1,5 x 1000 x 1500 mm',
         	'jml_ukuran' => '2250000',
-        	'stok' => '50',
+        	
         	'harga' => '6000000',
             'gambar_produk' => 'veneer.jpg'
         ],
@@ -153,7 +153,7 @@ class ProductSeeder extends Seeder
         	'material' => 'Kayu Meranti',
         	'ukuran' => '2,6 x 1000 x 1500 mm',
         	'jml_ukuran' => '3900000',
-        	'stok' => '100',
+        	
         	'harga' => '6500000',
             'gambar_produk' => 'veneer.jpg'
 		]

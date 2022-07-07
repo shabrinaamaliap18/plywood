@@ -35,7 +35,7 @@ class HistoryC extends Component
     public function render()
     {
         if (Auth::user()) {
-            $this->pesanans = auth()->user()->customs()->where('status_cus', '<', 5)->get() ?? [];
+            $this->pesanans = auth()->user()->customs()->where('status_cus', '>', 1)->where('status_cus', '<', 5)->get() ?? [];
             $this->pesanansukses = auth()->user()->customs()->whereStatus_cus(5)->get() ?? [];
         }
 

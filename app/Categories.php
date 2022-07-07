@@ -13,7 +13,7 @@ class Categories extends Model implements AuthenticatableContract
     // use HasFactory;
     use Authenticatable;
   
-    protected $fillable = ['nama_kategori', 'keterangan_kategori', 'stok', 'gambar'];
+    protected $fillable = ['nama_kategori', 'keterangan_kategori', 'gambar'];
     protected $table = 'categories';
 }
 

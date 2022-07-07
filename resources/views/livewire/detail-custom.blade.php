@@ -104,15 +104,13 @@
                             <h5>Detail Pesanan</h5>
                         </div>
                         <ul class="order-details-form mb-4">
-                            <li> <strong><span>Product</span></strong> <strong><span>Ukuran</span></strong> <strong> <span>Total</span></strong></li>
+                            <li> <strong><span>Product</span></strong><strong><span>    Ukuran</span></strong> <strong> <span>Total</span></strong></li>
                             @foreach ($custom_detail->custom_details as $custom_detaill)
-                                @if ($custom_detaill->product())
-                                    <li>
-                                        <span>{{ $custom_detaill->product()->kategori}} ({{ $custom_detaill->product()->material }})</span>
-                                        <span>{{$custom_detaill->ukuran}}</span>
-                                        <span>Rp. {{ number_format($custom_detaill->product()->harga) }}</span>
-                                    </li>
-                                @endif
+                                <li>
+                                    <span>{{ $custom_detaill->kategory->nama_kategori}}<br>({{ $custom_detaill->materyal->nama_material }})</br></span>
+                                    <span>{{$custom_detaill->tebal}} x {{$custom_detaill->lebar}} x {{$custom_detaill->panjang}} mm</span>
+                                    <span>Rp. {{ number_format($custom_detaill->harga_cus) }}</span> 
+                                </li>
                             @endforeach
                             <li><span>Ongkir</span> <span>Rp. {{ number_format($custom_detail->ongkir_cus) }}</span></li>
                             <li><span>Total Harga</span> <strong><span>Rp. {{ number_format($custom_detail->total_harga_cus) }}</span></strong></li>

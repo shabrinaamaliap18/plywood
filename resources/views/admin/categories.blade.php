@@ -29,7 +29,6 @@
                         
                         <th>Nama Kategori</th>
                         <th>Keterangan Kategori</th>
-                        <th>Stok</th>
                         <th>Foto Kategori</th>
                         <th>Aksi</th>
                     </tr>
@@ -42,7 +41,6 @@
                         <th width="80px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
                         <td>{{ $as->nama_kategori}}</td>
                         <td>{{ $as->keterangan_kategori}}</td>
-                        <td>{{ $as->stok}}</td>
                         <td><br><img class="img" width="100px" src="../image/{{$as->foto_kategori}}"></td>
                         <td>
                             <a class="fas fa-edit" style="color:orange" href="categories/edit/{{$as->id}}"></a>

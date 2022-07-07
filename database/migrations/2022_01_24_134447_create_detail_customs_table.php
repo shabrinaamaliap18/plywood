@@ -20,9 +20,11 @@ class CreateDetailCustomsTable extends Migration
             $table->foreign('kategori')->references('id')->on('categories');
             $table->unsignedBigInteger('material')->nullable();
             $table->foreign('material')->references('id')->on('material');
-            $table->string('ukuran', 255)->nullable();
+            $table->integer('tebal');
+            $table->integer('lebar');
+            $table->integer('panjang');
             $table->integer('jumlah_pesanan_cus')->nullable();
-            $table->integer('total_harga_cus')->nullable();
+            $table->integer('harga_cus')->nullable();
             $table->integer('custom_id');
            
             $table->timestamps();

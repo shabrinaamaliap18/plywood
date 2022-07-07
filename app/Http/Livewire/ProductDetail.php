@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class ProductDetail extends Component
 {
-    public $product, $nama, $jumlah_pesanan, $nomor, $O;
+    public $product, $jumlah_pesanan, $nomor, $O;
 
     public function mount($id)
     {
@@ -20,7 +20,7 @@ class ProductDetail extends Component
         if ($productDetail) {
             $this->product = $productDetail;
         }
-
+     
     }
 
     public function masukkanKeranjang()
@@ -43,8 +43,9 @@ class ProductDetail extends Component
 
         //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir)
         $pesanan2 = Pesanan::join('users', 'users.id', 'pesanans.user_id')->where('user_id', Auth::user()->id)->where('status', 0)->first();
-        $AlamatSama = Ongkir::join('users', 'ongkirs.nama_kota', 'users.lokasi')->where('users.id', Auth::user()->id)->first();
+        $AlamatSama = Ongkir::join('users', 'ongkir.nama_kota', 'users.lokasi')->where('users.id', Auth::user()->id)->first();
         $hargafix = $AlamatSama->harga_ongkir;
+        // dd($AlamatSama);
 
 
         //Menyimpan / Update Data Pesanan Utama
@@ -74,15 +75,10 @@ class ProductDetail extends Component
             'total_harga' => $total_harga,
         ]);
 
-        // $pesanandetail = Pesanan::join('pesanan_details', 'pesanans.id', 'pesanan_details.pesanan_id')->join('products', 'products.id', 'pesanan_details.product_id')->where('user_id', Auth::user()->id)->first();
-        // $pd = $pesanandetail->stok - $pesanandetail->jumlah_pesanan;
-        // // dd($pd);
-        // $pesanandetail->stok = $pd;
-        // $pesanandetail->update();
-        // dd($pesanandetail);
+        
 
         $this->emit('masukKeranjang');
-        return redirect('/');
+        return redirect('/keranjang');
         // session()->flash('message', "Sukses Masuk Keranjang");
         // return redirect()->route('home')->with('success', "Sukses Masuk Keranjang");
     }

@@ -11,21 +11,13 @@ use Livewire\Component;
 
 class ProductIndex extends Component
 {
-    // use WithPagination;
 
     public $search;
-
-    // protected $updateQueryString = ['search'];
 
     public function mount() {
         $this->search = '';
     }
-
-    // public function updatingSearch($value)
-    // {
-    //     $this->refresh;
-    // }
-
+    
     public function render()
     {
 

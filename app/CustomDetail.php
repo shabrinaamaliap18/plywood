@@ -9,8 +9,11 @@ class CustomDetail extends Model
     protected $fillable = [
         'kategori',
         'material',
-        'ukuran',
+        'tebal',
+        'lebar',
+        'panjang',
         'jumlah_pesanan_cus',
+        'harga_cus',
         'total_harga_cus',
         'custom_id',
         'kode_midtrans',
@@ -21,7 +24,7 @@ class CustomDetail extends Model
 
     public function custom()
     {
-        return $this->belongsTo(Custom::class, 'custom_id', 'id');
+        return $this->belongsTo(CustomP::class, 'custom_id', 'id');
     }
     public function kategori() {
         return $this->belongsTo(Categories::class,'kategori','id');
@@ -41,9 +44,18 @@ class CustomDetail extends Model
         $kategori = $this->kategory()->first();
         $material = $this->materyal()->first();
         if($kategori && $material) {
-            return Product::whereKategori($kategori->nama_kategori)->whereMaterial($material->nama_material)->first();
+            return Product::where(function($q) use($kategori) {
+                $q->whereKategori($kategori->nama_kategori)
+                ->orWhere('kategori',\strtolower($kategori->nama_kategori))
+                ->orWhere('kategori',\ucfirst($kategori->nama_kategori));
+            })->where(function($q) use($material) {
+                $q->whereMaterial($material->nama_material)
+                ->orWhere('material',\ucfirst($material->nama_material))
+                ->orWhere('material',\strtolower($material->nama_material));
+            })->first();
         }
         return null;
     }
+
 
 }

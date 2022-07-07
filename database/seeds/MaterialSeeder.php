@@ -21,6 +21,12 @@ class MaterialSeeder extends Seeder
                 'stok_material' => '1000',
                 'foto_material' => 'triplek.jpg',
             ],
+
+            [
+                'nama_material' => 'Kayu Sengon',
+                'stok_material' => '1000',
+                'foto_material' => 'triplek.jpg',
+            ],
         
 
 

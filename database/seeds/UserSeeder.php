@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'lokasi' => 'Surabaya',
             'alamat' => 'Jl Kahuyungan no 103',
             'nohp' => '0892828123',
+            'role' => 'admin',
             'password' => bcrypt('12345678'),
         ]);
 
@@ -32,9 +33,10 @@ class UserSeeder extends Seeder
             'nama_perusahaan' => 'PT Gatra Mapan',
             'name' => 'Imel',
             'email' => 'i@gmail.com',
-            'lokasi' => 'Lumajang',
+            'lokasi' => 'Mojokerto',
             'alamat' => 'Jl Semeru no 103',
             'nohp' => '0892828128',
+            'role' => 'customer',
             'password' => bcrypt('12345678'),
 
         ]);

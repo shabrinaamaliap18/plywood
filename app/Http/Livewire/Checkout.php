@@ -38,7 +38,7 @@ class Checkout extends Component
         $this->alamat = Auth::user()->alamat;
 
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
-       
+
         if (!empty($pesanan)) {
             $this->total_harga = $pesanan->total_harga + $pesanan->ongkir;
             // $this->pesanan->update();
@@ -50,7 +50,7 @@ class Checkout extends Component
 
 
     public function checkout(Request $request)
-    {           
+    {
         $this->validate([
             'nohp' => 'required',
             'lokasi' => 'required',
@@ -73,13 +73,13 @@ class Checkout extends Component
 
         session()->flash('message', "Sukses Checkout");
 
-        return redirect()->route('history');
+        return redirect('history');
     }
 
     public function render()
     {
         if (Auth::user()) {
-           
+
 
             $pesanan = Pesanan::join('users', 'pesanans.user_id', 'users.id')->where('user_id', Auth::user()->id)->where('pesanans.status', '0')->first();
 
@@ -114,7 +114,7 @@ class Checkout extends Component
                                 } else {
                                     $uniqode = $pesanan_details->uniqode;
                                 }
-                              
+
                                 $grandTotal =  floatval($pesanan->total_harga);
                                 $dataMidtrans = [
                                     'atasnama' => Auth::user()->name,
@@ -135,6 +135,7 @@ class Checkout extends Component
                                     $pesananUpdate = Pesanan::join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)->first(['pesanans.id', 'pesanans.*']);
                                     $pesananUpdate->kode_midtrans = $tokenMidtrans;
                                     $pesananUpdate->uniqode = $uniqode;
+                                
                                     $pesananUpdate->save();
                                     // dd($pesananUpdate);
 
@@ -156,6 +157,7 @@ class Checkout extends Component
 
         $ongkir = Ongkir::get();
 
+        //untuk menampilkan data di hal cekout
         $pesde2 = PesananDetail::join('pesanans', 'pesanan_details.pesanan_id', 'pesanans.id')->join('users', 'pesanans.user_id', 'users.id')->where('pesanans.user_id', Auth::user()->id)->get();
         // dd($pesde2);
 
@@ -165,8 +167,6 @@ class Checkout extends Component
         $pesanan = Pesanan::join('users', 'pesanans.user_id', 'users.id')->where('user_id', Auth::user()->id)->first();
         // dd($pesanan);
 
-
-        
         //ambil data pesanan
         foreach ($pesde as $pesanan_detail) {
             $check_productID[] = $pesanan_detail->product_id;
@@ -175,7 +175,7 @@ class Checkout extends Component
             }
         }
 
-        if($pesanan->status == 2) {
+        if ($pesanan->status == 2) {
             DB::table('histories')->insert([
                 'user_id' => $pesanan->user_id,
                 'total_harga' => $pesanan->total_harga,
@@ -187,16 +187,19 @@ class Checkout extends Component
                 'ket' => $pesanan->ket,
                 'product_id' => $pesanan_detail->product_id
             ]);
+
+            $pesanan->user->createNotification('Pembayaran <strong>'.$pesanan->uniqode.'</strong> dikonfirmasi.', 'historyy');
+
         }
 
-     
+
         $delpesanan_details = PesananDetail::join('pesanans', 'pesanan_details.pesanan_id', 'pesanans.id')->where('status', '2')->where('pesanans.user_id', Auth::user()->id)->delete();
 
         $delpesanans = Pesanan::join('users', 'pesanans.user_id', 'users.id')->where('user_id', Auth::user()->id)->where('status', '2')->delete();
 
-// , compact('tokenMidtrans', 'clientIdMidtrans', 'uniqode', 'pesde', 'pesdel')
+        // , compact('tokenMidtrans', 'clientIdMidtrans', 'uniqode', 'pesde', 'pesdel')
         return view('livewire.checkout', ['pesanan' => $pesanan, 'pesde' => $pesde, 'pesde2' => $pesde2, 'pesdel' => $pesdel, 'ongkir' => $ongkir]);
-    }   
+    }
 
 
     public function trs_check($id)
@@ -216,17 +219,16 @@ class Checkout extends Component
                     DB::table('pesanans')
                         ->where('uniqode', $kode)
                         ->update(['status' => '2']);
-                    // return "berhasil";
-                    return redirect('historyy');
+                        return redirect('/');
+                    } else {
+                        return 'belum';
+                    }
                 } else {
                     return 'belum';
                 }
             } else {
                 return 'belum';
             }
-        } else {
-            return 'belum';
-        }
 
 
         //return $hit->status_code;

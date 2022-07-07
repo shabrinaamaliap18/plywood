@@ -11,6 +11,8 @@ class Ongkir extends Model
         'harga_ongkir',
     ];
 
+    protected $table = 'ongkir';
+
     public function pesanan()
     {
         return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id');

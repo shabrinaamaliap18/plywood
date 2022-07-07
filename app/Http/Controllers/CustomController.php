@@ -35,7 +35,9 @@ class CustomController extends Controller
             'custom_id' => $custom->id,
             'kategori'  => $request->kategori,
             'material' => $request->material,
-            'ukuran' => $request->ukuran,
+            'tebal' => $request->tebal,
+            'lebar' => $request->lebar,
+            'panjang' => $request->panjang,
             'jumlah_pesanan_cus' => $request->jumlah_pesanan_cus,
         ]);
 

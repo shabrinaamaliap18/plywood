@@ -17,7 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama_kategori', 100);
             $table->string('keterangan_kategori', 2000);
-            $table->string('stok', 100);
             $table->string('foto_kategori', 100);
             $table->timestamps();
         });

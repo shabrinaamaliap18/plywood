@@ -24,10 +24,45 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="judul">Stok</label>
-                    <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok"
-                        placeholder="Masukkan harga produk baru" name="stok" value="{{$produk->stok}}" required>
-                    @error('stok')
+                    <label for="judul">Kategori</label>
+                    <input type="text" class="form-control @error('kategori') is-invalid @enderror"
+                        id="kategori" placeholder="Masukkan nama kategori baru" name="kategori"
+                        value="{{$produk->kategori}}">
+
+                    @error('kategori')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Material</label>
+                    <input type="text" class="form-control @error('material') is-invalid @enderror"
+                        id="material" placeholder="Masukkan nama material baru" name="material"
+                        value="{{$produk->material}}">
+
+                    @error('material')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Ukuran</label>
+                    <input type="text" class="form-control @error('ukuran') is-invalid @enderror"
+                        id="ukuran" placeholder="Masukkan ukuran baru" name="ukuran"
+                        value="{{$produk->ukuran}}">
+
+                    @error('ukuran')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Jumlah Ukuran</label>
+                    <input type="text" class="form-control @error('jml_ukuran') is-invalid @enderror"
+                        id="jml_ukuran" placeholder="Masukkan jml ukuran baru" name="jml_ukuran"
+                        value="{{$produk->jml_ukuran}}">
+
+                    @error('jml_ukuran')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -37,15 +72,6 @@
                     <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga"
                         placeholder="Masukkan stok produk baru" name="harga" value="{{$produk->harga}}" required>
                     @error('harga')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="judul">Status</label>
-                    <input type="number" class="form-control @error('is_ready') is-invalid @enderror" id="is_ready"
-                        placeholder="Masukkan status produk baru" name="is_ready" value="{{$produk->is_ready}}" required>
-                    @error('is_ready')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

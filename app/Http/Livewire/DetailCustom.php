@@ -30,7 +30,7 @@ class DetailCustom extends Component
         $this->alamat = Auth::user()->alamat;
         $this->custom_details = [];
         $this->customs = auth()->user()->customs()->whereStatus_cus('0')->get() ?? [];
-
+// dd($this->custom_details);
     }
 
     public function cancelOrder($id) {
@@ -72,7 +72,7 @@ class DetailCustom extends Component
                         if($custom->status_cus === '0') {
                             $custom->status_cus = '2';
                             $custom->save();
-                            $custom->user->createNotification('Yeayyy pembayaran <strong>'.$custom->uniqode.'</strong> dikonfirmasi.', 'historyc');
+                            $custom->user->createNotification('Pembayaran <strong>'.$custom->uniqode.'</strong> dikonfirmasi.', 'historyc');
                             redirect('/detailcustom');
                         }
                     } else {

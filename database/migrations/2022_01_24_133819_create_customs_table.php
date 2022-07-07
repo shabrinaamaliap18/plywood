@@ -18,7 +18,8 @@ class CreateCustomsTable extends Migration
             $table->integer('user_id');
             $table->string('kode_pemesanan_cus')->nullable();
             $table->string('status_cus')->default(0);
-            $table->string('total_harga_cus')->nullable();
+            $table->integer('ongkir_cus')->nullable();
+            $table->integer('total_harga_cus')->nullable();
             $table->timestamp('tanggal_transaksi_cus');
             $table->string('alat_angkut_cus')->nullable();
             $table->string('ket_cus')->nullable();

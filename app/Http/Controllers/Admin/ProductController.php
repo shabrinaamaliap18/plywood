@@ -34,9 +34,11 @@ class ProductController extends Controller
 
         $lastid = Product::create(([
             'nama' => $request->nama,
-            'stok' => $request->stok,
+            'kategori' => $request->kategori,
+            'material' => $request->material,
+            'ukuran' => $request->ukuran,
+            'jml_ukuran' => $request->jml_ukuran,
             'harga' => $request->harga,
-            'is_ready' => $request->is_ready,
             'gambar_produk' => $request->gambar_produk,
 
         ]))->id;
@@ -61,9 +63,11 @@ class ProductController extends Controller
         }
 
         $produk->nama = $request->nama;
-        $produk->stok = $request->stok;
+        $produk->kategori = $request->kategori;
+        $produk->material = $request->material;
+        $produk->ukuran = $request->ukuran;
+        $produk->jml_ukuran = $request->jml_ukuran;
         $produk->harga = $request->harga;
-        $produk->is_ready = $request->is_ready;
         $produk->save();
         return redirect('/produk')->with('status', 'Data produk Berhasil Diubah!');
     }
@@ -75,27 +79,7 @@ class ProductController extends Controller
         return redirect('/produk')->with('status', 'Data produk Berhasil Dihapus!');
     }
 
-    public function getSub()
-    {
-        $produk2 = DB::table('produk')
-            ->where("jabatan", "koordinator")
-            ->orWhere("jabatan", "opd dinkes")
-            ->orWhere("jabatan", "opd dp5a")
-            ->orWhere("jabatan", "opd dkrth")
-            ->orWhere("jabatan", "kecamatan")
-            ->orWhere("jabatan", "kelurahan")
-            ->pluck("nama_produk", "id");
-
-            return json_encode($produk2);
-    }
-
-    public function getKategori()
-    {
-        $kategori = DB::table('categories')->pluck("nama_kategori", "id");
-
-        return view('admin.produk-tambah', compact('kategori'));
-    }
-
+    
 
 
 }

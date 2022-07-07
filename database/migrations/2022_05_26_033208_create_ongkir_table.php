@@ -16,7 +16,7 @@ class CreateOngkirTable extends Migration
         Schema::create('ongkir', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kota');
-            $table->string('harga_ongkir');
+            $table->integer('harga_ongkir');
             $table->timestamps();
         });
     }

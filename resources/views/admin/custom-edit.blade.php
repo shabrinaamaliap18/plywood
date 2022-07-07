@@ -28,26 +28,28 @@
                                 <div class="col-12 mb-4" style="border-bottom: 1px solid rgb(216, 216, 216);">
                                     <div class="form-group">
                                         <label for="judul">Produk</label>
-                                        @if ($produk->product())
-                                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
-                                            value="{{ str_replace(array('[','"',']'),'',$produk->product()->kategori)}}" required readonly>
-                                            @error('nama')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        @else
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
-                                        value="-" required readonly>
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Produk" name="nama"
+                                        value="{{ str_replace(array('[','"',']'),'',$produk->kategory->nama_kategori)}}" required readonly>
                                         @error('nama')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        @endif
                                     </div>
 
                                     <div class="form-group">
                                         <label for="judul">Ukuran</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
-                                        value="{{ $produk->ukuran }}" required readonly>
+                                        value="{{ $produk->tebal }} x {{ $produk->lebar }} x  {{ $produk->panjang }} mm" readonly>
                                         @error('nama')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <input type="hidden" name="ids[]" value="{{$produk->id}}" />
+
+                                    <div class="form-group">
+                                        <label for="judul">Harga</label>
+                                        <input type="number" class="form-control @error('harga_cus') is-invalid @enderror" id="harga_cus" placeholder="Masukkan harga cus" name="harga_cus_{{$produk->id}}" value="{{$produk->harga_cus}}" required>
+                                        @error('harga_cus')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -117,19 +119,19 @@
 
                 <div class="form-group">
                     <label for="judul">Status</label>
-                    <input type="number" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Masukkan status pesanan" name="status_cus" value="{{$as->status_cus}}" readonly required>
+                    <input type="number" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Masukkan status pesanan" name="status_cus" value="{{$as->status_cus}}" required>
                     @error('status')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="judul">Total Biaya</label>
                     <input type="number" class="form-control @error('total_harga_cus') is-invalid @enderror" id="total_harga_cus" placeholder="Masukkan total harga pesanan" name="total_harga_cus" value="{{$as->total_harga_cus}}" required>
                     @error('total_harga_cus')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
 
 
                 <button type="submit" class="btn btn-success">Edit Pesanan</button>

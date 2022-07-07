@@ -62,8 +62,23 @@
 
                                 <div class="form-group">
                                     <label for="judul">Ukuran</label>
-                                    <input type="text-center" class="form-control" id="ukuran" placeholder="... x ... x ...   mm" name="ukuran" class="form-control @error('ukuran') is-invalid @enderror" value="{{ old ('ukuran')}}" required>
+                                    <div class="row g-3">
+                                    <div class="col-md-2">
+                                        <!-- kolom 1 -->
+                                        <input type="number" id="tebal" name="tebal" class="form-control" placeholder="tebal" class="form-control @error('tebal') is-invalid @enderror" value="{{ old ('tebal')}}">
+                                    </div> X
+                                    <div class="col-md-2">
+                                        <!-- kolom 2 -->
+                                        <input type="number" id="lebar" name="lebar" class="form-control" placeholder="lebar" class="form-control @error('lebar') is-invalid @enderror" value="{{ old ('lebar')}}">
+                                    </div> X
+                                    <div class="col-md-2">
+                                        <!-- kolom 3 -->
+                                        <input type="number" id="panjang" name="panjang" class="form-control" placeholder="panjang" class="form-control @error('panjang') is-invalid @enderror" value="{{ old ('panjang')}}">
+                                    </div> 
+                                     mm
                                 </div>
+                                </div>
+
 
                                 <tr>
                                     <td>Jumlah</td>

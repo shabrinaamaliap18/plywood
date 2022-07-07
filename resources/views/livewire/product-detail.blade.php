@@ -33,14 +33,7 @@
             <h2>
                 <strong>{{ $product->nama }}</strong>
             </h2>
-            <h4>
-                Rp. {{ number_format($product->harga) }}
-                @if($product->is_ready == 1)
-                <span class="badge badge-success"> <i class="fas fa-check"></i> Ready Stok</span>
-                @else
-                <span class="badge badge-danger"> <i class="fas fa-times"></i> Stok Habis</span>
-                @endif
-            </h4>
+           
             <br>
             <div class="row">
                 <div class="col">
@@ -86,7 +79,7 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <button type="submit" class="btn btn-dark btn-block" @if($product->is_ready !== 1) disabled @endif><i class="fas fa-shopping-cart"></i> Masukkan Keranjang</button>
+                                    <button type="submit" class="btn btn-dark btn-block"><i class="fas fa-shopping-cart"></i> Masukkan Keranjang</button>
                                 </td>
                             </tr>
                         </table>

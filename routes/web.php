@@ -27,12 +27,6 @@ Route::get('/notacustom/{id}', 'NotaCustomController@pdf');
 
 
 
-
-
-
-
-
-
 Route::livewire('/', 'home')->name('home');
 Route::livewire('/products', 'product-index')->name('products');
 Route::livewire('/custom', 'custom')->name('custom');
@@ -53,22 +47,13 @@ Route::middleware(['auth'])->group(function() {
 
 Route::middleware('auth.admin')->group(function() {
     //DASHBOARD
-    Route::get('dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
     Route::resource('/dashboard', 'Admin\DashboardController');
-
+    
     //CATEGORI
     Route::get('/categories/edit/{id}', 'Admin\CategoriController@edit');
     Route::put('/categories/update/{id}', 'Admin\CategoriController@update');
     Route::get('/categories/tambah', 'Admin\CategoriController@tambah');
     Route::get('/categories/hapus/{id}', 'Admin\CategoriController@delete');
-    Route::get('/categories/cari', 'Admin\CategoriController@cari');
-    Route::get('/categories/trash', 'Admin\CategoriController@trash');
-    Route::get('/categories/kembalikan/{id}', 'Admin\CategoriController@kembalikan');
-    Route::get('/categories/kembalikan_semua', 'Admin\CategoriController@kembalikan_semua');
-    Route::get('/categories/hapus_permanen/{id}', 'Admin\CategoriController@hapus_permanen');
-    Route::get('/categories/hapus_permanen_semua', 'Admin\CategoriController@hapus_permanen_semua');
     Route::resource('/categories', 'Admin\CategoriController');
     //BATAS CATEGORI
 
@@ -96,6 +81,11 @@ Route::middleware('auth.admin')->group(function() {
     //REKAP LAPORAN
     Route::post('/rekap/date', 'Admin\RekapLaporanController@search');
     Route::resource('/rekap', 'Admin\RekapLaporanController');
+    //BATAS REKAP LAPORAN
+
+    //REKAP LAPORAN
+    Route::post('/rekapcus/date', 'Admin\RekapCusLaporanController@search');
+    Route::resource('/rekapcus', 'Admin\RekapCusLaporanController');
     //BATAS REKAP LAPORAN
 
     //CUSTOMER
@@ -128,13 +118,7 @@ Route::middleware('auth.admin')->group(function() {
     Route::resource('/admin', 'Admin\UserAdminController');
     //USER ADMIN
 
-    //USER CUSTOMER
-    // Route::get('/customer/edit/{id}', 'Admin\UserCustomerController@edit');
-    // Route::put('/customer/update/{id}', 'Admin\UserCustomerController@update');
-    // Route::get('/customer/tambah', 'Admin\UserCustomerController@tambah');
-    // Route::get('/customer/hapus/{id}', 'Admin\UserCustomerController@delete');
-    // Route::resource('/customer', 'Admin\UserCustomerController');
-    //USER CUSTOMER
+  
 
     //ONGKIR
     Route::get('/ongkir/edit/{id}', 'Admin\OngkirController@edit');
@@ -144,11 +128,5 @@ Route::middleware('auth.admin')->group(function() {
     Route::resource('/ongkir', 'Admin\OngkirController');
     //ONGKIR
 
-    //UKURAN
-    Route::get('/ukuran/edit/{id}', 'Admin\UkuranController@edit');
-    Route::put('/ukuran/update/{id}', 'Admin\UkuranController@update');
-    Route::get('/ukuran/tambah', 'Admin\UkuranController@tambah');
-    Route::get('/ukuran/hapus/{id}', 'Admin\UkuranController@delete');
-    Route::resource('/ukuran', 'Admin\UkuranController');
-    //UKURAN
+
 });

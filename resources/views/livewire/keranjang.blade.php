@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row mt-4 mb-2">
-        <div class="col">
+        <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-dark">Home</a></li>
@@ -13,22 +13,29 @@
     <div class="row">
         <div class="col-md-12">
             @if($notification)
-                @if($notification['type'] === 'success')
-                <div class="alert alert-success">
-                    {{ $notification['msg'] }}
-                </div>
-                @else
-                <div class="alert alert-danger">
-                    {{ $notification['msg'] }}
-                </div>
-                @endif
+            @if($notification['type'] === 'success')
+            <div class="alert alert-success">
+                {{ $notification['msg'] }}
+            </div>
+            @else
+            <div class="alert alert-danger">
+                {{ $notification['msg'] }}
+            </div>
+            @endif
             @endif
         </div>
     </div>
 
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Harap tekan tombol "Update" jika telah mengedit jumlah pesanan agar data terupdate. Terimakasih.</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
 
     <div class="row">
-        <div class="col">
+        <div class="col-12">
             <div class="table-responsive">
                 <table class="table text-center">
                     <thead>
@@ -46,7 +53,7 @@
                     <tbody>
                         <?php $no = 1 ?>
                         @forelse ($pesanan_details as $pesanan_detail)
-                            @livewire('edit-singleton-cart', ['no' => $no++,'id' => $pesanan_detail->id,'image' => $pesanan_detail->product->gambar_produk,'name' => $pesanan_detail->product->nama,'amount' => $pesanan_detail->jumlah_pesanan,'price' => $pesanan_detail->product->harga,'total_price' => $pesanan_detail->total_harga], key($pesanan_detail->id))
+                        @livewire('edit-singleton-cart', ['no' => $no++,'id' => $pesanan_detail->id,'image' => $pesanan_detail->product->gambar_produk,'name' => $pesanan_detail->product->nama,'amount' => $pesanan_detail->jumlah_pesanan,'price' => $pesanan_detail->product->harga,'total_price' => $pesanan_detail->total_harga], key($pesanan_detail->id))
                         @empty
                         <tr>
                             <td colspan="7">Data Kosong</td>
@@ -57,7 +64,7 @@
                         {{-- <tr>
                             <td colspan="6" align="right"><strong>Total Harga : </strong></td>
                             <td align="right"><strong>Rp. {{ number_format($pesanan_detail->total_harga) }}</strong> </td>
-                            <td></td>
+                        <td></td>
                         </tr> --}}
 
                         <tr>

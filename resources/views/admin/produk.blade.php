@@ -28,9 +28,10 @@
                         <th width="80px" scope="col" style="text-align:center;">No. </th>
                         
                         <th>Nama</th>
-                        <th>Stok</th>
+                        <th>Kategori</th>
+                        <th>Material</th>
+                        <th>Ukuran</th>
                         <th>Harga</th>
-                        <th>Status</th>
                         <th>Foto Produk</th>
                         <th>Aksi</th>
                     </tr>
@@ -42,9 +43,10 @@
                     <tr>
                         <th width="80px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
                         <td>{{ $as->nama}}</td>
-                        <td>{{ $as->stok}}</td>
+                        <td>{{ $as->kategori}}</td>
+                        <td>{{ $as->material}}</td>
+                        <td>{{ $as->ukuran}}</td>
                         <td>{{ $as->harga}}</td>
-                        <td>{{ $as->is_ready}}</td>
                         <td><br><img class="img" width="100px" src="../image/{{$as->gambar_produk}}"></td>
                         <td>
                         <a class="fas fa-edit" style="color:orange"   href="produk/edit/{{$as->id}}"></a>

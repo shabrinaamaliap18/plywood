@@ -33,16 +33,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="judul">Stok</label>
-                    <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok"
-                        placeholder="Masukkan stok baru" name="stok" value="{{$categories->stok}}" required>
-                    @error('stok')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-
-                <div class="form-group">
                     <label for="image">Foto Kategori</label>
 
                     <input type="file" class="form-control-file" id="foto_kategori" placeholder="Masukkan foto"

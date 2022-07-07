@@ -21,11 +21,11 @@
             </div>
             @endif
 
-            <a href="/customm/bayar" class="btn btn-success"> Pesanan Telah Dibayar</a> <br><br>
+            <!-- <a href="/customm/bayar" class="btn btn-success"> Pesanan Telah Dibayar</a> <br><br>
             <b>
                 <h2>Pesanan Belum Dibayar</h2>
             </b>
-            <br>
+            <br> -->
             <table id="myTable" class="table table-striped" style="width:100%">
                 <thead class="table table-hover">
                     <tr>
@@ -52,9 +52,11 @@
                     <tr>
                         <th width="80px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
                         <td>{{ $as->name}}</td>
-                        <td>{{ str_replace(array('[','"',']'),'',$produk->pluck('nama_kategori'))}}<br>{{ str_replace(array('[','"',']'),'',$produk->pluck('nama_material'))}}<br>{{$as->ukuran}}</td>
-                        <td>{{ $as->ongkir_cus}}</td>
+                        @foreach ($as->custom_details as $produk)
+                        <td>{{ str_replace(array('[','"',']'),'',$produk->kategory->nama_kategori)}}<br>{{ str_replace(array('[','"',']'),'',$produk->materyal->nama_material)}}<br>{{$as->tebal}} x {{$as->lebar}} x {{$as->panjang}} mm</td>
+                        @endforeach
                         <td>{{ $as->jumlah_pesanan_cus}}</td>
+                        <td>{{ $as->ongkir_cus}}</td>
                         <td>{{ $as->total_harga_cus}}</td>
                         <td>{{ $as->nohp}}</td>
                         <td>{{ $as->alamat}}</td>

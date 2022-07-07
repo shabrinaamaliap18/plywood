@@ -24,11 +24,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="judul">Stok</label>
-                    <input type="number" class="form-control" id="stok" placeholder="Masukkan jumlah stok baru" name="stok" required>
-                </div>
-
-                <div class="form-group">
                     <label for="gambar">Foto Kategori</label>
                     <input type="file" class="form-control-file" id="foto_kategori" placeholder="Masukkan foto" name="foto_kategori" required>
                 </div>

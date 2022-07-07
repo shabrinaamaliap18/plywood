@@ -48,7 +48,7 @@ class EditSingletonCart extends Component
         }
 
         $this->emit('refreshComponent');
-        $this->emitUp('updatedNotification', ['type' => 'success','msg' => 'Cart Deleted']);
+        $this->emitUp('updatedNotification', ['type' => 'success','msg' => 'Keranjang berhasil dihapus']);
         $this->emit('masukKeranjang');
     }
 
@@ -68,7 +68,7 @@ class EditSingletonCart extends Component
 
         // EMIT EVENT
         $this->emit('refreshComponent');
-        $this->emitUp('updatedNotification', ['type' => 'success', 'msg' => 'Keranjang Diupdate.']);
+        $this->emitUp('updatedNotification', ['type' => 'success', 'msg' => 'Keranjang Berhasil Diupdate.']);
         $this->emit('masukKeranjang');
     }
 

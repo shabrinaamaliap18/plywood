@@ -23,9 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('material');
             $table->string('ukuran');
             $table->string('jml_ukuran');
-            $table->string('stok');
             $table->integer('harga');
-            $table->boolean('is_ready')->default(true);
             $table->string('gambar_produk');
             $table->timestamps();
         });

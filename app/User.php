@@ -49,6 +49,9 @@ class User extends Authenticatable
     public function customs() {
         return $this->hasMany(CustomP::class,'user_id','id');
     }
+    public function histories() {
+        return $this->hasMany(History::class,'user_id','id');
+    }
     public function checkoutableCount() {
         return $this->customs()->where('total_harga_cus', '>', '0')->whereStatus_cus('0')->count();
     }

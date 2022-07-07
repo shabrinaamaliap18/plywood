@@ -6,8 +6,8 @@
             <div class=" section-header">
                 <br><h1>Tambah Produk</h1><br>
             </div>
-            <form method="post" action="/admin/produk" enctype="multipart/form-data">
-            {{ csrf_field() }}
+            <form method="post" action="/produk" enctype="multipart/form-data">
+              {{ csrf_field() }}
 
 
                 <div class="table">
@@ -18,18 +18,28 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="judul">Stok</label>
-                    <input type="number" class="form-control" id="harga" placeholder="Masukkan stok produk baru" name="harga" required>
+                    <label for="judul">Kategori</label>
+                    <input type="text" class="form-control" id="kategori" placeholder="Masukkan nama kategori baru" name="kategori" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Material</label>
+                    <input type="text" class="form-control" id="material" placeholder="Masukkan nama material baru" name="material" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Ukuran</label>
+                    <input type="text" class="form-control" id="ukuran" placeholder="Masukkan ukuran baru" name="ukuran" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Jumlah Ukuran</label>
+                    <input type="text" class="form-control" id="jml_ukuran" placeholder="Masukkan jml ukuran baru" name="jml_ukuran" required>
                 </div>
 
                 <div class="form-group">
                     <label for="judul">Harga</label>
                     <input type="number" class="form-control" id="harga" placeholder="Masukkan harga produk baru" name="harga" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="judul">Status</label>
-                    <input type="number" class="form-control" id="is_ready" placeholder="Masukkan status produk baru" name="is_ready" required>
                 </div>
 
                 <div class="form-group">

@@ -25,10 +25,8 @@
     <td>
         <form wire:submit.prevent="updates">
 
-            <button type="submit" class="btn" style="padding:0;margin:0;float:left;">
-                <i class="fas fa-edit" style="color:orange"></i>
-            </button>
+            <button type ="submit" type="button" class="btn btn-warning btn-sm" style="padding:0;margin:0.1;float:left;">Update</button>
         </form>
-        <button wire:click.prevent="destroy" class="btn" style="padding:0;margin:0;float:left;"><i class="fas fa-trash text-danger"></i></button>
+        <button wire:click.prevent="destroy" type="button" class="btn btn-danger btn-sm" style="padding:0;margin:0.1;float:right;">Hapus</button>
     </td>
 </tr>

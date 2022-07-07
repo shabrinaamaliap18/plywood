@@ -56,7 +56,7 @@
                                             <li class="list-group-item">
                                                 {{$detail->kategory->nama_kategori}} <br />
                                                 {{$detail->materyal->nama_material}} <br />
-                                                {{$detail->ukuran}}
+                                                {{ $detail->tebal }} x {{ $detail->lebar }} x {{ $detail->panjang }} mm
                                             </li>
                                         @endif
                                     @endforeach
@@ -131,7 +131,7 @@
                                             <li class="list-group-item">
                                                 {{$detail->kategory->nama_kategori}} <br />
                                                 {{$detail->materyal->nama_material}} <br />
-                                                {{$detail->ukuran}}
+                                                {{ $detail->tebal }} x {{ $detail->lebar }} x {{ $detail->panjang }} mm
                                             </li>
                                         @endif
                                     @endforeach

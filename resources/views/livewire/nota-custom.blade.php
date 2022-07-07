@@ -71,20 +71,20 @@
                     {{ $o->jumlah_pesanan_cus }}
                     <br>
                     <strong>Ukuran:</strong>&nbsp;
-                    {{ $o->ukuran }}
+                    {{$o->tebal}} x {{$o->lebar}} x {{$o->panjang}} mm
 
                 </td>
-                <td>Rp {{ number_format($o->product()->harga)}}</td>
+                <td>Rp {{ number_format($o->harga_cus)}}</td>
             </tr>
             @php
-                $t+=$o->product()->harga;
+                $t=$o->harga_cus;
             @endphp
             @endforeach
 
             <tr class="total">
                 <td></td>
                 <td>
-                    Total: Rp {{ number_format($t) }}
+                    Total: Rp {{ number_format($o->custom->total_harga_cus) }}
                 </td>
             </tr>
             {{-- @endforeach --}}
