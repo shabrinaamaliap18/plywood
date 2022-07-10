@@ -33,10 +33,8 @@ class ProductDetail extends Component
         if (!Auth::user()) {
             return redirect()->route('login');
         }
-
         //Menghitung Total Harga
         $total_harga = ($this->jumlah_pesanan * $this->product->jml_ukuran * $this->product->harga) / 1000000000;
-
 
         //Ngecek Apakah user punya data pesanan utama yg status nya 0
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
@@ -45,8 +43,6 @@ class ProductDetail extends Component
         $pesanan2 = Pesanan::join('users', 'users.id', 'pesanans.user_id')->where('user_id', Auth::user()->id)->where('status', 0)->first();
         $AlamatSama = Ongkir::join('users', 'ongkir.nama_kota', 'users.lokasi')->where('users.id', Auth::user()->id)->first();
         $hargafix = $AlamatSama->harga_ongkir;
-        // dd($AlamatSama);
-
 
         //Menyimpan / Update Data Pesanan Utama
         //ini jika pesanan masi kosong
@@ -74,14 +70,9 @@ class ProductDetail extends Component
             'jumlah_pesanan' => $this->jumlah_pesanan,
             'total_harga' => $total_harga,
         ]);
-
-        
-
         $this->emit('masukKeranjang');
         return redirect('/keranjang');
-        // session()->flash('message', "Sukses Masuk Keranjang");
-        // return redirect()->route('home')->with('success', "Sukses Masuk Keranjang");
-    }
+         }
 
     public function render()
     {

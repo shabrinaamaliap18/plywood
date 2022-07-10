@@ -65,9 +65,7 @@ class PesananController extends Controller
         $pesanan = Pesanan::find($id);
         $pesanan->alat_angkut = $request->alat_angkut;
         $pesanan->ket = $request->ket;
-        $pesanan->ongkir = $request->ongkir;
         $pesanan->status = $request->status;
-        $pesanan->total_harga = $request->total_harga;
         $pesanan->save();
         return redirect('/pesanan')->with('status', 'Data pesanan Berhasil Diubah!');
     }
@@ -76,7 +74,8 @@ class PesananController extends Controller
     {
         $pesanan = History::find($id);
         $pesanan->status = $request->status;
-        $pesanan->total_harga = $request->total_harga;
+        $pesanan->alat_angkut = $request->alat_angkut;
+        $pesanan->ket = $request->ket;
         $pesanan->save();
         return redirect('/pesanan/bayar')->with('status', 'Data pesanan Berhasil Diubah!');
     }

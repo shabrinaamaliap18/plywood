@@ -25,9 +25,8 @@
             <table id="myTable" class="table table-striped" style="width:100%">
                 <thead class="table table-hover">
                     <tr>
-                        <th width="80px" scope="col" style="text-align:center;">No. </th>
-                        
-                        <th>Nama Kategori</th>
+                        <th width="5px" scope="col" style="text-align:center;">No. </th>
+                        <th width="100px">Nama Kategori</th>
                         <th>Keterangan Kategori</th>
                         <th>Foto Kategori</th>
                         <th>Aksi</th>
@@ -38,15 +37,14 @@
               
                     @foreach($categories as $as)
                     <tr>
-                        <th width="80px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
+                        <th width="5px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
                         <td>{{ $as->nama_kategori}}</td>
-                        <td>{{ $as->keterangan_kategori}}</td>
+                        <td width="500px">{{ $as->keterangan_kategori}}</td>
                         <td><br><img class="img" width="100px" src="../image/{{$as->foto_kategori}}"></td>
                         <td>
-                            <a class="fas fa-edit" style="color:orange" href="categories/edit/{{$as->id}}"></a>
-                            &nbsp;&nbsp;
-                            <a class="fas fa-trash" style="color:red" href="categories/hapus/{{$as->id}}"
-                                onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"></a>
+                        <a href="categories/edit/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
+                        &nbsp;&nbsp;
+                        <a href="categories/hapus/{{$as->id}}"><button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> <i class="fas fa-trash"></i></button></a>
                         </td>
                     </tr>
                     @endforeach

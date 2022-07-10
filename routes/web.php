@@ -51,12 +51,27 @@ Route::middleware('auth.admin')->group(function() {
     
     //CATEGORI
     Route::get('/categories/edit/{id}', 'Admin\CategoriController@edit');
-    Route::put('/categories/update/{id}', 'Admin\CategoriController@update');
+    Route::patch('/categories/update/{id}', 'Admin\CategoriController@update');
     Route::get('/categories/tambah', 'Admin\CategoriController@tambah');
     Route::get('/categories/hapus/{id}', 'Admin\CategoriController@delete');
     Route::resource('/categories', 'Admin\CategoriController');
     //BATAS CATEGORI
 
+    //MATERIAL
+    Route::get('/material/edit/{id}', 'Admin\MaterialController@edit');
+    Route::put('/material/update/{id}', 'Admin\MaterialController@update');
+    Route::get('/material/tambah', 'Admin\MaterialController@tambah');
+    Route::get('/material/hapus/{id}', 'Admin\MaterialController@delete');
+    Route::resource('/material', 'Admin\MaterialController');
+    //BATAS MATERIAL
+
+    //PRODUK
+    Route::get('/produk/edit/{id}', 'Admin\ProductController@edit');
+    Route::put('/produk/update/{id}', 'Admin\ProductController@update');
+    Route::get('/produk/tambah', 'Admin\ProductController@tambah');
+    Route::get('/produk/hapus/{id}', 'Admin\ProductController@delete');
+    Route::resource('/produk', 'Admin\ProductController');
+    //BATAS PRODUK
 
     //PESANAN
     Route::get('/pesanan/edit/{id}', 'Admin\PesananController@edit');
@@ -79,8 +94,8 @@ Route::middleware('auth.admin')->group(function() {
     //BATAS CUSTOM
 
     //REKAP LAPORAN
-    Route::post('/rekap/date', 'Admin\RekapLaporanController@search');
-    Route::resource('/rekap', 'Admin\RekapLaporanController');
+    Route::post('/rekap/date', 'Admin\LaporanController@search');
+    Route::resource('/rekap', 'Admin\LaporanController');
     //BATAS REKAP LAPORAN
 
     //REKAP LAPORAN
@@ -89,25 +104,10 @@ Route::middleware('auth.admin')->group(function() {
     //BATAS REKAP LAPORAN
 
     //CUSTOMER
-    Route::get('/customer/hapus/{id}', 'Admin\UserCustomerController@delete');
-    Route::resource('/customer', 'Admin\UserCustomerController');
+    Route::get('/customer/hapus/{id}', 'Admin\UserPelangganController@delete');
+    Route::resource('/customer', 'Admin\UserPelangganController');
     //CUSTOMER
 
-    //MATERIAL
-    Route::get('/material/edit/{id}', 'Admin\MaterialController@edit');
-    Route::put('/material/update/{id}', 'Admin\MaterialController@update');
-    Route::get('/material/tambah', 'Admin\MaterialController@tambah');
-    Route::get('/material/hapus/{id}', 'Admin\MaterialController@delete');
-    Route::resource('/material', 'Admin\MaterialController');
-    //BATAS MATERIAL
-
-    //PRODUK
-    Route::get('/produk/edit/{id}', 'Admin\ProductController@edit');
-    Route::put('/produk/update/{id}', 'Admin\ProductController@update');
-    Route::get('/produk/tambah', 'Admin\ProductController@tambah');
-    Route::get('/produk/hapus/{id}', 'Admin\ProductController@delete');
-    Route::resource('/produk', 'Admin\ProductController');
-    //BATAS PRODUK
 
     //USER ADMIN
     Route::get('/admin/edit/{id}', 'Admin\UserAdminController@edit');

@@ -41,13 +41,12 @@
                         <th width="80px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
                         <td>{{ $as->nama_material}}</td>
                         <td>{{ $as->stok_material}}</td>
-                        <td><br><img class="img" width="100px" src="../image/{{$as->foto_material}}"></td>
+                        <td><br><img class="img" width="100px" src="/image/{{$as->foto_material}}"></td>
                         <td>
-                        <a class="fas fa-edit" style="color:orange" href="material/edit/{{$as->id}}"> </a>
-                        &nbsp;&nbsp;&nbsp;
-                        <a class="fas fa-trash" style="color:red" href="material/hapus/{{$as->id}}"
-                                onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> </a>
-                        </td>
+                        <a href="material/edit/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
+                        &nbsp;&nbsp;
+                        <a href="material/hapus/{{$as->id}}"><button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> <i class="fas fa-trash"></i></button></a>    
+                    </td>
                     </tr>
                     @endforeach
               

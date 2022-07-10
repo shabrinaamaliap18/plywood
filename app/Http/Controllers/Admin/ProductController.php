@@ -28,20 +28,21 @@ class ProductController extends Controller
 
     public function store(Request $request, Product $produk)
     {
+        $product = new Product();
+        $gambar_produk = $request->file('gambar_produk');
+        if (file_exists($gambar_produk)) {
+            $gambar_produk->move(public_path('image'), $gambar_produk->getClientOriginalName());
+            $product->gambar_produk = $gambar_produk->getClientOriginalName();
+        }
 
-        $gambar_produk = $request->gambar_produk->getClientOriginalName();
-        $request->gambar_produk->move(public_path('image'), $gambar_produk);
+        $product->nama = $request->input("nama");
+        $product->kategori = $request->input("kategori");
+        $product->material = $request->input("material");
+        $product->ukuran = $request->input("ukuran");
+        $product->jml_ukuran = $request->input("jml_ukuran");
+        $product->harga = $request->input("harga");
 
-        $lastid = Product::create(([
-            'nama' => $request->nama,
-            'kategori' => $request->kategori,
-            'material' => $request->material,
-            'ukuran' => $request->ukuran,
-            'jml_ukuran' => $request->jml_ukuran,
-            'harga' => $request->harga,
-            'gambar_produk' => $request->gambar_produk,
-
-        ]))->id;
+        $product->save();
         
         return redirect('/produk')->with('status', 'Data Produk Berhasil Ditambahkan!');
     }

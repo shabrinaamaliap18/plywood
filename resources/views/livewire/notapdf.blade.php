@@ -12,7 +12,7 @@
                         <tr>
                             <td>
                                 <h3 style="text-align: center; text-decoration: underline;"> NOTA PERUSAHAAN</h3>
-                                <p style="text-align: center; line-height: 0.2em"> 07/MAS/NP/VIII/2021</p>
+                                <p style="text-align: center; line-height: 0.2em"></p>
                                 <p class="img" style="text-align: right; line-height: 2px">
                                     <img src="{{ public_path('image/legal - Copy.png') }}" />
                                 </p>

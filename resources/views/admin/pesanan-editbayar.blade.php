@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <label for="judul">Alat Angkut</label>
-                    <input type="number" class="form-control @error('alat_angkut') is-invalid @enderror" id="alat_angkut" placeholder="Masukkan jenis alat angkut" name="alat_angkut" value="{{$as->alat_angkut}}"  required>
+                    <input type="text" class="form-control @error('alat_angkut') is-invalid @enderror" id="alat_angkut" placeholder="Masukkan jenis alat angkut" name="alat_angkut" value="{{$as->alat_angkut}}"  required>
                     @error('alat_angkut')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -71,7 +71,7 @@
 
                 <div class="form-group">
                     <label for="judul">Ket</label>
-                    <input type="number" class="form-control @error('ket') is-invalid @enderror" id="ket" placeholder="Masukkan ket kendaraan" name="ket" value="{{$as->ket}}"  required>
+                    <input type="text" class="form-control @error('ket') is-invalid @enderror" id="ket" placeholder="Masukkan ket kendaraan" name="ket" value="{{$as->ket}}"  required>
                     @error('ket')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

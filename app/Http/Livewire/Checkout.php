@@ -22,6 +22,7 @@ class Checkout extends Component
 {
     public $total_harga, $nohp, $name, $alamat, $lokasi, $pesanan_user, $uniqode, $product_id;
     protected $pesanan;
+    protected $cetakproduct_id;
     protected $user;
     protected $pesanan_details = [];
 
@@ -81,7 +82,8 @@ class Checkout extends Component
         if (Auth::user()) {
 
 
-            $pesanan = Pesanan::join('users', 'pesanans.user_id', 'users.id')->where('user_id', Auth::user()->id)->where('pesanans.status', '0')->first();
+            $pesanan = Pesanan::join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)
+                ->where('pesanans.status', '0')->first(['pesanans.id', 'pesanans.*']);
 
             if ($pesanan) {
                 $pesanan_details = Pesanan::Where('pesanans.user_id', Auth::user()->id)->first();
@@ -116,14 +118,16 @@ class Checkout extends Component
                                 }
 
                                 $grandTotal =  floatval($pesanan->total_harga);
+                                // dd($grandTotal);
                                 $dataMidtrans = [
                                     'atasnama' => Auth::user()->name,
                                     'email' => Auth::user()->email,
                                     'telepon' => Auth::user()->nohp,
+                                    'amount' => $grandTotal,
                                     'total' => $grandTotal,
                                     'order_id' => $uniqode,
-                                    'amount' => $grandTotal
                                 ];
+                                // dd($dataMidtrans);
                                 //get mintrans snap 
 
                                 if ($pesanan_details->uniqode == NULL) {
@@ -135,7 +139,7 @@ class Checkout extends Component
                                     $pesananUpdate = Pesanan::join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)->first(['pesanans.id', 'pesanans.*']);
                                     $pesananUpdate->kode_midtrans = $tokenMidtrans;
                                     $pesananUpdate->uniqode = $uniqode;
-                                
+
                                     $pesananUpdate->save();
                                     // dd($pesananUpdate);
 
@@ -153,7 +157,11 @@ class Checkout extends Component
             }
         }
 
+        // $pesde = PesananDetail::join('pesanans', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)->get();
+        // dd($pesde);
+
         $pesde = PesananDetail::join('pesanans', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)->get();
+        // dd($pesde);
 
         $ongkir = Ongkir::get();
 
@@ -161,23 +169,36 @@ class Checkout extends Component
         $pesde2 = PesananDetail::join('pesanans', 'pesanan_details.pesanan_id', 'pesanans.id')->join('users', 'pesanans.user_id', 'users.id')->where('pesanans.user_id', Auth::user()->id)->get();
         // dd($pesde2);
 
+        //menampilkan data produk di hal cekout
         $pesdel = PesananDetail::join('products', 'pesanan_details.product_id', 'products.id')->get();
         // dd($pesdel);
 
         $pesanan = Pesanan::join('users', 'pesanans.user_id', 'users.id')->where('user_id', Auth::user()->id)->first();
-        // dd($pesanan);
+
+
 
         //ambil data pesanan
+        // foreach ($pesde as $key => $value) {
+        //     $check_productID[] = $pesde->product_id;
+        //     for ($i = 0; $i < count([$check_productID]); $i++) {
+        //         $cetakproduct_id = $check_productID[$i] . ', ' ;
+        //     }
+        //     dd($pesde,$value);
+        // }
+
+        $p = [];
         foreach ($pesde as $pesanan_detail) {
-            $check_productID[] = $pesanan_detail->product_id;
-            for ($i = 0; $i < count([$check_productID]); $i++) {
-                $cetakproduct_id = $check_productID[$i] . ', ';
-            }
+           $p[] = $pesanan_detail->product_id;
         }
+        $this->cetakproduct_id = implode(",",$p);
+        // dd($this->cetakproduct_id);
 
         if ($pesanan->status == 2) {
             DB::table('histories')->insert([
                 'user_id' => $pesanan->user_id,
+                'kode_pemesanan' => $pesanan->kode_pemesanan,
+                'uniqode' => $pesanan->uniqode,
+                'kode_midtrans' => $pesanan->kode_midtrans,
                 'total_harga' => $pesanan->total_harga,
                 'status' => $pesanan->status,
                 'ongkir' => $pesanan->ongkir,
@@ -188,8 +209,7 @@ class Checkout extends Component
                 'product_id' => $pesanan_detail->product_id
             ]);
 
-            $pesanan->user->createNotification('Pembayaran <strong>'.$pesanan->uniqode.'</strong> dikonfirmasi.', 'historyy');
-
+            $pesanan->user->createNotification('Pembayaran <strong>' . $pesanan->uniqode . '</strong> dikonfirmasi.', 'historyy');
         }
 
 
@@ -219,16 +239,17 @@ class Checkout extends Component
                     DB::table('pesanans')
                         ->where('uniqode', $kode)
                         ->update(['status' => '2']);
-                        return redirect('/');
-                    } else {
-                        return 'belum';
-                    }
+                    // return "berhasil";
+                    return redirect('/');
                 } else {
                     return 'belum';
                 }
             } else {
                 return 'belum';
             }
+        } else {
+            return 'belum';
+        }
 
 
         //return $hit->status_code;

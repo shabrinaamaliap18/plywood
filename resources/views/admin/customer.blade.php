@@ -47,8 +47,7 @@
                         <td>{{ $as->alamat}}</td>
                         <td>
                            
-                            <a class="class=btn btn-danger btn-sm"  href="customer/hapus/{{$as->id}}"
-                                onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> Hapus</a>
+                        <a href="customer/hapus/{{$as->id}}"><button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> <i class="fas fa-trash"></i></button></a>
                         </td>
                     </tr>
                     @endforeach

@@ -49,10 +49,10 @@
                         <td>{{ $as->harga}}</td>
                         <td><br><img class="img" width="100px" src="../image/{{$as->gambar_produk}}"></td>
                         <td>
-                        <a class="fas fa-edit" style="color:orange"   href="produk/edit/{{$as->id}}"></a>
-                            &nbsp;&nbsp;&nbsp;
-                        <a class="fas fa-trash" style="color:red" href="produk/hapus/{{$as->id}}"
-                                onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"></a>
+                        <a href="produk/edit/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
+                        &nbsp;&nbsp;
+                        <a href="produk/hapus/{{$as->id}}"><button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> <i class="fas fa-trash"></i></button></a>
+                        
                         </td>
                     </tr>
                     @endforeach

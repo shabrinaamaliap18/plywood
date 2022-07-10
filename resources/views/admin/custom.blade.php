@@ -64,12 +64,9 @@
                         <td>{{ $as->alat_angkut_cus}}</td>
                         <td>{{ $as->ket_cus}}</td>
                         <td>{{ $as->status_cus}}</td>
-
                         <td>{{ $as->created_at}}</td>
                         <td>
-                            <a class="fas fa-edit" style="color:orange" href="/customm/edit/{{$as->id}}"></a>
-
-
+                            <a href="/customm/edit/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
                         </td>
                     </tr>
                     @endforeach

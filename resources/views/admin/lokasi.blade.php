@@ -42,9 +42,9 @@
                         <td>{{ $as->nama_kota}}</td>
                         <td>{{ $as->harga_ongkir}}</td>
                         <td>
-                            <a class="fas fa-edit" style="color:orange" href="ongkir/edit/{{$as->id}}"></a>
-                            &nbsp;&nbsp;&nbsp;
-                            <a class="fas fa-trash" style="color:red" href="ongkir/hapus/{{$as->id}}" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"></a>
+                        <a href="ongkir/edit/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
+                        &nbsp;&nbsp;
+                        <a href="ongkir/hapus/{{$as->id}}"><button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> <i class="fas fa-trash"></i></button></a>
                         </td>
                     </tr>
                     @endforeach

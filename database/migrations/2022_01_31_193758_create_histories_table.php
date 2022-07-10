@@ -15,6 +15,9 @@ class CreateHistoriesTable extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_pemesanan');
+            $table->string('uniqode');
+            $table->string('kode_midtrans');
             $table->string('status')->default(0);
             $table->integer('ongkir');
             $table->integer('total_harga');

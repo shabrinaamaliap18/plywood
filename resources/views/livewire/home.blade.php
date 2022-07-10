@@ -43,7 +43,7 @@
                            <div class="Services_blog_inner">
                               <div class="icon"><img src="image/best-quality.png" alt=""></div><br>
                               <h4 class="Services-heading">Best Quality</h4>
-                              <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
+                              <p>Menghadirkan produk yang berkualitas</p>
                            </div>
                         </div>
                      </div>
@@ -52,7 +52,7 @@
                            <div class="Services_blog_inner">
                               <div class="icon"><img src="image/secure-payment.png" alt=""></div><br>
                               <h4 class="Services-heading">Secure Payment</h4>
-                              <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
+                              <p>Pembayaran akan diverifikasi secara otomatis oleh sistem</p>
                            </div>
                         </div>
                      </div>
@@ -61,7 +61,7 @@
                            <div class="Services_blog_inner">
                               <div class="icon"><img src="image/shipped.png" alt=""></div><br>
                               <h4 class="Services-heading">Best Shipped</h4>
-                              <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
+                              <p>Melakukan pengiriman produk dengan aman sampai tujuan</p>
                            </div>
                         </div>
                      </div>

@@ -13,7 +13,6 @@ class ProductIndex extends Component
 {
 
     public $search;
-
     public function mount() {
         $this->search = '';
     }

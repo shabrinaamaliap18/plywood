@@ -34,15 +34,16 @@ class MaterialController extends Controller
     public function store(Request $request, material $material)
     {
 
-        $foto_material = $request->foto_material->getClientOriginalName();
-        $request->foto_material->move(public_path('image'), $foto_material);
+        $material = new Material();
+        $foto_material = $request->file('foto_material');
+        if (file_exists($foto_material)) {
+            $foto_material->move(public_path('image'), $foto_material->getClientOriginalName());
+            $material->foto_material = $foto_material->getClientOriginalName();
+        }
 
-        $lastid = Material::create(([
-            'nama_material' => $request->nama_material,
-            'stok_material' => $request->stok_material,
-            'foto_material' => $request->foto_material,
-
-        ]))->id;
+        $material->nama_material = $request->input("nama_material");
+        $material->stok_material = $request->input("stok_material");
+        $material->save();
         
         return redirect('/material')->with('status', 'Data Material Berhasil Ditambahkan!');
     }

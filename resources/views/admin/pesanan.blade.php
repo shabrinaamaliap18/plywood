@@ -64,8 +64,8 @@
                         <td>{{ $as->ongkir}}</td>
                         <td>{{ $as->tanggal_transaksi}}</td>
                         <td>
-                            <a class="fas fa-edit" style="color:orange" href="pesanan/edit/{{$as->pesanan_id}}"></a>
 
+                            <a href="produk/edit/{{$as->pesanan_id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
 
                         </td>
                     </tr>

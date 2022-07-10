@@ -37,7 +37,6 @@
                         <th>Ket</th>
                         <th>Status</th>
                         <th>Tanggal Pesan</th>
-                        <th>Tanggal Bayar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -58,9 +57,9 @@
                         <td>{{ $as->ket}}</td>
                         <td>{{ $as->status}}</td>
                         <td>{{ $as->tanggal_transaksi}}</td>
-                        <td>{{ $as->updated_at}}</td>
                         <td>
-                            <a class="fas fa-edit" style="color:orange" href="/pesanan/editbayar/{{$as->id}}"></a>
+                            
+                            <a href="/pesanan/editbayar/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
 
 
                         </td>

@@ -7,10 +7,9 @@
               <br><br>  <h1>Edit Kategori</h1><br>
             </div>
 
-            <form method="post" enctype="multipart/form-data" action="/categories/{{$categories->id}}">
-
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
+            <form  enctype="multipart/form-data" action="/categories/update/{{$categories->id}}" method="POST">
+                @csrf
+                @method('PATCH')
 
                 <div class="form-group">
                     <label for="judul">Nama Kategori</label>
@@ -47,7 +46,7 @@
 
 
                 <button type="submit" class="btn btn-success">Edit Kategori</button>
-                <a href="/material" class="btn btn-info">Kembali</a> <br> <br> <br>
+                <a href="/categories" class="btn btn-info">Kembali</a> <br> <br> <br>
 
             </form>
 

@@ -65,15 +65,15 @@
                                     <div class="row g-3">
                                     <div class="col-md-2">
                                         <!-- kolom 1 -->
-                                        <input type="number" id="tebal" name="tebal" class="form-control" placeholder="tebal" class="form-control @error('tebal') is-invalid @enderror" value="{{ old ('tebal')}}">
+                                        <input type="number" min="9" max="25" id="tebal" name="tebal" class="form-control" placeholder="tebal" class="form-control @error('tebal') is-invalid @enderror" value="{{ old ('tebal')}}">
                                     </div> X
                                     <div class="col-md-2">
                                         <!-- kolom 2 -->
-                                        <input type="number" id="lebar" name="lebar" class="form-control" placeholder="lebar" class="form-control @error('lebar') is-invalid @enderror" value="{{ old ('lebar')}}">
+                                        <input type="number" min="1220" max="1220" id="lebar" name="lebar" class="form-control" placeholder="lebar" class="form-control @error('lebar') is-invalid @enderror" value="{{ old ('lebar')}}">
                                     </div> X
                                     <div class="col-md-2">
                                         <!-- kolom 3 -->
-                                        <input type="number" id="panjang" name="panjang" class="form-control" placeholder="panjang" class="form-control @error('panjang') is-invalid @enderror" value="{{ old ('panjang')}}">
+                                        <input type="number" min="1220" max="1950" id="panjang" name="panjang" class="form-control" placeholder="panjang" class="form-control @error('panjang') is-invalid @enderror" value="{{ old ('panjang')}}">
                                     </div> 
                                      mm
                                 </div>

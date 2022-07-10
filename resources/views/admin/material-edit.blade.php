@@ -50,7 +50,7 @@
 
 
                 <button type="submit" class="btn btn-success">Edit Material</button>
-                <a href="material" class="btn btn-info">Kembali</a> <br> <br> <br>
+                <a href="/material" class="btn btn-info">Kembali</a> <br> <br> <br>
 
 
             </form>

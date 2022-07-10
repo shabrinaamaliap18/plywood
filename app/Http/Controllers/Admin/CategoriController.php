@@ -33,15 +33,16 @@ class CategoriController extends Controller
     public function store(Request $request, categories $categories)
     {
 
-        $foto_kategori = $request->foto_kategori->getClientOriginalName();
-        $request->foto_kategori->move(public_path('image'), $foto_kategori);
+        $categories = new Categories();
+        $foto_kategori = $request->file('foto_kategori');
+        if (file_exists($foto_kategori)) {
+            $foto_kategori->move(public_path('image'), $foto_kategori->getClientOriginalName());
+            $categories->foto_kategori = $foto_kategori->getClientOriginalName();
+        }
 
-        $lastid = Categories::create(([
-            'nama_kategori' => $request->nama_kategori,
-            'keterangan_kategori' => $request->keterangan_kategori,
-            'foto_kategori' => $request->foto_kategori,
-
-        ]))->id;
+        $categories->nama_kategori = $request->input("nama_kategori");
+        $categories->keterangan_kategori = $request->input("keterangan_kategori");
+        $categories->save();
         
         return redirect('/categories')->with('status', 'Data Kategori Berhasil Ditambahkan!');
     }
