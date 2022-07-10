@@ -13,9 +13,9 @@
 
     <div class="row">
         <div class="col-md-12">
-            @if(session()->has('message'))
+            @if($notification)
             <div class="alert alert-success">
-                {{ session('message') }}
+                {{ $notification }}
             </div>
             @endif
         </div>
@@ -33,7 +33,7 @@
             <h2>
                 <strong>{{ $product->nama }}</strong>
             </h2>
-           
+
             <br>
             <div class="row">
                 <div class="col">

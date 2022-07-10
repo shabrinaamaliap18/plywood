@@ -11,7 +11,7 @@ class Ongkir extends Model
         'harga_ongkir',
     ];
 
-    protected $table = 'ongkir';
+    protected $table = 'ongkirs';
 
     public function pesanan()
     {

@@ -66,9 +66,13 @@ class Keranjang extends Component
         $pesanan_detail->jumlah_pesanan = $request->jumlah_pesanan;
         $pesanan_detail->total_harga = ($this->jumlah_pesanan*$this->product->jml_ukuran*$this->product->harga)/1000000000;
         $pesanan_detail->update();
-        // dd($pesanan_detail);
 
-        $this->emit('masukKeranjang');
+        $gross_amount = $pesanan->pesanan_details()->sum('total_harga');
+        $pesanan = $pesanan_detail->pesanan;
+        $pesanan->total_harga = $gross_amount + $pesanan->ongkir;
+        $pesanan->save();
+
+        $this->emit('updatedNotification');
 
         // session()->flash('message', 'Update Sukses!');
 

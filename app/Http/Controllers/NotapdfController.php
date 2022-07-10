@@ -17,7 +17,8 @@ class NotapdfController extends Controller
 
 
         // $this->pdf = History::join('products', 'histories.product_id', 'products.id')->join('users', 'histories.user_id', 'users.id')->where('histories.id', $id)->where('user_id', Auth::user()->id)->get(['histories.id', "product_id", "user_id", 'status', "total_harga", "name", "nama_perusahaan", "alamat", "nohp", "lokasi", "jumlah_pesanan", "nama", "kategori", "jml_ukuran",  "histories.tanggal_transaksi", "alat_angkut", "ket", 'histories.updated_at']);
-        $this->pdf = auth()->user()->histories()->with('user')->findOrFail($id);
+        // $this->pdf = auth()->user()->histories()->with('user')->findOrFail($id);
+        $this->pdf = auth()->user()->pesanans()->with('user')->findOrFail($id);
         // dd($this->order);
 
         $pdf = PDF::loadView('livewire.notapdf', [

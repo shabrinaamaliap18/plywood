@@ -50,10 +50,15 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $pesanan->tanggal_transaksi }}</td>
                             <td>{{ $pesanan->updated_at }}</td>
+                            @php
+                                $products = $pesanan->pesanan_details()->with('product')->get();
+                                $only_product = array_column($products->toArray(), 'product');
+                                $product_names = array_column($only_product, 'nama');
+                            @endphp
                             <td>
-                                {{ $pesanan->nama }}
+                                {{ implode(', ',$product_names) }}
                             </td>
-                            <td>{{ $pesanan->jumlah_pesanan }}</td>
+                            <td>{{ $pesanan->pesanan_details()->sum('jumlah_pesanan') }}</td>
                             <td>{{ $pesanan->alat_angkut }}</td>
                             <td>{{ $pesanan->ket }}</td>
                             <td>
@@ -121,10 +126,16 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $pesanan->tanggal_transaksi }}</td>
+                            @php
+                                $products = $pesanan->pesanan_details()->with('product')->get();
+                                $only_product = array_column($products->toArray(), 'product');
+                                $product_names = array_column($only_product, 'nama');
+                            @endphp
                             <td>
-                                {{ $pesanan->nama }}
+                                {{ implode(', ',$product_names) }}
                             </td>
-                            <td>{{ $pesanan->jumlah_pesanan }}</td>
+                            <td>{{ $pesanan->pesanan_details()->sum('jumlah_pesanan') }}</td>
+
                             <td>{{ $pesanan->alat_angkut }}</td>
                             <td>{{ $pesanan->ket }}</td>
                             <td>

@@ -22,7 +22,7 @@
                 </td>
             </tr>
 
-            {{-- @foreach ($pdfs as $pdf) --}}
+            {{-- @foreach ($pdf as $pdf) --}}
             <tr class="information">
                 <td colspan="2">
                     <table>
@@ -37,7 +37,7 @@
                             </td>
 
                             <td>
-                                <strong>Tujuan</strong><br>
+                                <strong>TUJUAN</strong><br>
                                 @if ($pdf->user)
                                 {{ $pdf->user->nama_perusahaan }}<br>
                                 {{ $pdf->user->name }}<br>
@@ -57,44 +57,50 @@
                 <td>Produk</td>
                 <td>Subtotal</td>
             </tr>
+            @php
+                $t = 0;
+            @endphp
 
+            @foreach ($pdf->pesanan_details as $o)
             <tr class="item">
                 <td>
-                    {{ $pdf->nama }}
-                    <br>
+
                     <strong>Jenis Kayu Olahan:</strong>&nbsp;
-                    {{ $pdf->product->categories->nama_kategori }}<br>
+                    {{ $o->product->nama }}<br>
                     <strong>Jumlah:</strong>&nbsp;
-                    {{ $pdf->jumlah_pesanan }}
+                    {{ $o->jumlah_pesanan }}
                     <br>
-                    <strong>Volume (M3):</strong>&nbsp;
-                    {{ ($pdf->jumlah_pesanan * $pdf->product->jml_ukuran / 1000000000) }}
+                    <strong>Ukuran:</strong>&nbsp;
+                    {{$o->product->ukuran}}
+
                 </td>
-                <td>Rp {{ number_format($pdf->total_harga)}}</td>
+                <td>Rp {{ number_format($o->total_harga)}}</td>
             </tr>
+            @php
+                $t=$o->harga;
+            @endphp
+            @endforeach
 
             <tr class="total">
                 <td></td>
                 <td>
-                    Subtotal: Rp {{ number_format($pdf->total_harga) }}
+                    Total: Rp {{ number_format($o->pesanan->total_harga) }}
                 </td>
             </tr>
             {{-- @endforeach --}}
 
-            <br>
-            <br>
-            <br>
+<br>
+<br>
+<br>
             <tr class="information">
                 <td colspan="2">
                     <table>
                         <tr>
                             <td>
-
-                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{date('Y-m-d', strtotime($pdf->tanggal_transaksi))}}</h5>
-
-                                <h5 style="text-align: right;line-height: 0.2em;"> CV. Mirai Alam Sejahtera</h5>
-                                <br><br><br><br><br>
-                                <h5 style="text-align: right;  text-decoration: underline;"> SUMADI HERIYANTO</h5>
+                                <h5 style="text-align: right; line-height: 0.2em;"> Lumajang, {{date('Y-m-d',strtotime($pdf->tanggal_transaksi))}} </h5>
+                                    <h5 style="text-align: right;line-height: 0.2em;"> CV. Mirai Alam Sejahtera</h5>
+                                    <br><br><br><br><br>
+                                    <h5 style="text-align: right;  text-decoration: underline;"> SUMADI HERIYANTO</h5>
                                 <p style="text-align: right; line-height: 0px; font-size:14px"> No. Reg. 08200001833</p>
                             </td>
                         </tr>
@@ -102,6 +108,30 @@
                 </td>
             </tr>
 
+            <!-- @if ($pdf->payment)
+            <tr class="total">
+                <td></td>
+                <td>
+                   Pembayaran: Rp -{{ number_format($pdf->payment->amount) }}
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Detail Pembayaran</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Pengirim: {{ $pdf->payment->name }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Transfer ke: {{ $pdf->payment->transfer_to }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Tanggal: {{ $pdf->payment->transfer_date  }}</td>
+                <td></td>
+            </tr>
+            @endif -->
         </table>
     </div>
 </body>

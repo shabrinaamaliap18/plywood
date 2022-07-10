@@ -25,6 +25,12 @@ class PesananDetail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+    public function kategory() {
+        return $this->belongsTo(Categories::class,'kategori','id');
+    }
+    public function materyal() {
+        return $this->belongsTo('App\Models\Material','material','id');
+    }
 
 
 }

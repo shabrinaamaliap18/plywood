@@ -22,7 +22,7 @@ class Historyy extends Component
     public function masukSubmit($id)
     {
 
-        $history2 = History::find($id);
+        $history2 = Pesanan::find($id);
         $history2->status = 5;
         $history2->update();
 
@@ -35,10 +35,10 @@ class Historyy extends Component
     public function render()
     {
         if (Auth::user()) {
-            $this->pesanans = History::join('products', 'histories.product_id', 'products.id')->where('user_id', Auth::user()->id)->where('histories.status', '2')->orWhere('histories.status', '3')->orWhere('histories.status', '4')->get(['histories.id', "product_id", "user_id", 'status', "total_harga", "jumlah_pesanan", "nama", "tanggal_transaksi", "alat_angkut", "ket", 'histories.updated_at']);
+            $this->pesanans = auth()->user()->pesanans()->where('status', '<', 5)->get();
         }
 
-        $this->pesanansukses = History::join('products', 'histories.product_id', 'products.id')->where('user_id', Auth::user()->id)->where('histories.status', '5')->get(['histories.id', "product_id", "user_id", 'status', "total_harga", "jumlah_pesanan", "nama", "tanggal_transaksi", "alat_angkut", "ket", 'histories.updated_at']);
+        $this->pesanansukses = auth()->user()->pesanans()->where('status', 5)->get();
 
         return view('livewire.historyy');
     }

@@ -1,4 +1,4 @@
-<body>
+<div wire:poll>
 
     <div class="row">
         <div class="col-md-12">
@@ -31,11 +31,11 @@
             <div class="row">
                 <div class="col-12 col-md-6">
 
+                    @if($pesanan)
 
-                    @foreach ($pesde as $pesanan_detail)
-                    <input type="hidden" id="token_midtrans{{$pesanan_detail->id}}" value="{{$pesanan_detail->kode_midtrans}}">
+                    <input type="hidden" id="token_midtrans{{$pesanan->id}}" value="{{$pesanan->kode_midtrans}}">
 
-                    <input type="hidden" id="uniqode{{$pesanan_detail->id}}" value="{{$pesanan_detail->uniqode}}">
+                    <input type="hidden" id="uniqode{{$pesanan->id}}" value="{{$pesanan->uniqode}}">
 
                     <br><br>
                     <br>
@@ -47,18 +47,15 @@
                     <br>
 
                     <div class="form-group">
-                        <label style=" font-size: 14px; font-weight: 600;" readonly>Kode : <strong> {{ $pesanan_detail->kode_pemesanan }}</strong> </label>
+                        <label style=" font-size: 14px; font-weight: 600;" readonly>Kode : <strong> {{ $pesanan->kode_pemesanan }}</strong> </label>
                     </div>
-                    @break
-                    @endforeach
 
 
 
-                    @foreach ($pesde2 as $pesanan_detail2)
 
                     <div class="form-group">
                         <label style=" font-size: 14px; font-weight: 600;" for="">Nama Perusahaan</label><br>
-                        <label id="nama_perusahaan" value="">{{ $pesanan_detail2->nama_perusahaan}}</label>
+                        <label id="nama_perusahaan" value="">{{ $pesanan->user->nama_perusahaan}}</label>
 
                         @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -69,7 +66,7 @@
 
                     <div class="form-group">
                         <label style=" font-size: 14px; font-weight: 600;" for="">Nama</label><br>
-                        <label id="name" value="">{{ $pesanan_detail2->name}}</label>
+                        <label id="name" value="">{{ $pesanan->user->name}}</label>
 
                         @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -77,12 +74,10 @@
                         </span>
                         @enderror
                     </div>
-                    @break
-                    @endforeach
 
                     <div class="form-group">
                         <label style=" font-size: 14px; font-weight: 600;" for="">No. HP</label><br>
-                        <label id="nohp" value="">{{ $pesanan_detail2->nohp}}</label>
+                        <label id="nohp" value="">{{ $pesanan->user->nohp}}</label>
 
                         @error('nohp')
                         <span class="invalid-feedback" role="alert">
@@ -93,7 +88,7 @@
 
                     <div class="form-group">
                         <label style=" font-size: 14px;font-weight: 600;" for="">Lokasi</label><br>
-                        <label id="lokasi" value="">{{ $pesanan_detail2->lokasi}}</label>
+                        <label id="lokasi" value="">{{ $pesanan->user->lokasi}}</label>
 
                         @error('lokasi')
                         <span class="invalid-feedback" role="alert">
@@ -104,7 +99,7 @@
 
                     <div class="form-group">
                         <label style=" font-size: 14px; font-weight: 600;" for="">Alamat</label><br>
-                        <label id="alamat" value="">{{ $pesanan_detail2->alamat}}</label>
+                        <label id="alamat" value="">{{ $pesanan->user->alamat}}</label>
 
                         @error('alamat')
                         <span class="invalid-feedback" role="alert">
@@ -112,43 +107,48 @@
                         </span>
                         @enderror
                     </div>
+
+                    @endif
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
-                    <br>
-                    <br>
-                    <div class="order-details-confirmation">
-                        <div class="cart-page-heading">
-                            <h5>Detail Pesanan</h5>
+                @if($pesanan)
+
+                    <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
+                        <br>
+                        <br>
+                        <div class="order-details-confirmation">
+                            <div class="cart-page-heading">
+                                <h5>Detail Pesanan</h5>
+                            </div>
+                            <ul class="order-details-form mb-4">
+
+                                    <li> <strong><span>Product</span></strong> <strong> <span>Total</span></strong></li>
+
+                                    @foreach ($pesanan->pesanan_details as $detail)
+                                    <li><span>{{$detail->product->nama}}({{$detail->jumlah_pesanan}})</span> <span>Rp. {{ number_format($detail->total_harga) }}</span></li>
+                                    @endforeach
+
+                                    <li><span>Ongkir</span>
+                                        <span>Rp. {{ number_format($pesanan->ongkir) }}</span>
+                                    </li>
+
+
+                                    <li><span>Total Harga</span> <strong><span>Rp. {{ number_format($pesanan->total_harga)  }}</span></strong></li>
+
+
+                            </ul>
+
                         </div>
-                        <ul class="order-details-form mb-4">
-                            <li> <strong><span>Product</span></strong> <strong> <span>Total</span></strong></li>
-                            @foreach ($pesdel as $pesde)
-                            <li><span>{{$pesde->nama}}</span> <span>Rp. {{ number_format($pesde->total_harga) }}</span></li>
-                            @endforeach
-
-                            <li><span>Ongkir</span>
-                                @foreach ($ongkir as $ongkir)
-                                @if ($pesanan->lokasi == $ongkir->nama_kota)
-                                <span>Rp. {{ number_format($ongkir->harga_ongkir) }}</span>
-                            </li>
-                            
-                            
-                            <li><span>Total Harga</span> <strong><span>Rp. {{ number_format($pesanan->total_harga)  }}</span></strong></li>
-                            @endif
-                            @endforeach
-
-
-                        </ul>
-
+                        <br>
                     </div>
-                    <br>
-                </div>
 
+                @endif
 
 
             </div>
-            <a onclick="paybutton(<?php echo $pesanan_detail->id ?>)" class="btn btn-warning" style="width:160px; float:right;">Bayar Sekarang</a>
+            @if($pesanan && $pesanan->status < 2)
+            <a onclick="paybutton('{{ $pesanan->id }}')" class="btn btn-warning" style="width:160px; float:right;">Bayar Sekarang</a>
+            @endif
             <div class="row">
                 <div class="col">
                     <a href="{{ route('keranjang') }}" style="width:160px; float:right;" class="btn btn-dark">Kembali</a>
@@ -159,7 +159,8 @@
 
         </form>
     </div>
-</body>
+
+</div>
 
 
 <!-- Template Main JS File -->
