@@ -25,15 +25,15 @@
     <div class="col-6">
         <a href="pesanan">
             <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
-                    <i class="fas fa-truck"></i>
+                <div class="card-icon bg-info">
+                    <i class="fas fa-circle"></i>
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4>Pesanan Dalam Proses</h4>
+                        <h4>Pesanan</h4>
                     </div>
                     <div class="card-body">
-                        <a style="color:#191d21 !important;" href="pesanan"><b>{{$totalproses}}</a></b>
+                        <a style="color:#191d21 !important;" href="pesanan"><b>{{$totalpesanan}}</a></b>
                     </div>
                 </div>
             </div>
@@ -56,18 +56,18 @@
     </div>
 
     <div class="col-6">
-        <a href="pesanan/bayar">
+        <a href="produk">
 
             <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
-                    <i class="fas fa-circle"></i>
+                    <i class="fas fa-cube"></i>
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4>Pesanan Sukses</h4>
+                        <h4>Produk</h4>
                     </div>
                     <div class="card-body">
-                        <a style="color:#191d21 !important;" href="pesanan/bayar"><b>{{$totalsukses}}</a></b>
+                        <a style="color:#191d21 !important;" href="produk"><b>{{$produk}}</a></b>
                     </div>
                 </div>
             </div>

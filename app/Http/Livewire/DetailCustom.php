@@ -30,12 +30,13 @@ class DetailCustom extends Component
         $this->alamat = Auth::user()->alamat;
         $this->custom_details = [];
         $this->customs = auth()->user()->customs()->whereStatus_cus('0')->get() ?? [];
-// dd($this->custom_details);
+        // dd($this->custom_details);
     }
 
-    public function cancelOrder($id) {
+    public function cancelOrder($id)
+    {
         $c = CustomP::find($id);
-        if($c) {
+        if ($c) {
             $c->custom_details()->delete();
             $c->delete();
         }
@@ -43,13 +44,14 @@ class DetailCustom extends Component
 
     public function render()
     {
-        foreach($this->customs as $custom) {
+        foreach ($this->customs as $custom) {
             $this->trs_check($custom->uniqode);
         }
         return view('livewire.detail-custom', ['customs' => $this->customs]);
     }
 
-    public function doPay($id) {
+    public function doPay($id)
+    {
         $this->trs_check($id);
     }
 
@@ -59,20 +61,20 @@ class DetailCustom extends Component
         $mtr = new Midtrans();
 
         $custom = auth()->user()->customs()->whereUniqode($id)->first();
-        if($custom) {
+        if ($custom) {
             $kode = $custom->uniqode;
             $hit = $mtr->checkTs($kode);
             $dt = Carbon::now();
-            $todayDate = $dt->toDayDateTimeString();
 
             if ($hit) {
                 if ($hit->status_code != 404) {
 
                     if ($hit->transaction_status == 'settlement') {
-                        if($custom->status_cus === '0') {
+                        if ($custom->status_cus === '0') {
+                            $custom->tanggal_transaksi_cus = $dt;
                             $custom->status_cus = '2';
                             $custom->save();
-                            $custom->user->createNotification('Pembayaran <strong>'.$custom->uniqode.'</strong> dikonfirmasi.', 'historyc');
+                            $custom->user->createNotification('Pembayaran <strong>' . $custom->uniqode . '</strong> dikonfirmasi.', 'historyc');
                             redirect('/detailcustom');
                         }
                     } else {

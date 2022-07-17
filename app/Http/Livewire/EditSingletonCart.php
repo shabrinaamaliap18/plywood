@@ -26,7 +26,7 @@ class EditSingletonCart extends Component
             $this->image = $image;
             $this->name = $name;
             $this->price = $price;
-            $this->total_price = $detail->total_harga;
+            $this->total_price = $detail->harga;
         }
     }
 

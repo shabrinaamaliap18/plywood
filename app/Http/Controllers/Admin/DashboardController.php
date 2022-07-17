@@ -6,6 +6,7 @@ use App\CustomP;
 use App\History;
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
+use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,17 +25,17 @@ class DashboardController extends Controller
         $totalcustom = CustomP::get()->count();
 
         //Menampilkan jumlah pesanan dlm proses
-        $totalproses = Pesanan::where('status', '2')->orWhere('status', '3')->orWhere('status', '4')->count();
+        $totalpesanan = Pesanan::get()->count();
 
         //Menampilkan jumlah pesanan sukses
-        $totalsukses = History::where('status', '5')->count();
+        $produk = Product::get()->count();
 
         //Menampilkan grafik jumlah pesanan
-        $users = History::select(DB::raw("COUNT(*) as count"))
+        $users = Pesanan::select(DB::raw("COUNT(*) as count"))
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("Month(created_at)"))
             ->pluck('count');
 
-        return view('admin.dashboard', compact('user', 'totaluser', 'totalcustom', 'totalproses', 'totalsukses', 'users'));
+        return view('admin.dashboard', compact('user', 'totaluser', 'totalcustom', 'totalpesanan', 'produk', 'users'));
     }
 }

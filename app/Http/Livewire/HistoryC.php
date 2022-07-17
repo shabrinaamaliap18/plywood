@@ -22,8 +22,11 @@ class HistoryC extends Component
 
     public function submit($id)
     {
+        $dt = Carbon::now();
+
         $history2 = auth()->user()->customs()->findOrFail($id);
         $history2->status_cus = 5;
+        $history2->tanggal_terima_cus = $dt;
         $history2->save();
 
 

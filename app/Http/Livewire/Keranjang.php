@@ -26,7 +26,6 @@ class Keranjang extends Component
             return redirect()->route('login');
         }
         $this->jumlah_pesanan = Pesanan::join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')->where('pesanans.user_id', Auth::user()->id)->get('jumlah_pesanan');
-        // dd( $this->jumlah_pesanan);
 
         // CLEAR NOTIFICATION
         $this->notification = null;
@@ -58,27 +57,6 @@ class Keranjang extends Component
         $this->notification = $data;
         $this->emit('refreshComponent');
     }
-
-    // update keranjang
-    public function updates($id)
-    {
-        $pesanan_detail = PesananDetail::find($id);
-        $pesanan_detail->jumlah_pesanan = $request->jumlah_pesanan;
-        $pesanan_detail->total_harga = ($this->jumlah_pesanan*$this->product->jml_ukuran*$this->product->harga)/1000000000;
-        $pesanan_detail->update();
-
-        $gross_amount = $pesanan->pesanan_details()->sum('total_harga');
-        $pesanan = $pesanan_detail->pesanan;
-        $pesanan->total_harga = $gross_amount + $pesanan->ongkir;
-        $pesanan->save();
-
-        $this->emit('updatedNotification');
-
-        // session()->flash('message', 'Update Sukses!');
-
-        // return view('livewire.keranjang');
-    }
-
 
     public function render()
     {

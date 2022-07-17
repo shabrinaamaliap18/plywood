@@ -49,7 +49,7 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $pesanan->tanggal_transaksi }}</td>
-                            <td>{{ $pesanan->updated_at }}</td>
+                            <td>{{ $pesanan->tanggal_terima }}</td>
                             @php
                                 $products = $pesanan->pesanan_details()->with('product')->get();
                                 $only_product = array_column($products->toArray(), 'product');

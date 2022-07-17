@@ -20,7 +20,8 @@ class CreateCustomsTable extends Migration
             $table->string('status_cus')->default(0);
             $table->integer('ongkir_cus')->nullable();
             $table->integer('total_harga_cus')->nullable();
-            $table->timestamp('tanggal_transaksi_cus');
+            $table->datetime('tanggal_transaksi_cus');
+            $table->datetime('tanggal_terima_cus');
             $table->string('alat_angkut_cus')->nullable();
             $table->string('ket_cus')->nullable();
             $table->text('kode_midtrans')->nullable();

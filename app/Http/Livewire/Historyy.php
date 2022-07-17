@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\History;
+use App\Pesanan;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use \Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+
 
 class Historyy extends Component
 {
@@ -21,9 +23,12 @@ class Historyy extends Component
 
     public function masukSubmit($id)
     {
+    
+        $dt = Carbon::now();
 
         $history2 = Pesanan::find($id);
         $history2->status = 5;
+        $history2->tanggal_terima = $dt;
         $history2->update();
 
 

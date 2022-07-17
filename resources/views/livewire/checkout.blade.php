@@ -125,7 +125,7 @@
                                     <li> <strong><span>Product</span></strong> <strong> <span>Total</span></strong></li>
 
                                     @foreach ($pesanan->pesanan_details as $detail)
-                                    <li><span>{{$detail->product->nama}}({{$detail->jumlah_pesanan}})</span> <span>Rp. {{ number_format($detail->total_harga) }}</span></li>
+                                    <li><span>{{$detail->product->nama}} ({{$detail->jumlah_pesanan}})</span> <span>Rp. {{ number_format($detail->harga) }}</span></li>
                                     @endforeach
 
                                     <li><span>Ongkir</span>

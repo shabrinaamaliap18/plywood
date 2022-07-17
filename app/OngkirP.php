@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ongkir extends Model
+class OngkirP extends Model
 {
     protected $fillable = [
         'nama_kota',
         'harga_ongkir',
     ];
 
-    protected $table = 'ongkir';
+    protected $table = 'ongkir_p';
 
     public function pesanan()
     {

@@ -19,7 +19,8 @@ class CreatePesanansTable extends Migration
             $table->string('status')->default(0);
             $table->integer('ongkir');
             $table->integer('total_harga');
-            $table->timestamp('tanggal_transaksi');
+            $table->datetime('tanggal_transaksi');
+            $table->datetime('tanggal_terima');
             $table->string('alat_angkut')->nullable();
             $table->string('ket')->nullable();
             $table->integer('user_id');

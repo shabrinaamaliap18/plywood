@@ -21,10 +21,6 @@
             </div>
             @endif
 
-            <a href="/pesanan/bayar/" class="btn btn-success"> Pesanan Telah Dibayar</a> <br><br>
-            <b>
-                <h2>Pesanan Belum Dibayar</h2>
-            </b>
             <br>
             <table id="myTable" class="table table-striped" style="width:100%">
                 <thead class="table table-hover">
@@ -65,7 +61,7 @@
                         <td>{{ $as->tanggal_transaksi}}</td>
                         <td>
 
-                            <a href="produk/edit/{{$as->pesanan_id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
+                            <a href="pesanan/edit/{{$as->pesanan_id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
 
                         </td>
                     </tr>

@@ -8,7 +8,7 @@ class PesananDetail extends Model
 {
     protected $fillable = [
         'jumlah_pesanan',
-        'total_harga',
+        'harga',
         'product_id',
         'pesanan_id',
         'kode_midtrans',

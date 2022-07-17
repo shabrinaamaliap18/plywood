@@ -46,7 +46,7 @@
     </div>
 
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        Harga produk adalah harga per m3 (kubik).<strong> Terima Kasih</strong>
+        Harga produk yang tertera adalah harga sebelum ukuran m<sup>3</sup>.<strong> Terima Kasih</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

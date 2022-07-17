@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(OngkirSeeder::class);
+        $this->call(OngkirpSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         

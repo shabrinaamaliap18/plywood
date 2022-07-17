@@ -111,6 +111,8 @@
                             <td>Tanggal Pesan</td>
                             <td>Pesanan</td>
                             <td>Jumlah Pesanan</td>
+                            <td>Alat Angkut</td>
+                            <td>Keterangan</td>
                             <td>Status</td>
                             <td><strong>Total Harga</strong></td>
                             <td><strong>Lihat Nota</strong></td>
@@ -139,6 +141,8 @@
 
                             </td>
                             <td>{{ $pesanan->custom_details()->sum('jumlah_pesanan_cus') }}</td>
+                            <td>{{ $pesanan->alat_angkut_cus }}</td>
+                            <td>{{ $pesanan->ket_cus }}</td>
                             <td>
                                 @if($pesanan->status_cus == 2)
                                 <h10>Produk telah diproses</h10>

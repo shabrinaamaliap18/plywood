@@ -46,7 +46,7 @@ class PesananController extends Controller
         $pesanan = Pesanan::join('users', 'pesanans.user_id', 'users.id')
             ->join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')
             ->join('products', 'pesanan_details.product_id', 'products.id')
-            ->where('pesanans.id', $id)->get(['pesanans.total_harga', 'jumlah_pesanan', "name", "nama", "nohp", "ongkir", "alamat", "lokasi", "status", "alat_angkut", "ket", "pesanan_id"]);
+            ->where('pesanans.id', $id)->get(['pesanans.total_harga', 'pesanan_details.harga', 'jumlah_pesanan', "name", "nama", "nohp", "ongkir", "alamat", "lokasi", "status", "alat_angkut", "ket", "pesanan_id", "ukuran"]);
 
         return view('admin.pesanan-edit', compact('pesanan'));
     }

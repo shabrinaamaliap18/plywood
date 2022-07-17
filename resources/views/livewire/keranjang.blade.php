@@ -45,8 +45,8 @@
                             <th>Gambar</th>
                             <th>Keterangan</th>
                             <th>Jumlah</th>
-                            <th>Harga (mm)</th>
-                            <td><strong>Total Harga</strong></td>
+                            <th>Harga</th>
+                            <td><strong>Total Harga (m<sup>3</sup>)</strong></td>
                             <td></td>
                         </tr>
                     </thead>

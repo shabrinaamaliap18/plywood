@@ -42,7 +42,7 @@
                                 {{ $pdf->user->nama_perusahaan }}<br>
                                 {{ $pdf->user->name }}<br>
                                 {{ $pdf->user->alamat }}<br>
-                                {{ $pdf->user->lokasi}}
+                                {{ $pdf->user->lokasi}}<br>
                                 {{ $pdf->user->nohp }}<br>
                                 @endif
                             </td>
@@ -71,7 +71,9 @@
                     {{ $o->jumlah_pesanan }}
                     <br>
                     <strong>Ukuran:</strong>&nbsp;
-                    {{$o->product->ukuran}}
+                    {{$o->product->ukuran}}<br>
+                    <strong>Volume:</strong>
+                    {{($o->jumlah_pesanan * $o->product->jml_ukuran / 1000000000)}} m<sup>3</sup>
 
                 </td>
                 <td>Rp {{ number_format($o->total_harga)}}</td>

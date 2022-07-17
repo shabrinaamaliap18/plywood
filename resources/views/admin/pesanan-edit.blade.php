@@ -21,21 +21,54 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="judul">Produk</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama" value="{{ $as->nama}}" required readonly>
-                    @error('nama')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                @foreach ($pesanan as $produk)
+                <div class="panel panel-default">
+                    <div class="panel-heading">Detail Produk {{$loop->iteration}}</div> 
+                    <div class="panel-body">
+                        <div class="row">
+                                <div class="col-12 mb-4" style="border-bottom: 1px solid rgb(216, 216, 216);">
+                                    <div class="form-group">
+                                        <label for="judul">Produk</label>
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Produk" name="nama"
+                                        value="{{ str_replace(array('[','"',']'),'',$produk->nama)}}" required readonly>
+                                        @error('nama')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                <div class="form-group">
-                    <label for="judul">Jumlah Pembelian</label>
-                    <input type="number" class="form-control @error('jumlah_pesanan') is-invalid @enderror" id="jumlah_pesanan" placeholder="Masukkan total harga pesanan" name="jumlah_pesanan" value="{{$as->jumlah_pesanan}}" required readonly>
-                    @error('jumlah_pesanan')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                                    <div class="form-group">
+                                        <label for="judul">Ukuran</label>
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
+                                        value="{{ $produk->ukuran }}" readonly>
+                                        @error('nama')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <input type="hidden" name="ids[]" value="{{$produk->id}}" />
+
+                                    <div class="form-group">
+                                        <label for="judul">Harga</label>
+                                        <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" placeholder="Masukkan harga" name="harga_{{$produk->id}}" value="{{$produk->harga}}"readonly required>
+                                        @error('total_harga')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="judul">Jumlah Pembelian</label>
+                                        <input type="number" class="form-control @error('jumlah_pesanan') is-invalid @enderror" id="jumlah_pesanan" placeholder="Masukkan total harga pesanan" name="jumlah_pesanan" value="{{$produk->jumlah_pesanan}}" required readonly>
+                                        @error('jumlah_pesanan')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
                 </div>
+                @endforeach
+
 
                 <div class="form-group">
                     <label for="judul">No Telp</label>
@@ -63,7 +96,15 @@
 
                 <div class="form-group">
                     <label for="judul">Alat Angkut</label>
-                    <input type="text" class="form-control @error('alat_angkut') is-invalid @enderror" id="alat_angkut" placeholder="Masukkan jenis alat angkut" name="alat_angkut" value="{{$as->alat_angkut}}" required>
+                    <select class="form-control" style="height:max-content" id="alat_angkut" name="alat_angkut" placeholder="Pilih Alat Angkut">
+                        <option selected value="" disabled selected> Pilih Alat Angkut</option>
+                        <option {{ ($as -> alat_angkut) == 'Truk' ? 'selected' : '' }} value="Truk">
+                            Truk
+                        </option>
+                        <option {{ ($as -> alat_angkut) == 'Pickup' ? 'selected' : '' }} value="Pickup">
+                            Pickup
+                        </option>
+                    </select>
                     @error('alat_angkut')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -79,7 +120,7 @@
 
                 <div class="form-group">
                     <label for="judul">Ongkir</label>
-                    <input type="number" class="form-control @error('ongkir') is-invalid @enderror" id="ongkir" placeholder="Masukkan ongkir pesanan" name="ongkir" value="{{$as->ongkir}}" required>
+                    <input type="number" class="form-control @error('ongkir') is-invalid @enderror" id="ongkir" placeholder="Masukkan ongkir pesanan" name="ongkir" value="{{$as->ongkir}}" readonly required>
                     @error('ongkir')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -87,7 +128,15 @@
 
                 <div class="form-group">
                     <label for="judul">Status</label>
-                    <input type="number" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Masukkan status pesanan" name="status" value="{{$as->status}}" readonly required>
+                    <select class="form-control" style="height:max-content" id="status" name="status" placeholder="Pilih Status Pesanan">
+                        <option selected value="" disabled selected> Pilih Status Pesanan</option>
+                          <option {{ ($as -> status) == '3' ? 'selected' : '' }} value="3">
+                          3 - Produk Telah Dikirim
+                        </option>
+                        <option {{ ($as -> status) == '4' ? 'selected' : '' }} value="4">
+                        4 - Produk Telah Sampai Ditempat Tujuan
+                        </option>
+                    </select>
                     @error('status')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -95,16 +144,17 @@
 
                 <div class="form-group">
                     <label for="judul">Total Biaya</label>
-                    <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga" placeholder="Masukkan total harga pesanan" name="total_harga" value="{{$as->total_harga}}" required>
+                    <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga" placeholder="Masukkan total harga pesanan" name="total_harga" value="{{$as->total_harga}}"readonly  required>
                     @error('total_harga')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                @break
                 @endforeach
 
 
                 <button type="submit" class="btn btn-success">Edit Pesanan</button>
-                <a href="pesanan" class="btn btn-info">Kembali</a> <br> <br> <br>
+                <a href="/pesanan" class="btn btn-info">Kembali</a> <br> <br> <br>
             </form>
 
         </div>
@@ -112,7 +162,7 @@
 </div>
 
 <style>
-      .section .section-header h1 {
+    .section .section-header h1 {
         color: white;
     }
 

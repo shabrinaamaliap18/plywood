@@ -94,8 +94,16 @@
 
                 <div class="form-group">
                     <label for="judul">Alat Angkut</label>
-                    <input type="text" class="form-control @error('alat_angkut_cus') is-invalid @enderror" id="alat_angkut_cus" placeholder="Masukkan jenis alat angkut" name="alat_angkut_cus" value="{{$as->alat_angkut_cus}}" required>
-                    @error('alat_angkut_cus')
+                    <select class="form-control" style="height:max-content" id="alat_angkut_cus" name="alat_angkut_cus" placeholder="Pilih Alat Angkut">
+                        <option selected value="" disabled selected> Pilih Alat Angkut</option>
+                        <option {{ ($as -> alat_angkut_cus) == 'Truk' ? 'selected' : '' }} value="Truk">
+                            Truk
+                        </option>
+                        <option {{ ($as -> alat_angkut_cus) == 'Pickup' ? 'selected' : '' }} value="Pickup">
+                            Pickup
+                        </option>
+                    </select>
+                    @error('alat_angkut')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -119,8 +127,16 @@
 
                 <div class="form-group">
                     <label for="judul">Status</label>
-                    <input type="number" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Masukkan status pesanan" name="status_cus" value="{{$as->status_cus}}" required>
-                    @error('status')
+                    <select class="form-control" style="height:max-content" id="status_cus" name="status_cus" placeholder="Pilih Status Pesanan">
+                        <option selected value="" disabled selected> Pilih Status Pesanan</option>
+                          <option {{ ($as -> status_cus) == '3' ? 'selected' : '' }} value="3">
+                          3 - Produk Telah Dikirim
+                        </option>
+                        <option {{ ($as -> status_cus) == '4' ? 'selected' : '' }} value="4">
+                        4 - Produk Telah Sampai Ditempat Tujuan
+                        </option>
+                    </select>
+                    @error('status_cus')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
