@@ -52,9 +52,9 @@ class Checkout extends Component
             $sanitizeDetails = $this->pesanan->pesanan_details->map(function($item) {
                 return [
                     'id' => $item->id,
-                    'price' => $item->harga/$item->jumlah_pesanan,
-                    'quantity' => $item->jumlah_pesanan,
-                    'name' => $item->product->nama
+                    'price' => $item->harga,
+                    'quantity' => 1,
+                    'name' => $item->product->nama.'('.$item->jumlah_pesanan.' pcs/btg)'
                 ];
             })->toArray();
             $ongkir = \App\Ongkir::whereAlat_angkut($this->pesanan->alat_angkut)->whereNama_kota(auth()->user()->lokasi)->first();
