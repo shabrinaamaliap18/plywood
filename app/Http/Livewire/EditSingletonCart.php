@@ -42,8 +42,48 @@ class EditSingletonCart extends Component
             if ($jumlah_pesanan_detail == 1) {
                 $pesanan->delete();
             } else {
-                $pesanan->total_harga = $pesanan->total_harga - $pesanan_detail->total_harga;
-                $pesanan->update();
+                $pesanan->total_harga = $pesanan->total_harga - $pesanan_detail->harga;
+
+                //Menghitung jml kubik
+                $totalUkuran = 0;
+                foreach ($pesanan->pesanan_details as $row) {
+                    $totalUkuran += $row->product->jml_ukuran;
+                }
+                $ak = $pesanan->pesanan_details()->sum('jumlah_pesanan') * ($totalUkuran) / 1000000000;
+                //ngecek apa jml kubik lebih dri 5
+                if ($ak >= 5) {
+                    $alat_angkut = 'Truck Kun';
+                } else {
+                    $alat_angkut = 'Pickup';
+                }
+                // dd($alat_angkut);
+
+                //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir sesuai alat angkut)
+                $ongkir = Ongkir::where([
+                    'nama_kota' => auth()->user()->lokasi,
+                    'alat_angkut' => $alat_angkut,
+                ])->first();
+                // dd($ongkir);
+
+                if(!$ongkir) {
+                    $ongkir = Ongkir::create([
+                        'nama_kota' => auth()->user()->lokasi,
+                        'alat_angkut' => $alat_angkut,
+                    ]);
+                }
+
+                if($ongkir->harga_ongkir > 0) {
+                    $pesanan->alat_angkut = $ongkir->alat_angkut;
+                    $pesanan->ongkir = $ongkir->harga_ongkir;
+                    $this->alat_angkut = $ongkir->alat_angkut;
+                    $this->harga_ongkir = $ongkir->harga_ongkir;
+                    $pesanan->save();
+                } else {
+                    $this->emitUp('updatedNotification', ['type' => 'warning', 'msg' => 'Estimasi harga ongkir anda sedang dihitung oleh admin, tunggu beberapa saat.']);
+                    return;
+                }
+
+                $pesanan->save();
             }
 
             $pesanan_detail->delete();
