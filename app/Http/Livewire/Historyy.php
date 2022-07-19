@@ -23,13 +23,11 @@ class Historyy extends Component
 
     public function masukSubmit($id)
     {
-    
         $dt = Carbon::now();
-
-        $history2 = Pesanan::find($id);
+        $history2 = Pesanan::findOrFail($id);
         $history2->status = 5;
         $history2->tanggal_terima = $dt;
-        $history2->update();
+        $history2->save();
 
 
         session()->flash('message', 'Konfirmasi Sukses!');

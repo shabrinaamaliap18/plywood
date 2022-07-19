@@ -53,7 +53,7 @@
                     <tbody>
                         <?php $no = 1 ?>
                         @forelse ($pesanan_details as $pesanan_detail)
-                        @livewire('edit-singleton-cart', ['no' => $no++,'id' => $pesanan_detail->id,'image' => $pesanan_detail->product->gambar_produk,'name' => $pesanan_detail->product->nama,'amount' => $pesanan_detail->jumlah_pesanan,'price' => $pesanan_detail->product->harga,'total_price' => $pesanan_detail->total_harga], key($pesanan_detail->id))
+                        @livewire('edit-singleton-cart', ['no' => $no++,'id' => $pesanan_detail->id,'image' => $pesanan_detail->product->gambar_produk,'name' => $pesanan_detail->product->nama,'amount' => $pesanan_detail->jumlah_pesanan,'price' => $pesanan_detail->product->harga,'total_price' => $pesanan_detail->total_harga, 'alat_angkut' => $pesanan->alat_angkut,'harga_ongkir' => $pesanan->ongkir], key($pesanan_detail->id))
                         @empty
                         <tr>
                             <td colspan="7">Data Kosong</td>
@@ -66,7 +66,11 @@
                             <td align="right"><strong>Rp. {{ number_format($pesanan_detail->total_harga) }}</strong> </td>
                         <td></td>
                         </tr> --}}
-
+                        <tr>
+                            <td colspan="6" align="right"><strong>Alat Angkut : </strong></td>
+                            <td align="right"><strong>{{ $pesanan->alat_angkut }}</strong> </td>
+                            <td></td>
+                        </tr>
                         <tr>
                             <td colspan="6" align="right"><strong>Ongkir : </strong></td>
                             <td align="right"><strong>Rp. {{ number_format($pesanan->ongkir) }}</strong> </td>

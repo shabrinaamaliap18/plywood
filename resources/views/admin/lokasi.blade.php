@@ -27,8 +27,8 @@
                 <thead class="table table-hover">
                     <tr>
                         <th width="80px" scope="col" style="text-align:center;">No. </th>
-
                         <th>Nama Kota</th>
+                        <th>Alat Angkut</th>
                         <th>Harga Ongkir</th>
                         <th>Aksi</th>
                     </tr>
@@ -40,8 +40,11 @@
                     <tr>
                         <th width="80px" scope="col" style="text-align:center;">{{$loop->iteration}}</th>
                         <td>{{ $as->nama_kota}}</td>
+                        <td>{{ $as->alat_angkut}}</td>
                         <td>{{ $as->harga_ongkir}}</td>
                         <td>
+                        @if($as->harga_ongkir == null || $as->harga_ongkir < 0) <button type="button" class="btn btn-warning btn-circle"> <i class="fas fa-info"></i></button> @endif
+                        &nbsp;&nbsp;
                         <a href="ongkir/edit/{{$as->id}}"><button type="button" class="btn btn-info"> <i class="fas fa-edit"></i></button></a>
                         &nbsp;&nbsp;
                         <a href="ongkir/hapus/{{$as->id}}"><button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin data ini akan dihapus?')"> <i class="fas fa-trash"></i></button></a>
@@ -72,7 +75,7 @@
         color: white;
     }
 
-    .section .section-header {        
+    .section .section-header {
         background-color:cadetblue;
         border-radius: 8px;
     }

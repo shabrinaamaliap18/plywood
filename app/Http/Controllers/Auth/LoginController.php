@@ -40,8 +40,6 @@ class LoginController extends Controller
         if ($user->role == 'admin') {
             return redirect()->to('/dashboard');
         }
-
-
     }
 
     public function __construct()

@@ -41,7 +41,7 @@ class Keranjang extends Component
             if ($jumlah_pesanan_detail == 1) {
                 $pesanan->delete();
             } else {
-                $pesanan->total_harga = $pesanan->total_harga - $pesanan_detail->total_harga;
+                $pesanan->total_harga = $pesanan->total_harga - $pesanan_detail->harga;
                 $pesanan->update();
             }
 
@@ -54,6 +54,7 @@ class Keranjang extends Component
     }
 
     public function updatedNotification($data) {
+        $this->pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $this->notification = $data;
         $this->emit('refreshComponent');
     }

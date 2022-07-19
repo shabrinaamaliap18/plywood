@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOngkirTable extends Migration
+class AddColumnTanggalTerimaToPesanans extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateOngkirTable extends Migration
      */
     public function up()
     {
-        Schema::create('ongkirs', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_kota');
-            $table->integer('harga_ongkir');
-            $table->timestamps();
+        Schema::table('pesanans', function (Blueprint $table) {
+            $table->dateTime('tanggal_terima')->nullable()->change();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateOngkirTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ongkir');
+        Schema::table('pesanans', function (Blueprint $table) {
+            //
+        });
     }
 }

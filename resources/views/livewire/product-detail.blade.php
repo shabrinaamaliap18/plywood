@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-12">
             @if($notification)
-            <div class="alert alert-success">
+            <div class="alert {{ ($notificationType == 'success' || !$notificationType) ? 'alert-success': 'alert-warning' }}">
                 {{ $notification }}
             </div>
             @endif

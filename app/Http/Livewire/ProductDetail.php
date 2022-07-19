@@ -6,13 +6,12 @@ use App\Pesanan;
 use App\PesananDetail;
 use App\Product;
 use App\Ongkir;
-use App\OngkirP;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ProductDetail extends Component
 {
-    public $product, $jumlah_pesanan, $nomor, $O, $notification, $alat_angkut;
+    public $product, $jumlah_pesanan, $nomor, $O, $notification, $notificationType, $alat_angkut;
 
     public function mount($id)
     {
@@ -34,82 +33,126 @@ class ProductDetail extends Component
             return redirect()->route('login');
         }
 
+        if(!auth()->user()->lokasi) {
+            $this->notification = 'Mohon isi lokasi terlebih dahulu sebelum memesan.';
+            $this->notificationType = 'danger';
+            return;
+        }
+
         //Menghitung Total Harga
         $total_harga = ($this->jumlah_pesanan * $this->product->jml_ukuran * $this->product->harga) / 1000000000;
 
-        //Menghitung jml kubik
-        $ak = ($this->jumlah_pesanan * $this->product->jml_ukuran) / 1000000000;
         // dd($ak);
         //Ngecek Apakah user punya data pesanan utama yg status nya 0
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
-
-        //ngecek apa jml kubik lebih dri 5
-        if ($ak >= 5) {
-            $alat_angkut = 'Truk';
-        } else {
-            $alat_angkut = 'Pickup';
-        }
-        // dd($alat_angkut);
-
-        //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir sesuai alat angkut)
-        if ($alat_angkut == 'Truk') {
-            $AlamatSama = Ongkir::whereNama_kota(auth()->user()->lokasi)->first();
-            // dd($AlamatSama);
-            $hargafix = 0;
-            if ($AlamatSama) {
-                $hargafix = $AlamatSama->harga_ongkir;
-            } else {
-                $AlamatSama = OngkirP::whereNama_kota(auth()->user()->lokasi)->first();
-                // dd($AlamatSama);
-                $hargafix = 0;
-                if ($AlamatSama) {
-                    $hargafix = $AlamatSama->harga_ongkir;
-                } else{
-                    return;
-                }
-            }
-        }
-        // dd($hargafix, $alat_angkut);
-
         //Menyimpan / Update Data Pesanan Utama
         //ini jika pesanan masi kosong
         if (empty($pesanan)) {
-            $pesanan = Pesanan::create([
+            $pesanan = new Pesanan([
                 'user_id' => Auth::user()->id,
-                'total_harga' => $total_harga + $hargafix,
                 'status' => 0,
-                'ongkir' => $hargafix,
-                'alat_angkut' => $this->alat_angkut,
+                'tanggal_transaksi' => now()
             ]);
+            $totalUkuran = 0;
+            foreach ($pesanan->pesanan_details as $row) {
+                $totalUkuran += $row->product->jml_ukuran;
+            }
+            $ak = $pesanan->pesanan_details()->sum('jumlah_pesanan') * ($totalUkuran) / 1000000000;
+            //ngecek apa jml kubik lebih dri 5
+            if ($ak >= 5) {
+                $alat_angkut = 'Truk';
+            } else {
+                $alat_angkut = 'Pickup';
+            }
+            //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir sesuai alat angkut)
+            $ongkir = Ongkir::where([
+                'nama_kota' => auth()->user()->lokasi,
+                'alat_angkut' => $alat_angkut,
+            ])->first();
+
+            if(!$ongkir) {
+                $ongkir = Ongkir::create([
+                    'nama_kota' => auth()->user()->lokasi,
+                    'alat_angkut' => $alat_angkut,
+                ]);
+            }
+
+            if($ongkir->harga_ongkir > 0) {} else {
+
+                $this->notification = 'Estimasi harga ongkir anda sedang dihitung oleh admin, tunggu beberapa saat';
+                $this->notificationType = 'warning';
+                return;
+            }
+            $tot = floatval($total_harga + $ongkir->harga_ongkir);
+            $pesanan->total_harga = $tot;
+            $pesanan->ongkir = $ongkir->harga_ongkir;
+            $pesanan->alat_angkut = $ongkir->alat_angkut;
             $pesanan->kode_pemesanan = 'CVMAS-' . rand();
-            $pesanan->update();
-            // dd($pesanan);
+            $pesanan = $this->getSnapToken($pesanan, $tot);
+            $pesanan->save();
+
             //Meyimpanan Pesanan Detail
             PesananDetail::create([
                 'product_id' => $this->product->id,
                 'pesanan_id' => $pesanan->id,
                 'jumlah_pesanan' => $this->jumlah_pesanan,
-                'total_harga' => $total_harga,
+                'harga' => $total_harga,
             ]);
             // dd($this->product->id);
+
+
             //ini kalo udh ada pesanan, jd tinggal update harga pesanan, sblm ditambah bru
         } else {
             $details = $pesanan->pesanan_details()->whereProduct_id($this->product->id)->first();
-            // dd($details);
 
             if (!$details) {
                 //Meyimpanan Pesanan Detail
-                PesananDetail::create([
+                $data = [
                     'product_id' => $this->product->id,
                     'pesanan_id' => $pesanan->id,
-                    'jumlah_pesanan' => $this->jumlah_pesanan,
-                    'harga' => $total_harga,
-                ]);
-                $pesanan->ongkir = $hargafix;
+                    'jumlah_pesanan' => (int)$this->jumlah_pesanan,
+                    'harga' => $total_harga
+                ];
+
+                $details = PesananDetail::create($data);
+
+                // dd(Pesanan::find($pesanan->id));
+                $totalUkuran = 0;
+                foreach ($pesanan->pesanan_details as $row) {
+                    $totalUkuran += $row->product->jml_ukuran;
+                }
+                $ak = $pesanan->pesanan_details()->sum('jumlah_pesanan') * ($totalUkuran) / 1000000000;
+                //ngecek apa jml kubik lebih dri 5
+                if ($ak >= 5) {
+                    $alat_angkut = 'Truk';
+                } else {
+                    $alat_angkut = 'Pickup';
+                }
+                //mencari harga ongkir (nama lokasi yg sama dg user == nama kota di tabel ongkir sesuai alat angkut)
+                $ongkir = Ongkir::where([
+                    'nama_kota' => auth()->user()->lokasi,
+                    'alat_angkut' => $alat_angkut,
+                ])->first();
+
+                if(!$ongkir) {
+                    $ongkir = Ongkir::create([
+                        'nama_kota' => auth()->user()->lokasi,
+                        'alat_angkut' => $alat_angkut,
+                    ]);
+                }
+
+                if($ongkir->harga_ongkir > 0) {} else {
+                    $this->notification = 'Estimasi harga ongkir anda sedang dihitung oleh admin, tunggu beberapa saat';
+                    $this->notificationType = 'warning';
+                    return;
+                }
+                $pesanan->ongkir = $ongkir->harga_ongkir;
                 $pesanan->total_harga = $pesanan->total_harga + $total_harga;
-                $pesanan->update();
+                $pesanan = $this->getSnapToken($pesanan);
+                $pesanan->save();
             } else {
                 $this->notification = 'Produk sudah ada dikeranjang.';
+                $this->notificationType = 'success';
                 return;
             }
         }
@@ -122,5 +165,30 @@ class ProductDetail extends Component
     public function render()
     {
         return view('livewire.product-detail');
+    }
+
+    public function getSnapToken($pesanan) {
+        $mtr = new \App\Midtrans();
+        $uniqode = rand();
+        $grandTotal =  floatval($pesanan->total_harga);
+        $dataMidtrans = [
+            'atasnama' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'telepon' => auth()->user()->nohp,
+            'total' => $grandTotal,
+            'order_id' => $uniqode,
+            'amount' => $grandTotal
+        ];
+        $hitSnap = $mtr->midtransSnap($dataMidtrans);
+        $tokenMidtrans = $hitSnap;
+
+        $pesanan->kode_midtrans = $tokenMidtrans;
+        $pesanan->uniqode = $uniqode;
+        // if ($pesanan->uniqode == NULL) {
+
+
+        // }
+
+        return $pesanan;
     }
 }

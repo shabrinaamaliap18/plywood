@@ -16,8 +16,6 @@ class CustomDetail extends Model
         'harga_cus',
         'total_harga_cus',
         'custom_id',
-        'kode_midtrans',
-        'uniqode',
     ];
 
     protected $table = 'detail_customs';

@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware('auth.admin')->group(function() {
     //DASHBOARD
     Route::resource('/dashboard', 'Admin\DashboardController');
-    
+
     //CATEGORI
     Route::get('/categories/edit/{id}', 'Admin\CategoriController@edit');
     Route::patch('/categories/update/{id}', 'Admin\CategoriController@update');
@@ -118,7 +118,7 @@ Route::middleware('auth.admin')->group(function() {
     Route::resource('/admin', 'Admin\UserAdminController');
     //USER ADMIN
 
-  
+
 
     //ONGKIR
     Route::get('/ongkir/edit/{id}', 'Admin\OngkirController@edit');

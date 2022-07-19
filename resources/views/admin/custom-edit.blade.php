@@ -45,10 +45,9 @@
                                     </div>
 
                                     <input type="hidden" name="ids[]" value="{{$produk->id}}" />
-
                                     <div class="form-group">
                                         <label for="judul">Harga</label>
-                                        <input type="number" class="form-control @error('harga_cus') is-invalid @enderror" id="harga_cus" placeholder="Masukkan harga cus" name="harga_cus_{{$produk->id}}" value="{{$produk->harga_cus}}" required>
+                                        <input type="number" class="form-control @error('harga_cus') is-invalid @enderror" id="harga_cus" placeholder="Masukkan harga cus" name="harga_cus_{{$produk->id}}" value="{{$produk->harga_cus}}" required="true">
                                         @error('harga_cus')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -91,17 +90,16 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="judul">Alat Angkut</label>
                     <select class="form-control" style="height:max-content" id="alat_angkut_cus" name="alat_angkut_cus" placeholder="Pilih Alat Angkut">
-                        <option selected value="" disabled selected> Pilih Alat Angkut</option>
-                        <option {{ ($as -> alat_angkut_cus) == 'Truk' ? 'selected' : '' }} value="Truk">
-                            Truk
+                        <option value="" disabled @if($ongkirs->where('alat_angkut', $as->alat_angkut_cus)->count() > 0) selected="true" @endif> Pilih Alat Angkut</option>
+                        @foreach ($ongkirs as $ongkir)
+                        <option value="{{ $ongkir->id }}" @if($as->alat_angkut_cus == $ongkir->alat_angkut) selected="true" @endif>
+                            {{$ongkir->alat_angkut . ' - Rp. ' .\number_format($ongkir->harga_ongkir)}}
                         </option>
-                        <option {{ ($as -> alat_angkut_cus) == 'Pickup' ? 'selected' : '' }} value="Pickup">
-                            Pickup
-                        </option>
+                        @endforeach
+
                     </select>
                     @error('alat_angkut')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -116,23 +114,27 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="judul">Ongkir</label>
                     <input type="number" class="form-control @error('ongkir_cus') is-invalid @enderror" id="ongkir_cus" placeholder="Masukkan harga ongkir" name="ongkir_cus" value="{{$as->ongkir_cus}}" required>
                     @error('ongkir_cus')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
 
 
                 <div class="form-group">
                     <label for="judul">Status</label>
                     <select class="form-control" style="height:max-content" id="status_cus" name="status_cus" placeholder="Pilih Status Pesanan">
-                        <option selected value="" disabled selected> Pilih Status Pesanan</option>
-                          <option {{ ($as -> status_cus) == '3' ? 'selected' : '' }} value="3">
+
+                        <option value="" disabled> Pilih Status Pesanan</option>
+                        <option {{ ($as->status_cus) == '0' ? 'selected="true"' : '' }} value="0">
+                            0 - Proses
+                        </option>
+                        <option {{ ($as->status_cus) == '3' ? 'selected="true"' : '' }} value="3">
                           3 - Produk Telah Dikirim
                         </option>
-                        <option {{ ($as -> status_cus) == '4' ? 'selected' : '' }} value="4">
+                        <option {{ ($as->status_cus) == '4' ? 'selected="true"' : '' }} value="4">
                         4 - Produk Telah Sampai Ditempat Tujuan
                         </option>
                     </select>

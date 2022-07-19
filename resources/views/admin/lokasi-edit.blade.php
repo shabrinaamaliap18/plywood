@@ -24,9 +24,20 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="judul">Alat Angkut</label>
+                    <input type="text" class="form-control @error('alat_angkut') is-invalid @enderror"
+                        id="nama_kota" placeholder="Masukkan nama kota baru" name="alat_angkut"
+                        value="{{$Ongkir->alat_angkut}}">
+
+                    @error('alat_angkut')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="judul">Ongkir</label>
                     <input type="number" class="form-control @error('harga_ongkir') is-invalid @enderror" id="harga_ongkir"
-                        placeholder="Masukkan harga ongkir baru" name="harga_ongkir" value="{{$Ongkir->harga_ongkir}}" required>
+                        placeholder="Masukkan harga ongkir baru" name="harga_ongkir" value="{{$Ongkir->harga_ongkir}}">
                     @error('harga_ongkir')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -41,7 +52,7 @@
 
 
 
-           
+
         </div>
     </div>
 </div>
@@ -50,7 +61,7 @@
         color: white;
     }
 
-    .section .section-header {        
+    .section .section-header {
         background-color:cadetblue;
         border-radius: 8px;
     }

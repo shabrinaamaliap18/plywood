@@ -8,13 +8,16 @@ class Pesanan extends Model
 {
     protected $fillable = [
         'kode_pemesanan',
+        'tanggal_transaksi',
+        'tanggal_terima',
         'status',
         'total_harga',
         'alat_angkut',
         'ket',
-        'kode_unik',
         'user_id',
-        'ongkir'
+        'ongkir',
+        'kode_midtrans',
+        'uniqode',
     ];
 
     public function pesanan_details()

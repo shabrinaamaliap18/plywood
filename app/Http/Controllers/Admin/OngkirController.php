@@ -14,8 +14,7 @@ class OngkirController extends Controller
 
     public function index()
     {
-
-        $Ongkir = Ongkir::all();
+        $Ongkir = Ongkir::orderBy('nama_kota')->get();
 
 
         return view('admin.lokasi', ['Ongkir' => $Ongkir]);
@@ -32,13 +31,19 @@ class OngkirController extends Controller
 
     public function store(Request $request, Ongkir $Ongkir)
     {
+        $request->validate([
+            'nama_kota' => ['required'],
+            'alat_angkut' => ['required'],
+            // 'harga_ongkir' => ['required'],
+        ]);
 
         $lastid = Ongkir::create(([
             'nama_kota' => $request->nama_kota,
+            'alat_angkut' => $request->alat_angkut,
             'harga_ongkir' => $request->harga_ongkir,
 
         ]))->id;
-        
+
         return redirect('/ongkir')->with('status', 'Data Ongkir Berhasil Ditambahkan!');
     }
 
@@ -53,11 +58,16 @@ class OngkirController extends Controller
 
     public function update(Request $request, Ongkir $Ongkir)
     {
-        
+        $request->validate([
+            'nama_kota' => ['required'],
+            'alat_angkut' => ['required'],
+            // 'harga_ongkir' => ['required'],
+        ]);
 
         $Ongkir->nama_kota = $request->nama_kota;
+        $Ongkir->alat_angkut = $request->alat_angkut;
         $Ongkir->harga_ongkir = $request->harga_ongkir;
-        
+
         // dd($request);
         $Ongkir->save();
         return redirect('/ongkir')->with('status', 'Data Ongkir Berhasil Diubah!');
@@ -70,6 +80,6 @@ class OngkirController extends Controller
         return redirect('/ongkir')->with('status', 'Data Ongkir Berhasil Dihapus!');
     }
 
-    
+
 }
 

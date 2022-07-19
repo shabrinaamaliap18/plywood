@@ -9,12 +9,12 @@ class Ongkir extends Model
     protected $fillable = [
         'nama_kota',
         'harga_ongkir',
+        'alat_angkut',
+        'status'
     ];
 
-    protected $table = 'ongkir';
-
-    public function pesanan()
-    {
-        return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id');
-    }
+    // public function pesanan()
+    // {
+    //     return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id');
+    // }
 }

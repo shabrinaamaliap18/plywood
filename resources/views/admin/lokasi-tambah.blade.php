@@ -11,18 +11,23 @@
 
 
                 <div class="table">
-              
+
                 <div class="form-group">
                     <label for="judul">Nama Kota</label>
                     <input type="text" class="form-control" id="nama_kota" placeholder="Masukkan nama kota baru" name="nama_kota" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="judul">Harga Ongkir</label>
-                    <input type="number" class="form-control" id="harga_ongkir" placeholder="Masukkan harga ongkir baru" name="harga_ongkir" required>
+                    <label for="judul">Alat Angkut</label>
+                    <input type="text" class="form-control" id="alat_angkut" placeholder="Masukkan nama kota baru" name="alat_angkut" required>
                 </div>
 
-               
+                <div class="form-group">
+                    <label for="judul">Harga Ongkir</label>
+                    <input type="number" class="form-control" id="harga_ongkir" placeholder="Masukkan harga ongkir baru" name="harga_ongkir">
+                </div>
+
+
                 <button type="submit" class="btn btn-success">Tambah Ongkir</button>
                 <a href="/ongkir" class="btn btn-info">Kembali</a>
             </form>
@@ -37,7 +42,7 @@
         color: white;
     }
 
-    .section .section-header {        
+    .section .section-header {
         background-color:cadetblue;
         border-radius: 8px;
     }

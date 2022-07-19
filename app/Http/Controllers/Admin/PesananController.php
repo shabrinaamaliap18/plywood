@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\PesananDetail;
 use App\User;
+use App\Ongkir;
 use App\Pesanan;
 use App\History;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class PesananController extends Controller
     {
         $pesanan2 = History::join('users', 'histories.user_id', 'users.id')->join('products', 'histories.product_id', 'products.id')
         ->get(['histories.total_harga', 'histories.id','jumlah_pesanan', "name", "nama", "nohp", "alamat", "lokasi", "ongkir", "status", "alat_angkut", "ket", "tanggal_transaksi", "histories.updated_at"]);
-      
+
         $create2 = History::all();
 
         return view('admin.pesanan-bayar', compact('pesanan2', 'create2'));
@@ -42,26 +43,25 @@ class PesananController extends Controller
 
     public function edit($id, pesanan $pesanan)
     {
-        
-        $pesanan = Pesanan::join('users', 'pesanans.user_id', 'users.id')
-            ->join('pesanan_details', 'pesanan_details.pesanan_id', 'pesanans.id')
-            ->join('products', 'pesanan_details.product_id', 'products.id')
-            ->where('pesanans.id', $id)->get(['pesanans.total_harga', 'pesanan_details.harga', 'jumlah_pesanan', "name", "nama", "nohp", "ongkir", "alamat", "lokasi", "status", "alat_angkut", "ket", "pesanan_id", "ukuran"]);
 
-        return view('admin.pesanan-edit', compact('pesanan'));
+        $pesanan = Pesanan::findOrFail($id);
+        $ongkirs = Ongkir::all();
+
+        return view('admin.pesanan-edit', compact('pesanan','ongkirs'));
     }
 
     public function editbayar($id, pesanan $pesanan)
     {
-      
-        $pesanan2 = History::join('users', 'histories.user_id', 'users.id')->join('products', 'histories.product_id', 'products.id')
-        ->where('histories.id', $id)->get(['histories.id', 'histories.total_harga', 'jumlah_pesanan', "name", "nama", "nohp", "alamat", "lokasi", "ongkir", "status", "tanggal_transaksi", "alat_angkut", "ket", "histories.updated_at"]);
+        $pesanan = Pesanan::findOrFail($id);
 
         return view('admin.pesanan-editbayar', compact('pesanan2'));
     }
 
     public function update($id, Request $request, pesanan $pesanan)
     {
+        $request->validate([
+            'status' => ['required']
+        ]);
         $pesanan = Pesanan::find($id);
         $pesanan->alat_angkut = $request->alat_angkut;
         $pesanan->ket = $request->ket;
@@ -87,5 +87,5 @@ class PesananController extends Controller
         return redirect('/pesanan')->with('status', 'Data pesanan Berhasil Dihapus!');
     }
 
-    
+
 }

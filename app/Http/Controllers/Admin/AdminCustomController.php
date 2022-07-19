@@ -6,6 +6,7 @@ use App\CustomP;
 use App\Http\Controllers\Controller;
 use App\CustomDetail;
 use App\User;
+use App\Ongkir;
 use App\Custom;
 use App\HistoryCustom;
 use App\Http\Livewire\DetailCustom;
@@ -45,8 +46,12 @@ class AdminCustomController extends Controller
     {
 
         $as = CustomP::find($id);
+        $ongkirs = Ongkir::whereNama_kota($as->user->lokasi)->get();
+        if($ongkirs->count() <= 0) {
+            $ongkirs = Ongkir::all();
+        }
 
-        return view('admin.custom-edit', compact('as'));
+        return view('admin.custom-edit', compact('as','ongkirs'));
     }
 
     public function editbayar($id)
@@ -60,22 +65,25 @@ class AdminCustomController extends Controller
 
     public function update($id, Request $request)
     {
+        $request->validate([
+            'alat_angkut_cus' => ['required'],
+        ]);
+        $ongkir = Ongkir::findOrFail(request('alat_angkut_cus'));
         $custom = CustomP::find($id);
-        $custom->alat_angkut_cus = $request->alat_angkut_cus;
+        $custom->alat_angkut_cus = $ongkir->alat_angkut;
         $custom->ket_cus = $request->ket_cus;
-        $custom->ongkir_cus = $request->ongkir_cus;
+        $custom->ongkir_cus = $ongkir->harga_ongkir;
         $custom->status_cus = $request->status_cus;
         // $custom->total_harga_cus = $request->total_harga_cus ?? 0;
-        $gross_amount = 0;
+        $gross_amount = $ongkir->harga_ongkir;
         if ($custom->ongkir_cus != null && $custom->status_cus == '0') {
-
             foreach ($request->ids as $id) {
                 $details = $custom->custom_details()->whereId($id)->firstOrFail();
                 $details->harga_cus = $request->{'harga_cus_' . $id};
                 $details->save();
                 $gross_amount += $request->{'harga_cus_' . $id};
             }
-            $custom->total_harga_cus = $gross_amount + $request->ongkir_cus;
+            $custom->total_harga_cus = $gross_amount;
 
             $mtr = new \App\Midtrans();
             $uniqode = rand();
@@ -88,7 +96,7 @@ class AdminCustomController extends Controller
                 'order_id' => $uniqode,
                 'amount' => $grandTotal
             ];
-            // dd($grandTotal);
+            // dd($dataMidtrans);
 
             if ($custom->uniqode == NULL) {
                 $hitSnap = $mtr->midtransSnap($dataMidtrans);

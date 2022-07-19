@@ -2,28 +2,34 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Midtrans\Snap;
 
-class Midtrans 
+class Midtrans
 {
-    
+
 	public const SETTLEMENT = 'settlement';
-    
+
     public function midtransSnap($data)
     {
          //Set your Merchant Server Key
          \Midtrans\Config::$serverKey = 'SB-Mid-server-6PlMJad90JImCKirfAEfbHQn';// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
          \Midtrans\Config::$isProduction = false;// Set sanitization on (default)
          \Midtrans\Config::$isSanitized = true;// Set 3DS transaction for credit card to true
-         \Midtrans\Config::$is3ds = true; 
-         $params = array('transaction_details' => 
-            array('order_id' => $data['order_id'],
-                'gross_amount' => $data['amount']), 
-                'customer_details' => 
-                array('first_name' => $data['atasnama'],
-                    'last_name' => ' ',
+         \Midtrans\Config::$is3ds = true;
+         $params = [
+            'transaction_details' => [
+                'order_id' => $data['order_id'],
+                'gross_amount' => 999999.0
+            ],
+            'customer_details' => [
+                    'first_name' => $data['atasnama'],
                     'email' => $data['email'],
-                    'phone' => $data['telepon'])); 
-         $snapToken = \Midtrans\Snap::getSnapToken($params);
+                    'phone' => $data['telepon']
+                ]
+         ];
+        //  dd($params);
+         $snapToken = Snap::getSnapToken($params);
+
          return $snapToken;
     }
 
@@ -44,6 +50,6 @@ class Midtrans
         $json = json_decode($result);
         return $json;
 
-    
+
     }
 }

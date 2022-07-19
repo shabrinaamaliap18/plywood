@@ -56,25 +56,18 @@
                                     @enderror
                                 </div>
                             </div>
-
+                            @php
+                                $locations = \App\Ongkir::groupBy('nama_kota')->where('harga_ongkir', '>', 0)->get(['nama_kota']);
+                            @endphp
                             <div class="form-group row">
                                 <label for="lokasi" class="col-md-4 col-form-label text-md-right">{{ __('Lokasi') }}</label>
 
                                 <div class="col-md-6">
                                     <select style="background-color:rgba(0, 0, 0, 0.5); color: white" class="form-control" id="lokasi" name="lokasi" placeholder="Pilih Lokasi">
                                         <option selected value="" disabled selected> Pilih Lokasi</option>
-                                        <option value="Surabaya">Surabaya
-                                        </option>
-                                        <option value="Jakarta">Jakarta
-                                        </option>
-                                        <option value="Mojokerto">Mojokerto
-                                        </option>
-                                        <option value="Probolinggo">Probolinggo
-                                        </option>
-                                        <option value="Pasuruan">Pasuruan
-                                        </option>
-                                        <option value="Cirebon">Cirebon
-                                        </option>
+                                        @foreach ($locations as $row)
+                                            <option value="{{ $row->nama_kota }}">{{ $row->nama_kota }}</option>
+                                        @endforeach
                                     </select>
 
                                     @error('lokasi')

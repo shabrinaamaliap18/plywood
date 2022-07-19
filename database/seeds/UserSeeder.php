@@ -17,9 +17,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        User::query()->delete();
         $admin = User::create([
-            'name' => 'Shab',
-            'email' => 's@gmail.com',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
             'lokasi' => 'Surabaya',
             'alamat' => 'Jl Kahuyungan no 103',
             'nohp' => '0892828123',

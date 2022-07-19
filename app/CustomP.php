@@ -14,6 +14,8 @@ class CustomP extends Model
         'alat_angkut_cus',
         'ket_cus',
         'user_id',
+        'kode_midtrans',
+        'uniqode',
     ];
 
     protected $table = 'customs';

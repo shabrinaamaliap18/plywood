@@ -11,9 +11,6 @@ class PesananDetail extends Model
         'harga',
         'product_id',
         'pesanan_id',
-        'kode_midtrans',
-        'uniqode',
-
     ];
 
     public function pesanan()
@@ -25,12 +22,12 @@ class PesananDetail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
-    public function kategory() {
-        return $this->belongsTo(Categories::class,'kategori','id');
-    }
-    public function materyal() {
-        return $this->belongsTo('App\Models\Material','material','id');
-    }
+    // public function kategory() {
+    //     return $this->belongsTo(Categories::class,'kategori','id');
+    // }
+    // public function materyal() {
+    //     return $this->belongsTo('App\Models\Material','material','id');
+    // }
 
 
 }
