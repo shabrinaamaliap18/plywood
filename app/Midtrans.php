@@ -22,10 +22,10 @@ class Midtrans
                 'gross_amount' => $data['amount']
             ],
             'customer_details' => [
-                    'first_name' => $data['atasnama'],
-                    'email' => $data['email'],
-                    'phone' => $data['telepon']
-                ]
+                'first_name' => $data['atasnama'],
+                'email' => $data['email'],
+                'phone' => $data['telepon']
+            ]
          ];
          if(isset($data['items'])) {
             $params['item_details'] = $data['items'];

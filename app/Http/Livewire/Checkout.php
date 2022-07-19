@@ -52,7 +52,7 @@ class Checkout extends Component
             $sanitizeDetails = $this->pesanan->pesanan_details->map(function($item) {
                 return [
                     'id' => $item->id,
-                    'price' => $item->harga,
+                    'price' => (string)$item->harga,
                     'quantity' => 1,
                     'name' => $item->product->nama.'('.$item->jumlah_pesanan.' pcs/btg)'
                 ];
