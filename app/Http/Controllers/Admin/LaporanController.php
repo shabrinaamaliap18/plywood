@@ -18,8 +18,8 @@ class LaporanController extends Controller
 
     public function index()
     {
-        $pesanans = Pesanan::with('user');
-        $customs = CustomP::query()->with('user');
+        $pesanans = Pesanan::with('user')->where('status', '>', 5);
+        $customs = CustomP::query()->with('user')->where('status', '>', 5);
 
         $pesanans->when(request('fromDate') && request('toDate'), function($query) {
             $query->whereBetween('created_at', [request('fromDate'),request('toDate')]);
