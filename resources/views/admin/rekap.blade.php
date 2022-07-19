@@ -103,7 +103,7 @@
                                 $details = $as->custom_details;
                                 $totalUkuran = 0;
                                 foreach ($details as $row) {
-                                    $totalUkuran += $row->jml_ukuran_cus;
+                                    $totalUkuran += ($row->tebal+$row->lebar+$row->panjang);
                                 }
                             @endphp
                             <th>Pesanan Custom</th>

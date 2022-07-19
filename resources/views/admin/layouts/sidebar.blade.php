@@ -25,7 +25,7 @@
                   <li><a href="/customer"><i class="fa fa-users fa-fw"></i>Manajemen User</a></li>
                   <li><a href="/ongkir"><i class="fa fa-money fa-fw"></i>Manajemen Ongkir</a></li>
                   <li><a href="/rekap"><i class="fa fa-folder-open" aria-hidden="true"></i>Rekap Laporan</a></li>
-                  <li><a href="/rekapcus"><i class="fa fa-folder-open" aria-hidden="true"></i>Rekap Custom</a></li>
+                  {{-- <li><a href="/rekapcus"><i class="fa fa-folder-open" aria-hidden="true"></i>Rekap Custom</a></li> --}}
                   <li>
                       <a href="{{route('logout')}}" class="dropdown-item has-icon text-danger" onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
@@ -62,7 +62,7 @@
           .templatemo-left-nav a {
               padding: 20px;
               background-color:darkslategray;
-              
+
 
           }
       </style>
