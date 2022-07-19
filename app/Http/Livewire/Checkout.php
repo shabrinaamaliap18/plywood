@@ -49,6 +49,23 @@ class Checkout extends Component
                 'order_id' => $this->pesanan->uniqode,
             ];
             $mtr = new Midtrans();
+            $sanitizeDetails = $this->pesanan->pesanan_details->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'price' => $item->harga,
+                    'quantity' => $item->jumlah_pesanan,
+                    'name' => $item->product->nama
+                ];
+            })->toArray();
+            $ongkir = \App\Ongkir::whereAlat_angkut($this->pesanan->alat_angkut)->whereNama_kota(auth()->user()->lokasi)->first();
+            array_push($sanitizeDetails, [
+                'id' => rand()+mt_rand(99,999),
+                'price' => $ongkir->harga_ongkir,
+                'quantity' => 1,
+                'name' => 'Ongkir ke '.$ongkir->nama_kota.' dengan '.$ongkir->alat_angkut
+            ]);
+            $dataMidtrans['items'] = $sanitizeDetails;
+            // dd($sanitizeDetails);
             $hitSnap = $mtr->midtransSnap($dataMidtrans);
             $this->pesanan->kode_midtrans = $hitSnap;
             $this->pesanan->save();

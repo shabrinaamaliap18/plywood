@@ -60,7 +60,7 @@ class ProductDetail extends Component
             $ak = $pesanan->pesanan_details()->sum('jumlah_pesanan') * ($totalUkuran) / 1000000000;
             //ngecek apa jml kubik lebih dri 5
             if ($ak >= 5) {
-                $alat_angkut = 'Truk';
+                $alat_angkut = 'Truk Kun';
             } else {
                 $alat_angkut = 'Pickup';
             }
@@ -78,17 +78,14 @@ class ProductDetail extends Component
             }
 
             if($ongkir->harga_ongkir > 0) {} else {
-
                 $this->notification = 'Estimasi harga ongkir anda sedang dihitung oleh admin, tunggu beberapa saat';
                 $this->notificationType = 'warning';
                 return;
             }
-            $tot = floatval($total_harga + $ongkir->harga_ongkir);
-            $pesanan->total_harga = $tot;
+            $pesanan->total_harga = floatval($total_harga + $ongkir->harga_ongkir);
             $pesanan->ongkir = $ongkir->harga_ongkir;
             $pesanan->alat_angkut = $ongkir->alat_angkut;
             $pesanan->kode_pemesanan = 'CVMAS-' . rand();
-            $pesanan = $this->getSnapToken($pesanan, $tot);
             $pesanan->save();
 
             //Meyimpanan Pesanan Detail
@@ -100,6 +97,16 @@ class ProductDetail extends Component
             ]);
             // dd($this->product->id);
 
+            // $sanitizeDetails = $pesanan->details->map(function($item) {
+            //     return [
+            //         'id' => $item->id,
+            //         'price' => $item->harga,
+            //         'quantity' => $item->jumlah_pesanan,
+            //         'name' => $item->product->nama
+            //     ];
+            // });
+            // $sanitizeDetails['ongkir'] = $ongkir->harga_ongkir;
+            // $pesanan->save();
 
             //ini kalo udh ada pesanan, jd tinggal update harga pesanan, sblm ditambah bru
         } else {
@@ -124,7 +131,7 @@ class ProductDetail extends Component
                 $ak = $pesanan->pesanan_details()->sum('jumlah_pesanan') * ($totalUkuran) / 1000000000;
                 //ngecek apa jml kubik lebih dri 5
                 if ($ak >= 5) {
-                    $alat_angkut = 'Truk';
+                    $alat_angkut = 'Truck Kun';
                 } else {
                     $alat_angkut = 'Pickup';
                 }
@@ -148,7 +155,6 @@ class ProductDetail extends Component
                 }
                 $pesanan->ongkir = $ongkir->harga_ongkir;
                 $pesanan->total_harga = $pesanan->total_harga + $total_harga;
-                $pesanan = $this->getSnapToken($pesanan);
                 $pesanan->save();
             } else {
                 $this->notification = 'Produk sudah ada dikeranjang.';
@@ -167,10 +173,10 @@ class ProductDetail extends Component
         return view('livewire.product-detail');
     }
 
-    public function getSnapToken($pesanan) {
+    public function getSnapToken($pesanan,$details = null) {
         $mtr = new \App\Midtrans();
         $uniqode = rand();
-        $grandTotal =  floatval($pesanan->total_harga);
+        $grandTotal =  $pesanan->total_harga;
         $dataMidtrans = [
             'atasnama' => auth()->user()->name,
             'email' => auth()->user()->email,
@@ -179,11 +185,12 @@ class ProductDetail extends Component
             'order_id' => $uniqode,
             'amount' => $grandTotal
         ];
+        if($details) {
+            $dataMidtrans['items'] = $details;
+        }
         $hitSnap = $mtr->midtransSnap($dataMidtrans);
         $tokenMidtrans = $hitSnap;
 
-        $pesanan->kode_midtrans = $tokenMidtrans;
-        $pesanan->uniqode = $uniqode;
         // if ($pesanan->uniqode == NULL) {
 
 

@@ -19,7 +19,7 @@ class Midtrans
          $params = [
             'transaction_details' => [
                 'order_id' => $data['order_id'],
-                'gross_amount' => 999999.0
+                'gross_amount' => $data['amount']
             ],
             'customer_details' => [
                     'first_name' => $data['atasnama'],
@@ -27,6 +27,9 @@ class Midtrans
                     'phone' => $data['telepon']
                 ]
          ];
+         if(isset($data['items'])) {
+            $params['item_details'] = $data['items'];
+         }
         //  dd($params);
          $snapToken = Snap::getSnapToken($params);
 

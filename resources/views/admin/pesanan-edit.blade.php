@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="judul">Produk</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Produk" name="nama"
-                                        value="{{ str_replace(array('[','"',']'),'',$produk->nama)}}" required readonly>
+                                        value="{{ str_replace(array('[','"',']'),'',$produk->product->nama)}}" required readonly>
                                         @error('nama')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <label for="judul">Ukuran</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan total harga pesanan" name="nama"
-                                        value="{{ $produk->ukuran }}" readonly>
+                                        value="{{ $produk->product->ukuran }}" readonly>
                                         @error('nama')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror

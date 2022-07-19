@@ -16,6 +16,7 @@ class CustomP extends Model
         'user_id',
         'kode_midtrans',
         'uniqode',
+        'ongkir_cus'
     ];
 
     protected $table = 'customs';

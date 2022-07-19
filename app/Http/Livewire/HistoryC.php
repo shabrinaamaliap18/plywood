@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\HistoryCustom;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Carbon;
 
 
 class HistoryC extends Component
@@ -22,11 +23,9 @@ class HistoryC extends Component
 
     public function submit($id)
     {
-        $dt = Carbon::now();
-
-        $history2 = auth()->user()->customs()->findOrFail($id);
+        $history2 = auth()->user()->customs()->whereId($id)->first();
         $history2->status_cus = 5;
-        $history2->tanggal_terima_cus = $dt;
+        $history2->tanggal_terima_cus = now();
         $history2->save();
 
 

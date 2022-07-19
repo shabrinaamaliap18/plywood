@@ -96,7 +96,22 @@ class AdminCustomController extends Controller
                 'order_id' => $uniqode,
                 'amount' => $grandTotal
             ];
-            // dd($dataMidtrans);
+
+            $sanitizeDetails = $custom->custom_details->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'price' => $item->harga_cus,
+                    'quantity' => $item->jumlah_pesanan_cus,
+                    'name' => $item->kategory->nama_kategori
+                ];
+            })->toArray();
+            array_push($sanitizeDetails, [
+                'id' => rand()+mt_rand(99,999),
+                'price' => $ongkir->harga_ongkir,
+                'quantity' => 1,
+                'name' => 'Ongkir ke '.$ongkir->nama_kota.' dengan '.$ongkir->alat_angkut
+            ]);
+            $dataMidtrans['items'] = $sanitizeDetails;
 
             if ($custom->uniqode == NULL) {
                 $hitSnap = $mtr->midtransSnap($dataMidtrans);
