@@ -38,7 +38,7 @@ class Checkout extends Component
             return redirect('/');
         }
 
-        if(!$this->pesanan->uniqode || !$this->pesanan->kode_midtrans) {
+        if(true) {
             $this->pesanan->uniqode = rand();
             $dataMidtrans = [
                 'atasnama' => Auth::user()->name,
@@ -52,7 +52,7 @@ class Checkout extends Component
             $sanitizeDetails = $this->pesanan->pesanan_details->map(function($item) {
                 return [
                     'id' => $item->id,
-                    'price' => $item->harga,
+                    'price' => $item->harga/$item->jumlah_pesanan,
                     'quantity' => $item->jumlah_pesanan,
                     'name' => $item->product->nama
                 ];

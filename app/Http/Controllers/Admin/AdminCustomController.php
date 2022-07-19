@@ -76,12 +76,12 @@ class AdminCustomController extends Controller
         $custom->status_cus = $request->status_cus;
         // $custom->total_harga_cus = $request->total_harga_cus ?? 0;
         $gross_amount = $ongkir->harga_ongkir;
-        if ($custom->ongkir_cus != null && $custom->status_cus == '0') {
+        if (true) {
             foreach ($request->ids as $id) {
                 $details = $custom->custom_details()->whereId($id)->firstOrFail();
-                $details->harga_cus = $request->{'harga_cus_' . $id};
+                $details->harga_cus = $request->{'harga_cus_' . $id} * $details->jumlah_pesanan_cus;
                 $details->save();
-                $gross_amount += $request->{'harga_cus_' . $id};
+                $gross_amount += $request->{'harga_cus_' . $id} * $details->jumlah_pesanan_cus;
             }
             $custom->total_harga_cus = $gross_amount;
 
@@ -100,7 +100,7 @@ class AdminCustomController extends Controller
             $sanitizeDetails = $custom->custom_details->map(function($item) {
                 return [
                     'id' => $item->id,
-                    'price' => $item->harga_cus,
+                    'price' => ($item->harga_cus) / $item->jumlah_pesanan_cus,
                     'quantity' => $item->jumlah_pesanan_cus,
                     'name' => $item->kategory->nama_kategori
                 ];
